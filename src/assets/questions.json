@@ -1,0 +1,38 @@
+[
+  {
+    "id": 0,
+    "question": "Czy?",
+    "answers": [
+      { "id": 0, "points": 1, "response": "Tak" },
+      { "id": 1, "points": 2, "response": "Nie" },
+      { "id": 2, "points": 3, "response": "Nie wiem" }
+    ]
+  },
+  {
+    "id": 1,
+    "question": "Czemu?",
+    "answers": [
+      { "id": 0, "points": 1, "response": "Tak" },
+      { "id": 1, "points": 2, "response": "Nie" },
+      { "id": 2, "points": 3, "response": "Nie wiem" }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Dokąd?",
+    "answers": [
+      { "id": 0, "points": 1, "response": "Tak" },
+      { "id": 1, "points": 2, "response": "Nie" },
+      { "id": 2, "points": 3, "response": "Nie wiem" }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Komu?",
+    "answers": [
+      { "id": 0, "points": 1, "response": "Tak" },
+      { "id": 1, "points": 2, "response": "Nie" },
+      { "id": 2, "points": 3, "response": "Nie wiem" }
+    ]
+  }
+]
