@@ -1,6 +1,6 @@
 export enum Team {
-  TEAM1,
-  TEAM2,
+  TEAM1 = "TEAM1",
+  TEAM2 = "TEAM2"
 }
 
 export enum GameState {
@@ -8,5 +8,5 @@ export enum GameState {
   END,
   ROUND_ENDED,
   NEXT_ROUND,
-  JOKE,
+  JOKE
 }

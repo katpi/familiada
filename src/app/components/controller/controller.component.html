@@ -1,4 +1,5 @@
 <h1>Pytanie: {{question}}</h1>
+<h2>Odpowiada drużyna: <strong>{{team}}</strong></h2>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="response">
     <th mat-header-cell *matHeaderCellDef>Odpowiedź</th>
@@ -24,4 +25,5 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
 <button mat-fab color="" (click)="next()"><mat-icon>navigate_next</mat-icon></button>
+<button mat-fab color="" (click)="changeTeam()"><mat-icon>autorenew</mat-icon></button>
 
