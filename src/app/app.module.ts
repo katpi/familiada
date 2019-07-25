@@ -18,12 +18,15 @@ import { HttpClientModule } from "@angular/common/http";
 import { SettingsComponent } from './components/settings/settings.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
+import { ControllerComponent } from './components/controller/controller.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './ngrx/reducers';
 
 @NgModule({
   declarations: [
     AppComponent, 
     SettingsComponent, 
-    DashboardComponent, ScoreboardComponent,
+    DashboardComponent, ScoreboardComponent, ControllerComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { ScoreboardComponent } from './components/scoreboard/scoreboard.componen
     MatIconModule,
     MatTableModule,
     MatCardModule,
+    StoreModule.forRoot(reducers),
   ],
   providers: [],
   bootstrap: [AppComponent]

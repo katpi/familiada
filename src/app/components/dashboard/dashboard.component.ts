@@ -1,22 +1,20 @@
-import { Component, OnInit } from "@angular/core";
-import { QuestionsService } from "../../services/questions.service";
+import { Component } from "@angular/core";
+import { FamiliadaService } from "../../services/familiada.service";
 
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   displayedColumns: string[] = ["response", "points"];
   dataSource;
-  question: Promise<string>;
+  question: string;
 
-  constructor(private questionsService: QuestionsService) {}
-
-  ngOnInit() {
-    this.question = this.questionsService.getQuestion();
-    this.questionsService
-      .getResponses()
-      .then(responses => (this.dataSource = responses));
+  constructor(private familiadaService: FamiliadaService) {
+    this.familiadaService.initGame();
+    this.familiadaService.question$.subscribe(
+      question => (this.question = question)
+    );
   }
 }

@@ -8,7 +8,6 @@ import { Observable, of } from "rxjs";
 })
 export class QuestionsService {
   private questions: Observable<FamiliadaQuestion[]>;
-  private currentQuestion = 0;
 
   constructor(private http: HttpClient) {
     this.questions = this.http.get<FamiliadaQuestion[]>(
@@ -16,26 +15,20 @@ export class QuestionsService {
     );
   }
 
-  getQuestion(): Promise<string> {
+  getQuestion(questionId: number): Promise<string> {
     return new Promise(resolve => {
       this.questions.subscribe(questions => {
-        console.log(questions);
-        resolve(questions[this.currentQuestion].question);
+        resolve(questions[questionId].question);
       });
     });
   }
 
-  getAnswers(): Promise<FamiliadaResponse[]> {
+  getAnswers(questionId: number): Promise<FamiliadaResponse[]> {
     return new Promise(resolve => {
       this.questions.subscribe(questions => {
-        console.log(questions);
-        resolve(questions[this.currentQuestion].answers);
+        resolve(questions[questionId].answers);
       });
     });
-  }
-  
-  next(): any {
-    this.currentQuestion++;
   }
 
   getResponses(): Promise<FamiliadaResponse[]> {
