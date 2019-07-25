@@ -1,22 +1,28 @@
 import { Injectable } from "@angular/core";
-import { Subject, Observable } from "rxjs";
+import { Subject, fromEvent } from "rxjs";
 import { Team, GameState } from "../enums/enums";
 import { QuestionsService } from "./questions.service";
-import { Store, select } from "@ngrx/store";
-import { newQuestion } from "../ngrx/actions";
+import { Store } from "@ngrx/store";
+import { newQuestion } from "../ngrx/question.actions";
+import { QuestionState } from "../ngrx/question.reducers";
+import { isNullOrUndefined } from "util";
 
 @Injectable({
   providedIn: "root"
 })
 export class FamiliadaService {
+  questionId: number;
   constructor(
     private store: Store<{ questionId: number }>,
     private questionsService: QuestionsService
   ) {
-    this.store.pipe(select("questionId")).subscribe((questionId) => {
-      this.questionsService
-        .getQuestion(questionId)
-        .then(question => this.displayQuestion(question));
+    this.questionId = 0;
+    this.store.select("question").subscribe((question: QuestionState) => {
+      if (isNullOrUndefined(question)) return;
+      this.questionId = question.questionId;
+      this.questionsService.getQuestion(this.questionId).then(question => {
+        this.displayQuestion(question);
+      });
     });
   }
 
@@ -32,17 +38,6 @@ export class FamiliadaService {
 
   private displayQuestion(question: string) {
     this.questionSource.next(question);
-  }
-
-  private updateScore(team: Team, score: number) {
-    switch (team) {
-      case Team.TEAM1:
-        this.team1ScoreSource.next(score);
-        break;
-      case Team.TEAM2:
-        this.team2ScoreSource.next(score);
-        break;
-    }
   }
 
   private updateGameState(state: GameState) {
@@ -68,7 +63,7 @@ export class FamiliadaService {
   }
 
   private nextQuestion() {
-    this.store.dispatch(newQuestion());
+    this.store.dispatch(newQuestion({ questionId: this.questionId }));
   }
 
   claimResponse() {}
