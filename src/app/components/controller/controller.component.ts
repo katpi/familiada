@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { FamiliadaService } from "../../services/familiada.service";
 import { Team } from "src/app/enums/enums";
+import { FamiliadaResponse } from "../../models/interfaces";
 
 @Component({
   selector: "app-controller",
@@ -19,6 +20,9 @@ export class ControllerComponent {
       this.question = question.question;
       this.dataSource = question.answers;
     });
+    this.familiadaService.answers$.subscribe((answerIds: number[]) => {
+      console.log(answerIds);
+    });
     this.familiadaService.currentTeam$.subscribe((team: Team) => {
       switch (team) {
         case Team.TEAM1:
@@ -36,10 +40,18 @@ export class ControllerComponent {
   }
 
   changeTeam() {
-    this.familiadaService.claimResponse();
+    this.familiadaService.changeTeam();
   }
 
   setTeam(team: Team) {
     this.familiadaService.setTeam(team);
+  }
+
+  claimAnswer(element: FamiliadaResponse) {
+    this.familiadaService.claimAnswer(element.id);
+  }
+
+  claimWrong() {
+    this.familiadaService.claimWrong();
   }
 }

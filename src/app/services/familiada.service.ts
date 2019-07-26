@@ -9,6 +9,8 @@ import { isNullOrUndefined } from "util";
 import { changeTeam } from "../ngrx/team.actions";
 import { TeamState } from "../ngrx/team.reducers";
 import { FamiliadaQuestion } from "../models/interfaces";
+import { AnswersState } from "../ngrx/answer.reducers";
+import { claimAnswer, clearAnswers } from '../ngrx/answer.actions';
 
 @Injectable({
   providedIn: "root"
@@ -32,15 +34,21 @@ export class FamiliadaService {
       this.team = teamState.team;
       this.updateTeam(this.team);
     });
+    this.store.select("answers").subscribe((answersState: AnswersState) => {
+      if (isNullOrUndefined(answersState)) return;
+      this.updateAnswers(answersState.answers);
+    });
   }
 
   private questionSource = new Subject<FamiliadaQuestion>();
+  private answersSource = new Subject<number[]>();
   private currentTeamSource = new Subject<Team>();
   private team1ScoreSource = new Subject<number>();
   private team2ScoreSource = new Subject<number>();
   private gameStateSource = new Subject<GameState>();
 
   question$ = this.questionSource.asObservable();
+  answers$ = this.answersSource.asObservable();
   currentTeam$ = this.currentTeamSource.asObservable();
   team1Score$ = this.team1ScoreSource.asObservable();
   team2Score$ = this.team2ScoreSource.asObservable();
@@ -56,6 +64,10 @@ export class FamiliadaService {
 
   private updateTeam(team: string) {
     this.currentTeamSource.next(Team[team]);
+  }
+
+  private updateAnswers(answers: number[]) {
+    this.answersSource.next(answers);
   }
 
   initGame() {
@@ -79,7 +91,12 @@ export class FamiliadaService {
     this.updateGameState(GameState.JOKE);
   }
 
-  claimResponse() {
+  claimAnswer(id: number) {
+    this.store.dispatch(claimAnswer({ answerId: id }));
+  }
+
+  claimWrong(): any {
+    console.log("claimed wrong answer");
     this.changeTeam();
   }
 
@@ -89,10 +106,11 @@ export class FamiliadaService {
   }
 
   private nextQuestion() {
+    this.store.dispatch(clearAnswers());
     this.store.dispatch(newQuestion({ questionId: this.questionId }));
   }
 
-  private changeTeam() {
+  changeTeam() {
     this.team = this.team === Team.TEAM1 ? Team.TEAM2 : Team.TEAM1;
     this.store.dispatch(changeTeam({ team: this.team }));
   }

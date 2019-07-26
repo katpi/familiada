@@ -13,6 +13,7 @@ import {
   CHANGE_TEAM_STORAGE,
   UPDATE_TEAMS_STATE
 } from "./team.actions";
+import { NEW_ANSWER, NEW_ANSWER_STORAGE, UPDATE_ANSWERS_STATE } from './answer.actions';
 
 @Injectable()
 export class LocalStorageEffects {
@@ -27,6 +28,8 @@ export class LocalStorageEffects {
           return { type: NEW_QUESTION_STORAGE, payload };
         case CHANGE_TEAM:
           return { type: CHANGE_TEAM_STORAGE, payload };
+        case NEW_ANSWER:
+          return { type: NEW_ANSWER_STORAGE, payload };
         default:
           return EMPTY;
       }
@@ -35,7 +38,7 @@ export class LocalStorageEffects {
 
   @Effect({ dispatch: false })
   storeActions = this.actions.pipe(
-    ofType(NEW_QUESTION, CHANGE_TEAM),
+    ofType(NEW_QUESTION, CHANGE_TEAM, NEW_ANSWER),
     tap(action => {
       const storedActions = window.localStorage.getItem("__bus");
       const actions = storedActions ? JSON.parse(storedActions) : [];
@@ -61,6 +64,16 @@ export class LocalStorageEffects {
     map(evt => {
       const newState = JSON.parse(evt.newValue);
       return { type: UPDATE_TEAMS_STATE, payload: { newState } };
+    })
+  );
+
+  @Effect({ dispatch: true })
+  updateAState = fromEvent<StorageEvent>(window, "storage").pipe(
+    filter(evt => evt.key === "__answers"),
+    filter(evt => evt.newValue !== null),
+    map(evt => {
+      const newState = JSON.parse(evt.newValue);
+      return { type: UPDATE_ANSWERS_STATE, payload: { newState } };
     })
   );
 

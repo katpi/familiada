@@ -10,15 +10,15 @@
   <ng-container matColumnDef="good">
     <th mat-header-cell *matHeaderCellDef>Dobrze</th>
     <td mat-cell *matCellDef="let element">
-      <mat-checkbox>Dobrze!</mat-checkbox>
+      <mat-checkbox color="primary" (click)="claimAnswer(element)">Dobrze!</mat-checkbox>
     </td>
   </ng-container>
   <ng-container matColumnDef="bad">
-    <td mat-footer-cell *matFooterCellDef colspan="2" style="background: red">
-        ŹLE!
+    <td mat-footer-cell *matFooterCellDef colspan="2" style="text-align: center">
+      <button mat-raised-button color="warn" style="width:100px" (click)="claimWrong()">ŹLE!</button>
     </td>
   </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   <tr mat-footer-row *matFooterRowDef="['bad']" class="example-second-footer-row"></tr>
 </table>

@@ -3,6 +3,7 @@ import { FamiliadaService } from "../../services/familiada.service";
 import { Team } from "../../enums/enums";
 import { FamiliadaResponse } from "../../models/interfaces";
 import { isNullOrUndefined } from "util";
+import { of, Observable } from "rxjs";
 
 @Component({
   selector: "app-dashboard",
@@ -11,15 +12,22 @@ import { isNullOrUndefined } from "util";
 })
 export class DashboardComponent {
   displayedColumns: string[] = ["response", "points"];
-  dataSource;
+  dataSource: Observable<FamiliadaResponse[]>;
   question: string;
   team: string;
+  answers: FamiliadaResponse[];
 
   constructor(private familiadaService: FamiliadaService) {
     this.familiadaService.question$.subscribe(question => {
       this.question = question.question;
-      this.dataSource = new Array(question.answers.length);
-      this.dataSource = question.answers;
+      this.dataSource = of(new Array(question.answers.length));
+      this.answers = question.answers;
+    });
+    this.familiadaService.answers$.subscribe((answerIds: number[]) => {
+      console.log(answerIds)
+      const responses = new Array(this.answers.length);
+      answerIds.forEach((id: number) => (responses[id] = this.answers[id]));
+      this.dataSource = of(responses);
     });
     this.familiadaService.currentTeam$.subscribe((team: Team) => {
       switch (team) {
