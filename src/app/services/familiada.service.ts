@@ -10,7 +10,9 @@ import { changeTeam } from "../ngrx/team.actions";
 import { TeamState } from "../ngrx/team.reducers";
 import { FamiliadaQuestion } from "../models/interfaces";
 import { AnswersState } from "../ngrx/answer.reducers";
-import { claimAnswer, clearAnswers } from '../ngrx/answer.actions';
+import { claimAnswer, clearAnswers } from "../ngrx/answer.actions";
+import { ScoresState } from "../ngrx/scores.reducers";
+import { newScore } from "../ngrx/scores.actions";
 
 @Injectable({
   providedIn: "root"
@@ -37,6 +39,10 @@ export class FamiliadaService {
     this.store.select("answers").subscribe((answersState: AnswersState) => {
       if (isNullOrUndefined(answersState)) return;
       this.updateAnswers(answersState.answers);
+    });
+    this.store.select("scores").subscribe((scoresState: ScoresState) => {
+      if (isNullOrUndefined(scoresState)) return;
+      this.updateScores(scoresState);
     });
   }
 
@@ -70,6 +76,11 @@ export class FamiliadaService {
     this.answersSource.next(answers);
   }
 
+  private updateScores(scoresState: ScoresState) {
+    this.team1ScoreSource.next(scoresState.team1);
+    this.team2ScoreSource.next(scoresState.team2);
+  }
+
   initGame() {
     this.questionId = -1;
     this.team = "TEAM1";
@@ -93,6 +104,7 @@ export class FamiliadaService {
 
   claimAnswer(id: number) {
     this.store.dispatch(claimAnswer({ answerId: id }));
+    this.store.dispatch(newScore(Team[this.team], id*10));
   }
 
   claimWrong(): any {

@@ -14,6 +14,7 @@ import {
   UPDATE_TEAMS_STATE
 } from "./team.actions";
 import { NEW_ANSWER, NEW_ANSWER_STORAGE, UPDATE_ANSWERS_STATE } from './answer.actions';
+import { NEW_SCORE, NEW_SCORE_STORAGE, UPDATE_SCORES_STATE } from './scores.actions';
 
 @Injectable()
 export class LocalStorageEffects {
@@ -30,6 +31,8 @@ export class LocalStorageEffects {
           return { type: CHANGE_TEAM_STORAGE, payload };
         case NEW_ANSWER:
           return { type: NEW_ANSWER_STORAGE, payload };
+        case NEW_SCORE:
+          return { type: NEW_SCORE_STORAGE, payload };
         default:
           return EMPTY;
       }
@@ -74,6 +77,16 @@ export class LocalStorageEffects {
     map(evt => {
       const newState = JSON.parse(evt.newValue);
       return { type: UPDATE_ANSWERS_STATE, payload: { newState } };
+    })
+  );
+
+  @Effect({ dispatch: true })
+  updateSState = fromEvent<StorageEvent>(window, "storage").pipe(
+    filter(evt => evt.key === "__scores"),
+    filter(evt => evt.newValue !== null),
+    map(evt => {
+      const newState = JSON.parse(evt.newValue);
+      return { type: UPDATE_SCORES_STATE, payload: { newState } };
     })
   );
 
