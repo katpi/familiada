@@ -1,15 +1,38 @@
-h1, h2 {text-align: center}
+h1,
+h2 {
+    text-align: center;
+}
+
 table {
     width: 100%;
 }
-.Row
-{
-    display: table;
-    width: 100%; /*Optional*/
-    table-layout: fixed; /*Optional*/
-    border-spacing: 10px; /*Optional*/
+
+table,
+th,
+td {
+    border: 1px solid black;
 }
-.Column
-{
+
+.mat-header-cell,
+.mat-cell,
+.mat-header-cell:first-of-type,
+.mat-cell:first-of-type,
+    {
+    padding: 10px;
+    font-size: 20px;
+    color: black;
+}
+
+.Row {
+    display: table;
+    width: 100%;
+    /*Optional*/
+    table-layout: fixed;
+    /*Optional*/
+    border-spacing: 10px;
+    /*Optional*/
+}
+
+.Column {
     display: table-cell;
 }

@@ -38,4 +38,8 @@ export class ControllerComponent {
   changeTeam() {
     this.familiadaService.claimResponse();
   }
+
+  setTeam(team: Team) {
+    this.familiadaService.setTeam(team);
+  }
 }

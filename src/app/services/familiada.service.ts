@@ -83,6 +83,11 @@ export class FamiliadaService {
     this.changeTeam();
   }
 
+  setTeam(team: Team) {
+    this.team = team;
+    this.store.dispatch(changeTeam({ team: this.team }));
+  }
+
   private nextQuestion() {
     this.store.dispatch(newQuestion({ questionId: this.questionId }));
   }

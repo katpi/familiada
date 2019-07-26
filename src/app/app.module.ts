@@ -10,7 +10,8 @@ import {
   MatButtonModule,
   MatTableModule,
   MatCardModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatTooltipModule
 } from "@angular/material";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -46,6 +47,7 @@ import { reducers, metaReducers } from "./ngrx";
     MatTableModule,
     MatCheckboxModule,
     MatCardModule,
+    MatTooltipModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       initialState: {}

@@ -23,9 +23,11 @@
   <tr mat-footer-row *matFooterRowDef="['bad']" class="example-second-footer-row"></tr>
 </table>
 
-<button mat-fab color="" (click)="next()">
+<button mat-fab mat-raised-button color="" (click)="next()" matTooltip="Następna runda">
   <mat-icon>navigate_next</mat-icon>
 </button>
-<button mat-fab color="" (click)="changeTeam()">
+<button mat-fab mat-raised-button color="" (click)="changeTeam()" matTooltip="Zmiana drużyny">
   <mat-icon>autorenew</mat-icon>
 </button>
+<button mat-fab mat-raised-button color="primary" (click)="setTeam('TEAM1')" matTooltip="Drużyna 1">1</button>
+<button mat-fab mat-raised-button color="warn" (click)="setTeam('TEAM2')" matTooltip="Drużyna 2">2</button>
