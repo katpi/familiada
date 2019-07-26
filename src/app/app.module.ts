@@ -9,7 +9,8 @@ import {
   MatListModule,
   MatButtonModule,
   MatTableModule,
-  MatCardModule
+  MatCardModule,
+  MatCheckboxModule
 } from "@angular/material";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -22,7 +23,7 @@ import { ControllerComponent } from "./components/controller/controller.componen
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { LocalStorageEffects } from "./ngrx/localStorage.effects";
-import { reducers, metaReducers } from './ngrx';
+import { reducers, metaReducers } from "./ngrx";
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { reducers, metaReducers } from './ngrx';
     MatButtonModule,
     MatIconModule,
     MatTableModule,
+    MatCheckboxModule,
     MatCardModule,
     StoreModule.forRoot(reducers, {
       metaReducers,

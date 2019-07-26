@@ -8,6 +8,7 @@ import { QuestionState } from "../ngrx/question.reducers";
 import { isNullOrUndefined } from "util";
 import { changeTeam } from "../ngrx/team.actions";
 import { TeamState } from "../ngrx/team.reducers";
+import { FamiliadaQuestion } from "../models/interfaces";
 
 @Injectable({
   providedIn: "root"
@@ -19,8 +20,6 @@ export class FamiliadaService {
     private store: Store<{ questionId: number }>,
     private questionsService: QuestionsService
   ) {
-    this.questionId = 0;
-    this.team = "TEAM1";
     this.store.select("question").subscribe((questionState: QuestionState) => {
       if (isNullOrUndefined(questionState)) return;
       this.questionId = questionState.questionId;
@@ -35,7 +34,7 @@ export class FamiliadaService {
     });
   }
 
-  private questionSource = new Subject<string>();
+  private questionSource = new Subject<FamiliadaQuestion>();
   private currentTeamSource = new Subject<Team>();
   private team1ScoreSource = new Subject<number>();
   private team2ScoreSource = new Subject<number>();
@@ -47,7 +46,7 @@ export class FamiliadaService {
   team2Score$ = this.team2ScoreSource.asObservable();
   gameState$ = this.gameStateSource.asObservable();
 
-  private displayQuestion(question: string) {
+  private displayQuestion(question: FamiliadaQuestion) {
     this.questionSource.next(question);
   }
 
@@ -60,6 +59,8 @@ export class FamiliadaService {
   }
 
   initGame() {
+    this.questionId = -1;
+    this.team = "TEAM1";
     this.updateGameState(GameState.START);
     this.nextQuestion();
     this.changeTeam();
@@ -87,6 +88,7 @@ export class FamiliadaService {
   }
 
   private changeTeam() {
+    this.team = this.team === Team.TEAM1 ? Team.TEAM2 : Team.TEAM1;
     this.store.dispatch(changeTeam({ team: this.team }));
   }
 }

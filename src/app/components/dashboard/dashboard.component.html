@@ -1,4 +1,7 @@
-<h1>Pytanie: {{question}}</h1>
+<h1>Pytanie: {{ question }}</h1>
+<h2>
+  Odpowiada drużyna: <strong>{{ team }}</strong>
+</h2>
 <div class="Row">
   <div class="Column">
     <app-scoreboard [team]="'TEAM1'"></app-scoreboard>

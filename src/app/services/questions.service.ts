@@ -16,11 +16,11 @@ export class QuestionsService {
     );
   }
 
-  getQuestion(questionId: number): Promise<string> {
+  getQuestion(questionId: number): Promise<FamiliadaQuestion> {
     return this.questions
       .pipe(
         map((questions: FamiliadaQuestion[]) =>
-          questions.length > questionId ? questions[questionId].question : null
+          questions.length > questionId ? questions[questionId] : null
         )
       )
       .toPromise();

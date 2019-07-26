@@ -8,16 +8,17 @@ import { Team } from "src/app/enums/enums";
   styleUrls: ["./controller.component.scss"]
 })
 export class ControllerComponent {
-  displayedColumns: string[] = ["response", "team1", "team2"];
+  displayedColumns: string[] = ["response", "good"];
   dataSource;
   question: string;
   team: string;
 
   constructor(private familiadaService: FamiliadaService) {
     this.familiadaService.initGame();
-    this.familiadaService.question$.subscribe(
-      question => (this.question = question)
-    );
+    this.familiadaService.question$.subscribe(question => {
+      this.question = question.question;
+      this.dataSource = question.answers;
+    });
     this.familiadaService.currentTeam$.subscribe((team: Team) => {
       switch (team) {
         case Team.TEAM1:

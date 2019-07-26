@@ -12,27 +12,27 @@
     "id": 1,
     "question": "Czemu?",
     "answers": [
-      { "id": 0, "points": 1, "response": "Tak" },
-      { "id": 1, "points": 2, "response": "Nie" },
-      { "id": 2, "points": 3, "response": "Nie wiem" }
+      { "id": 0, "points": 1, "response": "Bo tak" },
+      { "id": 1, "points": 2, "response": "Bo nie" }
     ]
   },
   {
     "id": 2,
     "question": "Dokąd?",
     "answers": [
-      { "id": 0, "points": 1, "response": "Tak" },
-      { "id": 1, "points": 2, "response": "Nie" },
-      { "id": 2, "points": 3, "response": "Nie wiem" }
+      { "id": 0, "points": 1, "response": "Tam" },
+      { "id": 1, "points": 2, "response": "Tu" },
+      { "id": 1, "points": 2, "response": "Gdzie indziej" },
+      { "id": 2, "points": 3, "response": "Wszędzie" }
     ]
   },
   {
     "id": 3,
     "question": "Komu?",
     "answers": [
-      { "id": 0, "points": 1, "response": "Tak" },
-      { "id": 1, "points": 2, "response": "Nie" },
-      { "id": 2, "points": 3, "response": "Nie wiem" }
+      { "id": 0, "points": 1, "response": "Mnie" },
+      { "id": 1, "points": 2, "response": "Tobie" },
+      { "id": 2, "points": 3, "response": "Jemu" }
     ]
   }
 ]

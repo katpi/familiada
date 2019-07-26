@@ -6,7 +6,7 @@ export const CHANGE_TEAM = "NewTeam";
 export function changeTeam(state: { team: string }) {
   return {
     type: CHANGE_TEAM as typeof CHANGE_TEAM,
-    payload: { team: state.team === "TEAM1" ? "TEAM2" : "TEAM1" }
+    payload: state
   };
 }
 
