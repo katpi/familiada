@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FamiliadaService } from "../../services/familiada.service";
-import { Team } from "../../enums/enums";
+import { Team, GameStateEnum } from "../../enums/enums";
 import { FamiliadaResponse, RoundState } from "../../models/interfaces";
 import { isNullOrUndefined } from "util";
 import { of, Observable } from "rxjs";
@@ -20,6 +20,7 @@ export class DashboardComponent {
   sum: number;
   answers: FamiliadaResponse[];
   wrong: number;
+  state: string = GameStateEnum.START;
 
   constructor(
     private familiadaService: FamiliadaService,
@@ -48,6 +49,9 @@ export class DashboardComponent {
             this.refreshResponses(roundState);
           });
       }
+      this.familiadaService.getGameState().subscribe(gameState => {
+        this.state = gameState.state;
+      });
       this.sum = roundState.sum;
       this.wrong = roundState.wrong;
     });

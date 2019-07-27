@@ -1,33 +1,29 @@
-<h1>Pytanie: {{ question }}</h1>
-<h2>
-  Odpowiada drużyna: <strong>{{ team }}</strong>
-</h2>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <ng-container matColumnDef="response">
-    <th mat-header-cell *matHeaderCellDef>Odpowiedź</th>
-    <td mat-cell *matCellDef="let element">{{ element.response }}</td>
-  </ng-container>
-  <ng-container matColumnDef="good">
-    <th mat-header-cell *matHeaderCellDef>Dobrze</th>
-    <td mat-cell *matCellDef="let element" style="text-align: right">
-      <button mat-raised-button color="primary" (click)="claimAnswer(element)" [disabled]="isDone(element)" class="claim">Dobrze!</button>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="bad">
-    <td mat-footer-cell *matFooterCellDef colspan="2" style="text-align: center">
-      <button mat-raised-button color="warn" (click)="claimWrong()" class="claim">ŹLE!</button>
-    </td>
-  </ng-container>
-  <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
-  <tr mat-row [ngClass]="{'done': isDone(row) }" *matRowDef="let row; columns: displayedColumns"></tr>
-  <tr mat-footer-row *matFooterRowDef="['bad']" class="example-second-footer-row"></tr>
-</table>
-
-<button mat-fab mat-raised-button color="" (click)="next()" matTooltip="Następna runda">
-  <mat-icon>navigate_next</mat-icon>
-</button>
-<button mat-fab mat-raised-button color="" (click)="changeTeam()" matTooltip="Zmiana drużyny">
-  <mat-icon>autorenew</mat-icon>
-</button>
-<button mat-fab mat-raised-button color="primary" (click)="setTeam('TEAM1')" matTooltip="Drużyna 1">1</button>
-<button mat-fab mat-raised-button color="warn" (click)="setTeam('TEAM2')" matTooltip="Drużyna 2">2</button>
+<ng-container [ngSwitch]="state">
+    <ng-container *ngSwitchCase="'START'"><app-start-game [isDashboard]="false"></app-start-game></ng-container>
+    <ng-container *ngSwitchDefault>
+       <h1>Pytanie:{{question}}</h1>
+       <h2> Odpowiada drużyna: <strong>{{team}}</strong> </h2>
+       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="response">
+             <th mat-header-cell *matHeaderCellDef>Odpowiedź</th>
+             <td mat-cell *matCellDef="let element">{{element.response}}</td>
+          </ng-container>
+          <ng-container matColumnDef="good">
+             <th mat-header-cell *matHeaderCellDef>Dobrze</th>
+             <td mat-cell *matCellDef="let element" style="text-align: right"> <button mat-raised-button color="primary" (click)="claimAnswer(element)" [disabled]="isDone(element)" class="claim" > Dobrze! </button> </td>
+          </ng-container>
+          <ng-container matColumnDef="bad">
+             <td mat-footer-cell *matFooterCellDef colspan="2" style="text-align: center" > <button mat-raised-button color="warn" (click)="claimWrong()" class="claim" > ŹLE! </button> </td>
+          </ng-container>
+          <tr mat-row [ngClass]="{done: isDone(row)}" *matRowDef="let row; columns: displayedColumns" ></tr>
+          <tr mat-footer-row *matFooterRowDef="['bad']" class="example-second-footer-row" ></tr>
+       </table>
+       <button mat-fab mat-raised-button color="" (click)="next()" matTooltip="Następna runda" >
+          <mat-icon>navigate_next</mat-icon>
+       </button>
+       <button mat-fab mat-raised-button color="" (click)="changeTeam()" matTooltip="Zmiana drużyny" >
+          <mat-icon>autorenew</mat-icon>
+       </button>
+       <button mat-fab mat-raised-button color="primary" (click)="setTeam('TEAM1')" matTooltip="Drużyna 1" > 1 </button> <button mat-fab mat-raised-button color="warn" (click)="setTeam('TEAM2')" matTooltip="Drużyna 2" > 2 </button> 
+    </ng-container>
+ </ng-container>

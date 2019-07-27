@@ -45,6 +45,9 @@ export class FamiliadaService implements Familiada {
         if (isNullOrUndefined(gameState)) return;
         this.gameStateSource.next(gameState);
       });
+
+    this.gameState = { state: GameStateEnum.START };
+    this.updateGameState(this.gameState);
   }
 
   getRoundState(): Observable<RoundState> {
@@ -59,7 +62,7 @@ export class FamiliadaService implements Familiada {
 
   initGame() {
     this.roundState = {
-      questionId: 0,
+      questionId: -1,
       answers: [],
       team: null,
       sum: 0,
@@ -68,8 +71,6 @@ export class FamiliadaService implements Familiada {
     this.updateRoundState(this.roundState);
     this.scores = { team1: 0, team2: 0 };
     this.updateScores(this.scores);
-    this.gameState = { state: GameStateEnum.START };
-    this.updateGameState(this.gameState);
   }
 
   setTeam(team: Team) {
@@ -97,6 +98,15 @@ export class FamiliadaService implements Familiada {
   }
 
   nextRound(): any {
+    switch (this.roundState.team) {
+      case Team.TEAM1:
+        this.scores.team1 = this.scores.team1 + this.roundState.sum;
+        break;
+      case Team.TEAM2:
+        this.scores.team2 = this.scores.team2 + this.roundState.sum;
+        break;
+    }
+    this.updateScores(this.scores);
     this.gameState.state = GameStateEnum.ROUND_ENDED;
     this.updateGameState(this.gameState);
     this.roundState = {

@@ -26,6 +26,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { ChooseTeamDialog } from './components/controller/choose-team-dialog/choose-team-dialog.component';
+import { StartGameComponent } from './components/start-game/start-game.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ChooseTeamDialog } from './components/controller/choose-team-dialog/cho
     DashboardComponent,
     ScoreboardComponent,
     ControllerComponent,
-    ChooseTeamDialog
+    ChooseTeamDialog,
+    StartGameComponent
   ],
   imports: [
     BrowserModule,

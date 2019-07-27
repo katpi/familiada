@@ -17,6 +17,7 @@ export class ControllerComponent {
   question: string;
   team: string;
   answers: number[] = [];
+  state: string;
 
   constructor(
     private familiadaService: FamiliadaService,
@@ -32,16 +33,20 @@ export class ControllerComponent {
           this.team = "B";
           return;
       }
-      this.questionsService
-        .getQuestion(roundState.questionId)
-        .then(question => {
-          this.question = question.question;
-          this.dataSource = question.answers;
-        });
+      if (roundState.questionId > -1) {
+        this.questionsService
+          .getQuestion(roundState.questionId)
+          .then(question => {
+            this.question = question.question;
+            this.dataSource = question.answers;
+          });
+      }
       this.answers = roundState.answers;
     });
     this.familiadaService.getGameState().subscribe(gameState => {
-      if (gameState.state === GameStateEnum.NEW_ROUND) {
+      this.state = gameState.state;
+      console.log(this.state);
+      if (this.state === GameStateEnum.NEW_ROUND) {
         this.dialog.open(ChooseTeamDialog, { width: "250px" });
       }
     });
