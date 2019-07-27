@@ -1,8 +1,10 @@
 import { Component } from "@angular/core";
 import { FamiliadaService } from "../../services/familiada.service";
-import { Team } from "src/app/enums/enums";
+import { Team, GameStateEnum } from "src/app/enums/enums";
 import { FamiliadaResponse } from "../../models/interfaces";
 import { QuestionsService } from "../../services/questions.service";
+import { MatDialog } from "@angular/material";
+import { ChooseTeamDialog } from "./choose-team-dialog/choose-team-dialog.component";
 
 @Component({
   selector: "app-controller",
@@ -18,9 +20,9 @@ export class ControllerComponent {
 
   constructor(
     private familiadaService: FamiliadaService,
-    private questionsService: QuestionsService
+    private questionsService: QuestionsService,
+    private dialog: MatDialog
   ) {
-    this.familiadaService.initGame();
     this.familiadaService.getRoundState().subscribe(roundState => {
       switch (roundState.team) {
         case Team.TEAM1:
@@ -38,6 +40,12 @@ export class ControllerComponent {
         });
       this.answers = roundState.answers;
     });
+    this.familiadaService.getGameState().subscribe(gameState => {
+      if (gameState.state === GameStateEnum.NEW_ROUND) {
+        this.dialog.open(ChooseTeamDialog, { width: "250px" });
+      }
+    });
+    this.familiadaService.initGame();
   }
 
   next() {

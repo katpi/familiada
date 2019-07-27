@@ -97,6 +97,8 @@ export class FamiliadaService implements Familiada {
   }
 
   nextRound(): any {
+    this.gameState.state = GameStateEnum.ROUND_ENDED;
+    this.updateGameState(this.gameState);
     this.roundState = {
       questionId: this.roundState.questionId + 1,
       answers: [],
@@ -105,6 +107,8 @@ export class FamiliadaService implements Familiada {
       wrong: 0
     };
     this.updateRoundState(this.roundState);
+    this.gameState.state = GameStateEnum.NEW_ROUND;
+    this.updateGameState(this.gameState);
   }
 
   private updateGameState(state: GameState) {

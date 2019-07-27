@@ -11,7 +11,8 @@ import {
   MatTableModule,
   MatCardModule,
   MatCheckboxModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatDialogModule
 } from "@angular/material";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -24,6 +25,7 @@ import { ControllerComponent } from "./components/controller/controller.componen
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { ChooseTeamDialog } from './components/controller/choose-team-dialog/choose-team-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { environment } from '../environments/environment';
     SettingsComponent,
     DashboardComponent,
     ScoreboardComponent,
-    ControllerComponent
+    ControllerComponent,
+    ChooseTeamDialog
   ],
   imports: [
     BrowserModule,
@@ -47,10 +50,12 @@ import { environment } from '../environments/environment';
     MatCheckboxModule,
     MatCardModule,
     MatTooltipModule,
+    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ChooseTeamDialog]
 })
 export class AppModule {}

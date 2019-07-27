@@ -7,7 +7,7 @@ export enum GameStateEnum {
   START = "START",
   END = "END",
   ROUND_ENDED = "ROUND_ENDED",
-  NEXT_ROUND = "NEXT_ROUND",
+  NEW_ROUND = "NEXT_ROUND",
   JOKE = "JOKE",
   APPLAUSE = "APPLAUSE"
 }
