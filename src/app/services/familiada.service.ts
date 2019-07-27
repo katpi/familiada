@@ -1,19 +1,17 @@
 import { Injectable } from "@angular/core";
-import { Subject, fromEvent } from "rxjs";
+import { Subject } from "rxjs";
 import { Team, GameState } from "../enums/enums";
 import { QuestionsService } from "./questions.service";
-import { Store } from "@ngrx/store";
-import { newQuestion } from "../ngrx/question.actions";
-import { QuestionState } from "../ngrx/question.reducers";
-import { isNullOrUndefined } from "util";
-import { changeTeam } from "../ngrx/team.actions";
-import { TeamState } from "../ngrx/team.reducers";
-import { FamiliadaQuestion } from "../models/interfaces";
-import { AnswersState } from "../ngrx/answer.reducers";
-import { claimAnswer, clearAnswers } from "../ngrx/answer.actions";
-import { ScoresState } from "../ngrx/scores.reducers";
-import { newScore } from "../ngrx/scores.actions";
+import {
+  FamiliadaQuestion,
+  QuestionState,
+  TeamState,
+  AnswersState,
+  ScoresState,
+  FamiliadaResponse
+} from "../models/interfaces";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { isNullOrUndefined } from "util";
 
 @Injectable({
   providedIn: "root"
@@ -21,31 +19,46 @@ import { AngularFirestore } from "@angular/fire/firestore";
 export class FamiliadaService {
   questionId: number;
   team: string;
+  answers: number[];
+  team1Score: number;
+  team2Score: number;
+
   constructor(
-    private store: Store<{ questionId: number }>,
     private questionsService: QuestionsService,
-    public db: AngularFirestore
+    private db: AngularFirestore
   ) {
-    this.store.select("question").subscribe((questionState: QuestionState) => {
-      if (isNullOrUndefined(questionState)) return;
-      this.questionId = questionState.questionId;
-      this.questionsService.getQuestion(this.questionId).then(question => {
-        this.displayQuestion(question);
+    this.db
+      .doc("familiada/question")
+      .valueChanges()
+      .subscribe((questionState: QuestionState) => {
+        if (isNullOrUndefined(questionState)) return;
+        this.questionId = questionState.questionId;
+        this.questionsService.getQuestion(this.questionId).then(question => {
+          this.displayQuestion(question);
+        });
       });
-    });
-    this.store.select("team").subscribe((teamState: TeamState) => {
-      if (isNullOrUndefined(teamState)) return;
-      this.team = teamState.team;
-      this.updateTeam(this.team);
-    });
-    this.store.select("answers").subscribe((answersState: AnswersState) => {
-      if (isNullOrUndefined(answersState)) return;
-      this.updateAnswers(answersState.answers);
-    });
-    this.store.select("scores").subscribe((scoresState: ScoresState) => {
-      if (isNullOrUndefined(scoresState)) return;
-      this.updateScores(scoresState);
-    });
+    this.db
+      .doc("familiada/team")
+      .valueChanges()
+      .subscribe((teamState: TeamState) => {
+        if (isNullOrUndefined(teamState)) return;
+        this.team = teamState.team;
+        this.updateTeam(this.team);
+      });
+    this.db
+      .doc("familiada/answers")
+      .valueChanges()
+      .subscribe((answersState: AnswersState) => {
+        if (isNullOrUndefined(answersState)) return;
+        this.updateAnswers(answersState.answers);
+      });
+    this.db
+      .doc("familiada/scores")
+      .valueChanges()
+      .subscribe((scoresState: ScoresState) => {
+        if (isNullOrUndefined(scoresState)) return;
+        this.updateScores(scoresState);
+      });
   }
 
   private questionSource = new Subject<FamiliadaQuestion>();
@@ -78,17 +91,24 @@ export class FamiliadaService {
     this.answersSource.next(answers);
   }
 
-  private updateScores(scoresState: ScoresState) {
+  private updateScores(scoresState) {
     this.team1ScoreSource.next(scoresState.team1);
     this.team2ScoreSource.next(scoresState.team2);
   }
 
   initGame() {
-    this.questionId = -1;
-    this.team = "TEAM1";
+    this.questionId = 0;
+    this.answers = [];
+    this.team1Score = 0;
+    this.team2Score = 0;
+
+    this.db.doc("familiada/scores").set({
+      team1: this.team1Score,
+      team2: this.team2Score
+    });
     this.updateGameState(GameState.START);
     this.nextQuestion();
-    this.changeTeam();
+    this.setTeam(Team.TEAM1);
   }
 
   endRound() {
@@ -104,9 +124,20 @@ export class FamiliadaService {
     this.updateGameState(GameState.JOKE);
   }
 
-  claimAnswer(id: number) {
-    this.store.dispatch(claimAnswer({ answerId: id }));
-    this.store.dispatch(newScore(Team[this.team], id * 10));
+  claimAnswer(answer: FamiliadaResponse) {
+    if (!this.answers.includes(answer.id)) {
+      this.answers = [...this.answers, answer.id];
+    }
+    this.db.doc("familiada/answers").set({ answers: this.answers });
+    if (this.team === Team.TEAM1) {
+      this.team1Score += answer.points;
+    } else {
+      this.team2Score += answer.points;
+    }
+    this.db.doc("familiada/scores").set({
+      team1: this.team1Score,
+      team2: this.team2Score
+    });
   }
 
   claimWrong(): any {
@@ -116,20 +147,17 @@ export class FamiliadaService {
 
   setTeam(team: string) {
     this.team = team;
-    this.store.dispatch(changeTeam({ team: this.team }));
-    this.db.collection("scores").add({
-      team1: 100,
-      team2: 200
-    });
+    this.db.doc("familiada/team").set({ team: this.team });
   }
 
   private nextQuestion() {
-    this.store.dispatch(clearAnswers());
-    this.store.dispatch(newQuestion({ questionId: this.questionId }));
+    this.answers = [];
+    this.db.doc("familiada/answers").set({ answers: this.answers });
+    this.db.doc("familiada/question").set({ questionId: ++this.questionId });
   }
 
   changeTeam() {
-    this.team = this.team === Team.TEAM1 ? Team.TEAM2 : Team.TEAM1;
-    this.store.dispatch(changeTeam({ team: this.team }));
+    const team = this.team === Team.TEAM1 ? Team.TEAM2 : Team.TEAM1;
+    this.setTeam(team);
   }
 }

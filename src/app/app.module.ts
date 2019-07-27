@@ -21,10 +21,6 @@ import { SettingsComponent } from "./components/settings/settings.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { ScoreboardComponent } from "./components/scoreboard/scoreboard.component";
 import { ControllerComponent } from "./components/controller/controller.component";
-import { StoreModule } from "@ngrx/store";
-import { EffectsModule } from "@ngrx/effects";
-import { LocalStorageEffects } from "./ngrx/localStorage.effects";
-import { reducers, metaReducers } from "./ngrx";
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
@@ -51,18 +47,6 @@ import { environment } from '../environments/environment';
     MatCheckboxModule,
     MatCardModule,
     MatTooltipModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers,
-      initialState: {}
-    }),
-    EffectsModule.forRoot([LocalStorageEffects]),
-    StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true
-      }
-    }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
   ],

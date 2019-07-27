@@ -15,7 +15,7 @@ export class DashboardComponent {
   dataSource: Observable<FamiliadaResponse[]>;
   question: string;
   team: string;
-  answers: FamiliadaResponse[];
+  answers: FamiliadaResponse[] = [];
 
   constructor(private familiadaService: FamiliadaService) {
     this.familiadaService.question$.subscribe(question => {
@@ -24,7 +24,6 @@ export class DashboardComponent {
       this.answers = question.answers;
     });
     this.familiadaService.answers$.subscribe((answerIds: number[]) => {
-      console.log(answerIds)
       const responses = new Array(this.answers.length);
       answerIds.forEach((id: number) => (responses[id] = this.answers[id]));
       this.dataSource = of(responses);

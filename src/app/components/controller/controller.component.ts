@@ -20,9 +20,6 @@ export class ControllerComponent {
       this.question = question.question;
       this.dataSource = question.answers;
     });
-    this.familiadaService.answers$.subscribe((answerIds: number[]) => {
-      console.log(answerIds);
-    });
     this.familiadaService.currentTeam$.subscribe((team: Team) => {
       switch (team) {
         case Team.TEAM1:
@@ -48,7 +45,7 @@ export class ControllerComponent {
   }
 
   claimAnswer(element: FamiliadaResponse) {
-    this.familiadaService.claimAnswer(element.id);
+    this.familiadaService.claimAnswer(element);
   }
 
   claimWrong() {
