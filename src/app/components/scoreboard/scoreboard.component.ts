@@ -20,17 +20,20 @@ export class ScoreboardComponent implements OnInit {
     }
   }
 
-  constructor(private familiadaService: FamiliadaService) {
-    if (this.team === Team.TEAM1) {
-      this.familiadaService.team1Score$.subscribe(score => {
-        this.score = score;
-      });
-    } else {
-      this.familiadaService.team2Score$.subscribe(score => {
-        this.score = score;
-      });
+  constructor(private familiadaService: FamiliadaService) {}
+
+  ngOnInit() {
+    switch (this.team) {
+      case Team.TEAM1:
+        this.familiadaService.team1Score$.subscribe(score => {
+          this.score = score;
+        });
+        return;
+      case Team.TEAM2:
+        this.familiadaService.team2Score$.subscribe(score => {
+          this.score = score;
+        });
+        return;
     }
   }
-
-  ngOnInit() {}
 }
