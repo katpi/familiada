@@ -19,22 +19,24 @@ export class QuestionsService {
   getQuestion(questionId: number): Promise<FamiliadaQuestion> {
     return this.questions
       .pipe(
-        map((questions: FamiliadaQuestion[]) =>
-          questions.length > questionId ? questions[questionId] : null
-        )
+        map((questions: FamiliadaQuestion[]) => {
+          return questionId >= 0 && questions.length > questionId
+            ? questions[questionId]
+            : null;
+        })
       )
       .toPromise();
   }
 
-  getAnswers(questionId: number): Promise<FamiliadaResponse[]> {
-    return new Promise(resolve => {
-      this.questions.subscribe(questions => {
-        resolve(questions[questionId].answers);
-      });
-    });
-  }
-
-  getResponses(): Promise<FamiliadaResponse[]> {
-    return of([{ id: 100, response: "owszem", points: 100 }]).toPromise();
+  getAnswersCount(questionId: number): Promise<number> {
+    return this.questions
+      .pipe(
+        map((questions: FamiliadaQuestion[]) => {
+          return questionId >= 0 && questions.length > questionId
+            ? questions[questionId].answers.length
+            : 0;
+        })
+      )
+      .toPromise();
   }
 }

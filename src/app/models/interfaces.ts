@@ -12,6 +12,7 @@ export interface FamiliadaResponse {
 
 export interface RoundState {
   questionId: number;
+  responsesCount: number;
   answers: number[];
   team: string;
   sum: number;

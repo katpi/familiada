@@ -27,6 +27,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { ChooseTeamDialog } from './components/controller/choose-team-dialog/choose-team-dialog.component';
 import { StartGameComponent } from './components/start-game/start-game.component';
+import { RoundEndedDialog } from './components/controller/round-ended-dialog/round-ended-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { StartGameComponent } from './components/start-game/start-game.component
     ScoreboardComponent,
     ControllerComponent,
     ChooseTeamDialog,
-    StartGameComponent
+    StartGameComponent,
+    RoundEndedDialog
   ],
   imports: [
     BrowserModule,
@@ -58,6 +60,6 @@ import { StartGameComponent } from './components/start-game/start-game.component
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ChooseTeamDialog]
+  entryComponents: [ChooseTeamDialog, RoundEndedDialog]
 })
 export class AppModule {}

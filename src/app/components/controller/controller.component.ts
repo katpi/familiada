@@ -5,6 +5,7 @@ import { FamiliadaResponse } from "../../models/interfaces";
 import { QuestionsService } from "../../services/questions.service";
 import { MatDialog } from "@angular/material";
 import { ChooseTeamDialog } from "./choose-team-dialog/choose-team-dialog.component";
+import { RoundEndedDialog } from "./round-ended-dialog/round-ended-dialog.component";
 
 @Component({
   selector: "app-controller",
@@ -45,16 +46,16 @@ export class ControllerComponent {
     });
     this.familiadaService.getGameState().subscribe(gameState => {
       this.state = gameState.state;
-      console.log(this.state);
-      if (this.state === GameStateEnum.NEW_ROUND) {
-        this.dialog.open(ChooseTeamDialog, { width: "250px" });
+      switch (this.state) {
+        case GameStateEnum.NEW_ROUND:
+          this.dialog.open(ChooseTeamDialog, { width: "250px" });
+          break;
+        case GameStateEnum.ROUND_ENDED:
+          this.dialog.open(RoundEndedDialog, { width: "250px" });
+          break;
       }
     });
     this.familiadaService.initGame();
-  }
-
-  next() {
-    this.familiadaService.nextRound();
   }
 
   changeTeam() {

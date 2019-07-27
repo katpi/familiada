@@ -18,9 +18,6 @@
           <tr mat-row [ngClass]="{done: isDone(row)}" *matRowDef="let row; columns: displayedColumns" ></tr>
           <tr mat-footer-row *matFooterRowDef="['bad']" class="example-second-footer-row" ></tr>
        </table>
-       <button mat-fab mat-raised-button color="" (click)="next()" matTooltip="Następna runda" >
-          <mat-icon>navigate_next</mat-icon>
-       </button>
        <button mat-fab mat-raised-button color="" (click)="changeTeam()" matTooltip="Zmiana drużyny" >
           <mat-icon>autorenew</mat-icon>
        </button>

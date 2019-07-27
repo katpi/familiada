@@ -10,6 +10,7 @@ import {
 import { AngularFirestore } from "@angular/fire/firestore";
 import { isNullOrUndefined } from "util";
 import { Familiada } from "./familiada";
+import { QuestionsService } from "./questions.service";
 
 @Injectable({
   providedIn: "root"
@@ -23,7 +24,10 @@ export class FamiliadaService implements Familiada {
   private scoresSource = new Subject<Scores>();
   private gameStateSource = new Subject<GameState>();
 
-  constructor(private db: AngularFirestore) {
+  constructor(
+    private db: AngularFirestore,
+    private questionsService: QuestionsService
+  ) {
     this.db
       .doc("familiada/round")
       .valueChanges()
@@ -62,6 +66,7 @@ export class FamiliadaService implements Familiada {
 
   initGame() {
     this.roundState = {
+      responsesCount: -1,
       questionId: -1,
       answers: [],
       team: null,
@@ -84,6 +89,19 @@ export class FamiliadaService implements Familiada {
       this.roundState.sum = this.roundState.sum + answer.points;
     }
     this.updateRoundState(this.roundState);
+    if (this.roundState.answers.length === this.roundState.responsesCount) {
+      switch (this.roundState.team) {
+        case Team.TEAM1:
+          this.scores.team1 = this.scores.team1 + this.roundState.sum;
+          break;
+        case Team.TEAM2:
+          this.scores.team2 = this.scores.team2 + this.roundState.sum;
+          break;
+      }
+      this.updateScores(this.scores);
+      this.gameState.state = GameStateEnum.ROUND_ENDED;
+      this.updateGameState(this.gameState);
+    }
   }
 
   claimWrong() {
@@ -98,27 +116,22 @@ export class FamiliadaService implements Familiada {
   }
 
   nextRound(): any {
-    switch (this.roundState.team) {
-      case Team.TEAM1:
-        this.scores.team1 = this.scores.team1 + this.roundState.sum;
-        break;
-      case Team.TEAM2:
-        this.scores.team2 = this.scores.team2 + this.roundState.sum;
-        break;
-    }
-    this.updateScores(this.scores);
-    this.gameState.state = GameStateEnum.ROUND_ENDED;
-    this.updateGameState(this.gameState);
-    this.roundState = {
-      questionId: this.roundState.questionId + 1,
-      answers: [],
-      team: null,
-      sum: 0,
-      wrong: 0
-    };
-    this.updateRoundState(this.roundState);
-    this.gameState.state = GameStateEnum.NEW_ROUND;
-    this.updateGameState(this.gameState);
+    console.log('next')
+    this.questionsService
+      .getAnswersCount(++this.roundState.questionId)
+      .then(responsesCount => {
+        this.roundState = {
+          responsesCount,
+          questionId: this.roundState.questionId,
+          answers: [],
+          team: null,
+          sum: 0,
+          wrong: 0
+        };
+        this.updateRoundState(this.roundState);
+        this.gameState.state = GameStateEnum.NEW_ROUND;
+        this.updateGameState(this.gameState);
+      });
   }
 
   private updateGameState(state: GameState) {
