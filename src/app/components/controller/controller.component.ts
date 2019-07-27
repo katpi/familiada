@@ -43,7 +43,7 @@ export class ControllerComponent {
     this.familiadaService.changeTeam();
   }
 
-  setTeam(team: Team) {
+  setTeam(team: string) {
     this.familiadaService.setTeam(team);
   }
 

@@ -13,6 +13,7 @@ import { AnswersState } from "../ngrx/answer.reducers";
 import { claimAnswer, clearAnswers } from "../ngrx/answer.actions";
 import { ScoresState } from "../ngrx/scores.reducers";
 import { newScore } from "../ngrx/scores.actions";
+import { AngularFirestore } from "@angular/fire/firestore";
 
 @Injectable({
   providedIn: "root"
@@ -22,7 +23,8 @@ export class FamiliadaService {
   team: string;
   constructor(
     private store: Store<{ questionId: number }>,
-    private questionsService: QuestionsService
+    private questionsService: QuestionsService,
+    public db: AngularFirestore
   ) {
     this.store.select("question").subscribe((questionState: QuestionState) => {
       if (isNullOrUndefined(questionState)) return;
@@ -104,7 +106,7 @@ export class FamiliadaService {
 
   claimAnswer(id: number) {
     this.store.dispatch(claimAnswer({ answerId: id }));
-    this.store.dispatch(newScore(Team[this.team], id*10));
+    this.store.dispatch(newScore(Team[this.team], id * 10));
   }
 
   claimWrong(): any {
@@ -112,9 +114,13 @@ export class FamiliadaService {
     this.changeTeam();
   }
 
-  setTeam(team: Team) {
+  setTeam(team: string) {
     this.team = team;
     this.store.dispatch(changeTeam({ team: this.team }));
+    this.db.collection("scores").add({
+      team1: 100,
+      team2: 200
+    });
   }
 
   private nextQuestion() {

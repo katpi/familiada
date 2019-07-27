@@ -25,6 +25,9 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { LocalStorageEffects } from "./ngrx/localStorage.effects";
 import { reducers, metaReducers } from "./ngrx";
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,9 @@ import { reducers, metaReducers } from "./ngrx";
         strictStateImmutability: true,
         strictActionImmutability: true
       }
-    })
+    }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
