@@ -28,6 +28,7 @@ import { environment } from '../environments/environment';
 import { ChooseTeamDialog } from './components/controller/choose-team-dialog/choose-team-dialog.component';
 import { StartGameComponent } from './components/start-game/start-game.component';
 import { RoundEndedDialog } from './components/controller/round-ended-dialog/round-ended-dialog.component';
+import { GameEndedComponent } from './components/game-ended/game-ended.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { RoundEndedDialog } from './components/controller/round-ended-dialog/rou
     ControllerComponent,
     ChooseTeamDialog,
     StartGameComponent,
-    RoundEndedDialog
+    RoundEndedDialog,
+    GameEndedComponent
   ],
   imports: [
     BrowserModule,

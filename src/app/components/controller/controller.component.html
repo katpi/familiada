@@ -1,5 +1,6 @@
 <ng-container [ngSwitch]="state">
     <ng-container *ngSwitchCase="'START'"><app-start-game [isDashboard]="false"></app-start-game></ng-container>
+    <ng-container *ngSwitchCase="'END'"><app-game-ended></app-game-ended></ng-container>
     <ng-container *ngSwitchDefault>
        <h1>Pytanie:{{question}}</h1>
        <h2> Odpowiada drużyna: <strong>{{team}}</strong> </h2>

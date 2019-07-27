@@ -55,9 +55,8 @@ export class ControllerComponent {
           break;
       }
     });
-    this.familiadaService.initGame();
   }
-
+  
   changeTeam() {
     this.familiadaService.changeTeam();
   }

@@ -27,3 +27,9 @@ export interface Scores {
 export interface GameState {
   state: string;
 }
+
+export interface Settings {
+  team1Name: string;
+  team2Name: string;
+  questions: FamiliadaQuestion[];
+}

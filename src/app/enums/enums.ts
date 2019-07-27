@@ -4,6 +4,7 @@ export enum Team {
 }
 
 export enum GameStateEnum {
+  BEFORE_START = "BEFORE_START",
   START = "START",
   END = "END",
   ROUND_ENDED = "ROUND_ENDED",

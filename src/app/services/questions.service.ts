@@ -15,7 +15,7 @@ export class QuestionsService {
       "./assets/questions.json"
     );
   }
-
+  
   getQuestion(questionId: number): Promise<FamiliadaQuestion> {
     return this.questions
       .pipe(

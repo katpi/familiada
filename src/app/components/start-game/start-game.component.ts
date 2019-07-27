@@ -11,6 +11,7 @@ export class StartGameComponent {
   constructor(private familiadaService: FamiliadaService) {}
 
   next() {
-    this.familiadaService.nextRound();
+    this.familiadaService.initGame();
   }
+
 }

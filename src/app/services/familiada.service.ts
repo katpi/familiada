@@ -5,7 +5,8 @@ import {
   FamiliadaResponse,
   RoundState,
   Scores,
-  GameState
+  GameState,
+  Settings
 } from "../models/interfaces";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { isNullOrUndefined } from "util";
@@ -23,6 +24,7 @@ export class FamiliadaService implements Familiada {
   private roundSource = new Subject<RoundState>();
   private scoresSource = new Subject<Scores>();
   private gameStateSource = new Subject<GameState>();
+  settings: Settings;
 
   constructor(
     private db: AngularFirestore,
@@ -49,9 +51,15 @@ export class FamiliadaService implements Familiada {
         if (isNullOrUndefined(gameState)) return;
         this.gameStateSource.next(gameState);
       });
-
-    this.gameState = { state: GameStateEnum.START };
-    this.updateGameState(this.gameState);
+    this.db
+      .doc("familiada/settings")
+      .valueChanges()
+      .subscribe((settings: Settings) => {
+        if (isNullOrUndefined(settings)) return;
+        this.settings = settings;
+      });
+      this.gameState = { state: GameStateEnum.START };
+      this.updateGameState(this.gameState);
   }
 
   getRoundState(): Observable<RoundState> {
@@ -76,36 +84,11 @@ export class FamiliadaService implements Familiada {
     this.updateRoundState(this.roundState);
     this.scores = { team1: 0, team2: 0 };
     this.updateScores(this.scores);
+    this.nextRound();
   }
 
   setTeam(team: Team) {
     this.roundState.team = team;
-    this.updateRoundState(this.roundState);
-  }
-
-  claimAnswer(answer: FamiliadaResponse) {
-    if (!this.roundState.answers.includes(answer.id)) {
-      this.roundState.answers = [...this.roundState.answers, answer.id];
-      this.roundState.sum = this.roundState.sum + answer.points;
-    }
-    this.updateRoundState(this.roundState);
-    if (this.roundState.answers.length === this.roundState.responsesCount) {
-      switch (this.roundState.team) {
-        case Team.TEAM1:
-          this.scores.team1 = this.scores.team1 + this.roundState.sum;
-          break;
-        case Team.TEAM2:
-          this.scores.team2 = this.scores.team2 + this.roundState.sum;
-          break;
-      }
-      this.updateScores(this.scores);
-      this.gameState.state = GameStateEnum.ROUND_ENDED;
-      this.updateGameState(this.gameState);
-    }
-  }
-
-  claimWrong() {
-    this.roundState.wrong = this.roundState.wrong + 1;
     this.updateRoundState(this.roundState);
   }
 
@@ -116,7 +99,6 @@ export class FamiliadaService implements Familiada {
   }
 
   nextRound(): any {
-    console.log('next')
     this.questionsService
       .getAnswersCount(++this.roundState.questionId)
       .then(responsesCount => {
@@ -134,7 +116,47 @@ export class FamiliadaService implements Familiada {
       });
   }
 
+  claimWrong() {
+    this.roundState.wrong = this.roundState.wrong + 1;
+    this.updateRoundState(this.roundState);
+  }
+
+  claimAnswer(answer: FamiliadaResponse) {
+    if (!this.roundState.answers.includes(answer.id)) {
+      this.roundState.answers = [...this.roundState.answers, answer.id];
+      this.roundState.sum = this.roundState.sum + answer.points;
+    }
+    this.updateRoundState(this.roundState);
+    if (this.roundState.answers.length === this.roundState.responsesCount) {
+      this.endRound();
+    }
+  }
+
+  private endRound() {
+    switch (this.roundState.team) {
+      case Team.TEAM1:
+        this.scores.team1 = this.scores.team1 + this.roundState.sum;
+        break;
+      case Team.TEAM2:
+        this.scores.team2 = this.scores.team2 + this.roundState.sum;
+        break;
+    }
+    this.updateScores(this.scores);
+    if (this.roundState.questionId + 1 === this.settings.questions.length) {
+      this.endGame();
+    } else {
+      this.gameState.state = GameStateEnum.ROUND_ENDED;
+      this.updateGameState(this.gameState);
+    }
+  }
+
+  private endGame() {
+    this.gameState.state = GameStateEnum.END;
+    this.updateGameState(this.gameState);
+  }
+
   private updateGameState(state: GameState) {
+    console.log(state);
     this.db.doc("familiada/state").set(state);
   }
 
