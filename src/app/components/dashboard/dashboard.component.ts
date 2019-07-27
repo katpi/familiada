@@ -19,6 +19,7 @@ export class DashboardComponent {
   team: string;
   sum: number;
   answers: FamiliadaResponse[];
+  wrong: number;
 
   constructor(
     private familiadaService: FamiliadaService,
@@ -27,6 +28,7 @@ export class DashboardComponent {
     this.questionId = -1;
     this.sum = 0;
     this.answers = [];
+    this.wrong = 0;
     this.familiadaService.getRoundState().subscribe(roundState => {
       switch (roundState.team) {
         case Team.TEAM1:
@@ -47,6 +49,7 @@ export class DashboardComponent {
           });
       }
       this.sum = roundState.sum;
+      this.wrong = roundState.wrong;
     });
   }
 
