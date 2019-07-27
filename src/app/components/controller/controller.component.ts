@@ -14,10 +14,11 @@ export class ControllerComponent {
   dataSource;
   question: string;
   team: string;
+  answers: number[] = [];
 
   constructor(
     private familiadaService: FamiliadaService,
-    private questionsService: QuestionsService,
+    private questionsService: QuestionsService
   ) {
     this.familiadaService.initGame();
     this.familiadaService.getRoundState().subscribe(roundState => {
@@ -35,6 +36,7 @@ export class ControllerComponent {
           this.question = question.question;
           this.dataSource = question.answers;
         });
+      this.answers = roundState.answers;
     });
   }
 
@@ -56,5 +58,9 @@ export class ControllerComponent {
 
   claimWrong() {
     this.familiadaService.claimWrong();
+  }
+
+  isDone(row: FamiliadaResponse) {
+    return this.answers.includes(row.id);
   }
 }

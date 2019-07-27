@@ -17,10 +17,15 @@ td {
 .mat-cell,
 .mat-footer-cell,
 .mat-header-cell:first-of-type,
+.mat-footer-cell:first-of-type,
 .mat-cell:first-of-type {
   padding: 10px;
   font-size: 20px;
   color: black;
+}
+
+.mat-header-cell {
+  text-align: center;
 }
 
 .x {

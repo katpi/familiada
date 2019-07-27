@@ -2,6 +2,15 @@ table {
     width: 500px;
 }
 
-button {
+.mat-fab {
     margin: 20px;
+}
+
+.claim {
+    width: 100px;
+}
+
+.done {
+  text-decoration: line-through;
+  background: lightgrey;
 }

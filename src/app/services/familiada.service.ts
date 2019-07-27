@@ -80,6 +80,7 @@ export class FamiliadaService implements Familiada {
   claimAnswer(answer: FamiliadaResponse) {
     if (!this.roundState.answers.includes(answer.id)) {
       this.roundState.answers = [...this.roundState.answers, answer.id];
+      this.roundState.sum = this.roundState.sum + answer.points;
     }
     this.updateRoundState(this.roundState);
   }
