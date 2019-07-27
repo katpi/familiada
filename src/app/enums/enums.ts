@@ -3,10 +3,11 @@ export enum Team {
   TEAM2 = "TEAM2"
 }
 
-export enum GameState {
-  START,
-  END,
-  ROUND_ENDED,
-  NEXT_ROUND,
-  JOKE
+export enum GameStateEnum {
+  START = "START",
+  END = "END",
+  ROUND_ENDED = "ROUND_ENDED",
+  NEXT_ROUND = "NEXT_ROUND",
+  JOKE = "JOKE",
+  APPLAUSE = "APPLAUSE"
 }

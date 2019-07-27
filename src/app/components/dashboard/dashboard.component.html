@@ -11,15 +11,18 @@
       <ng-container matColumnDef="response">
         <th mat-header-cell *matHeaderCellDef>Odpowiedź</th>
         <td mat-cell *matCellDef="let element">{{ getResponse(element) }}</td>
+        <td mat-footer-cell *matFooterCellDef> SUMA </td>
       </ng-container>
       <ng-container matColumnDef="points">
         <th mat-header-cell *matHeaderCellDef>Punkty</th>
         <td mat-cell *matCellDef="let element">{{ getPoints(element) }}</td>
+        <td mat-footer-cell *matFooterCellDef> {{ sum}} </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr mat-footer-row *matFooterRowDef=" displayedColumns"></tr>
     </table>
-  <div class="x">X</div>
+    <div class="x">X X X</div>
 </div>
   <div class="Column">
     <app-scoreboard [team]="'TEAM2'"></app-scoreboard>

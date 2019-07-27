@@ -1,7 +1,7 @@
 export interface FamiliadaQuestion {
   id: number;
   question: string;
-  answers: FamiliadaResponse[]
+  answers: FamiliadaResponse[];
 }
 
 export interface FamiliadaResponse {
@@ -10,19 +10,19 @@ export interface FamiliadaResponse {
   points: number;
 }
 
-export interface QuestionState {
+export interface RoundState {
   questionId: number;
-}
-
-export interface AnswersState {
   answers: number[];
+  team: string;
+  sum: number;
+  wrong: number;
 }
 
-export interface ScoresState {
+export interface Scores {
   team1: number;
   team2: number;
 }
 
-export interface TeamState {
-  team: string
+export interface GameState {
+  state: string;
 }

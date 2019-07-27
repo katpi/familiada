@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
 import { FamiliadaService } from "../../services/familiada.service";
 import { Team } from "../../enums/enums";
-import { FamiliadaResponse } from "../../models/interfaces";
+import { FamiliadaResponse, RoundState } from "../../models/interfaces";
 import { isNullOrUndefined } from "util";
 import { of, Observable } from "rxjs";
+import { QuestionsService } from "../../services/questions.service";
 
 @Component({
   selector: "app-dashboard",
@@ -13,23 +14,19 @@ import { of, Observable } from "rxjs";
 export class DashboardComponent {
   displayedColumns: string[] = ["response", "points"];
   dataSource: Observable<FamiliadaResponse[]>;
+  questionId: number;
   question: string;
   team: string;
+  sum = 10;
   answers: FamiliadaResponse[] = [];
 
-  constructor(private familiadaService: FamiliadaService) {
-    this.familiadaService.question$.subscribe(question => {
-      this.question = question.question;
-      this.dataSource = of(new Array(question.answers.length));
-      this.answers = question.answers;
-    });
-    this.familiadaService.answers$.subscribe((answerIds: number[]) => {
-      const responses = new Array(this.answers.length);
-      answerIds.forEach((id: number) => (responses[id] = this.answers[id]));
-      this.dataSource = of(responses);
-    });
-    this.familiadaService.currentTeam$.subscribe((team: Team) => {
-      switch (team) {
+  constructor(
+    private familiadaService: FamiliadaService,
+    private questionsService: QuestionsService
+  ) {
+    this.questionId = -1;
+    this.familiadaService.getRoundState().subscribe(roundState => {
+      switch (roundState.team) {
         case Team.TEAM1:
           this.team = "A";
           return;
@@ -37,7 +34,25 @@ export class DashboardComponent {
           this.team = "B";
           return;
       }
+      this.refreshResponses(roundState);
+      if (this.questionId !== roundState.questionId) {
+        this.questionsService
+          .getQuestion(roundState.questionId)
+          .then(question => {
+            this.question = question.question;
+            this.answers = question.answers;
+            this.refreshResponses(roundState);
+          });
+      }
     });
+  }
+
+  private refreshResponses(roundState: RoundState) {
+    const responses = new Array(this.answers.length);
+    roundState.answers.forEach(
+      (id: number) => (responses[id] = this.answers[id])
+    );
+    this.dataSource = of(responses);
   }
 
   getResponse(element: FamiliadaResponse) {

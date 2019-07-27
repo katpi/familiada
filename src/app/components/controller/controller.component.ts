@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { FamiliadaService } from "../../services/familiada.service";
 import { Team } from "src/app/enums/enums";
 import { FamiliadaResponse } from "../../models/interfaces";
+import { QuestionsService } from "../../services/questions.service";
 
 @Component({
   selector: "app-controller",
@@ -14,14 +15,13 @@ export class ControllerComponent {
   question: string;
   team: string;
 
-  constructor(private familiadaService: FamiliadaService) {
+  constructor(
+    private familiadaService: FamiliadaService,
+    private questionsService: QuestionsService,
+  ) {
     this.familiadaService.initGame();
-    this.familiadaService.question$.subscribe(question => {
-      this.question = question.question;
-      this.dataSource = question.answers;
-    });
-    this.familiadaService.currentTeam$.subscribe((team: Team) => {
-      switch (team) {
+    this.familiadaService.getRoundState().subscribe(roundState => {
+      switch (roundState.team) {
         case Team.TEAM1:
           this.team = "A";
           return;
@@ -29,11 +29,17 @@ export class ControllerComponent {
           this.team = "B";
           return;
       }
+      this.questionsService
+        .getQuestion(roundState.questionId)
+        .then(question => {
+          this.question = question.question;
+          this.dataSource = question.answers;
+        });
     });
   }
 
   next() {
-    this.familiadaService.endRound();
+    this.familiadaService.nextRound();
   }
 
   changeTeam() {
@@ -41,7 +47,7 @@ export class ControllerComponent {
   }
 
   setTeam(team: string) {
-    this.familiadaService.setTeam(team);
+    this.familiadaService.setTeam(Team[team]);
   }
 
   claimAnswer(element: FamiliadaResponse) {

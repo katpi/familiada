@@ -23,17 +23,15 @@ export class ScoreboardComponent implements OnInit {
   constructor(private familiadaService: FamiliadaService) {}
 
   ngOnInit() {
-    switch (this.team) {
-      case Team.TEAM1:
-        this.familiadaService.team1Score$.subscribe(score => {
-          this.score = score;
-        });
-        return;
-      case Team.TEAM2:
-        this.familiadaService.team2Score$.subscribe(score => {
-          this.score = score;
-        });
-        return;
-    }
+    this.familiadaService.getScores().subscribe(scores => {
+      switch (this.team) {
+        case Team.TEAM1:
+          this.score = scores.team1;
+          break;
+        case Team.TEAM2:
+          this.score = scores.team2;
+          break;
+      }
+    });
   }
 }
