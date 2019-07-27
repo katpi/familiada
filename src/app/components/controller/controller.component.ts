@@ -28,10 +28,10 @@ export class ControllerComponent {
       switch (roundState.team) {
         case Team.TEAM1:
           this.team = "A";
-          return;
+          break;
         case Team.TEAM2:
           this.team = "B";
-          return;
+          break;
       }
       if (roundState.questionId > -1) {
         this.questionsService

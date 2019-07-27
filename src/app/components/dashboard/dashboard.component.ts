@@ -34,10 +34,10 @@ export class DashboardComponent {
       switch (roundState.team) {
         case Team.TEAM1:
           this.team = "A";
-          return;
+          break;
         case Team.TEAM2:
           this.team = "B";
-          return;
+          break;
       }
       this.refreshResponses(roundState);
       if (this.questionId !== roundState.questionId) {
