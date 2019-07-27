@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Subject, Observable } from "rxjs";
+import { Subject, Observable, ReplaySubject } from "rxjs";
 import { Team, GameStateEnum } from "../enums/enums";
 import {
   FamiliadaResponse,
@@ -22,7 +22,7 @@ export class FamiliadaService implements Familiada {
   private gameState: GameState;
 
   private roundSource = new Subject<RoundState>();
-  private scoresSource = new Subject<Scores>();
+  private scoresSource = new ReplaySubject<Scores>();
   private gameStateSource = new Subject<GameState>();
   settings: Settings;
 
