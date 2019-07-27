@@ -12,3 +12,9 @@ export enum GameStateEnum {
   JOKE = "JOKE",
   APPLAUSE = "APPLAUSE"
 }
+
+export enum GamePhase {
+  FIRST,
+  SECOND,
+  THIRD
+}

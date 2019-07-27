@@ -15,7 +15,7 @@ export class ChooseTeamDialog {
   ) {}
 
   setTeam(team: string) {
-    this.familiadaService.setTeam(Team[team]);
+    this.familiadaService.setFirstClaiming(Team[team]);
     this.dialogRef.close();
   }
 }

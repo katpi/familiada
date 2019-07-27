@@ -5,10 +5,12 @@ import {
   Scores
 } from "../models/interfaces";
 import { Observable } from "rxjs";
+import { Team } from '../enums/enums';
 
 export interface Familiada {
   initGame();
-  setTeam(team: string);
+  nextRound();
+  setFirstClaiming(team: Team);
   claimAnswer(element: FamiliadaResponse);
   claimWrong();
   getRoundState(): Observable<RoundState>;

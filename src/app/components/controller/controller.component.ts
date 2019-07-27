@@ -58,11 +58,11 @@ export class ControllerComponent {
   }
   
   changeTeam() {
-    this.familiadaService.changeTeam();
+    // this.familiadaService.changeTeam();
   }
 
   setTeam(team: string) {
-    this.familiadaService.setTeam(Team[team]);
+    // this.familiadaService.setTeam(Team[team]);
   }
 
   claimAnswer(element: FamiliadaResponse) {

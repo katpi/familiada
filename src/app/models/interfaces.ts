@@ -1,3 +1,9 @@
+export interface FamiliadaSettings {
+  team1Name: string;
+  team2Name: string;
+  questions: FamiliadaQuestion[];
+}
+
 export interface FamiliadaQuestion {
   id: number;
   question: string;
@@ -28,8 +34,8 @@ export interface GameState {
   state: string;
 }
 
-export interface Settings {
-  team1Name: string;
-  team2Name: string;
-  questions: FamiliadaQuestion[];
+export interface InitialPhaseState{
+  firstClaiming: string;
+  firstClaimingPoints: number;
+  secondClaimingPoints: number;
 }

@@ -1,17 +1,16 @@
 import { Injectable } from "@angular/core";
-import { Subject, Observable, ReplaySubject } from "rxjs";
-import { Team, GameStateEnum } from "../enums/enums";
+import { Observable } from "rxjs";
+import { Team, GameStateEnum, GamePhase } from "../enums/enums";
 import {
   FamiliadaResponse,
   RoundState,
   Scores,
   GameState,
-  Settings
+  FamiliadaSettings,
+  InitialPhaseState
 } from "../models/interfaces";
-import { AngularFirestore } from "@angular/fire/firestore";
-import { isNullOrUndefined } from "util";
 import { Familiada } from "./familiada";
-import { QuestionsService } from "./questions.service";
+import { DatabaseService } from "./database.service";
 
 @Injectable({
   providedIn: "root"
@@ -20,56 +19,24 @@ export class FamiliadaService implements Familiada {
   private roundState: RoundState;
   private scores: Scores;
   private gameState: GameState;
+  private settings: FamiliadaSettings;
+  private initialPhaseState: InitialPhaseState;
+  private phase: GamePhase;
 
-  private roundSource = new Subject<RoundState>();
-  private scoresSource = new ReplaySubject<Scores>();
-  private gameStateSource = new Subject<GameState>();
-  settings: Settings;
-
-  constructor(
-    private db: AngularFirestore,
-    private questionsService: QuestionsService
-  ) {
-    this.db
-      .doc("familiada/round")
-      .valueChanges()
-      .subscribe((roundState: RoundState) => {
-        if (isNullOrUndefined(roundState)) return;
-        this.roundSource.next(roundState);
-      });
-    this.db
-      .doc("familiada/scores")
-      .valueChanges()
-      .subscribe((scoresState: Scores) => {
-        if (isNullOrUndefined(scoresState)) return;
-        this.scoresSource.next(scoresState);
-      });
-    this.db
-      .doc("familiada/state")
-      .valueChanges()
-      .subscribe((gameState: GameState) => {
-        if (isNullOrUndefined(gameState)) return;
-        this.gameStateSource.next(gameState);
-      });
-    this.db
-      .doc("familiada/settings")
-      .valueChanges()
-      .subscribe((settings: Settings) => {
-        if (isNullOrUndefined(settings)) return;
-        this.settings = settings;
-      });
-      this.gameState = { state: GameStateEnum.START };
-      this.updateGameState(this.gameState);
+  constructor(private db: DatabaseService) {
+    this.db.getSettings().subscribe(settings => (this.settings = settings));
+    this.gameState.state = GameStateEnum.START;
+    this.db.updateGameState(this.gameState);
   }
 
   getRoundState(): Observable<RoundState> {
-    return this.roundSource.asObservable();
+    return this.db.getRoundState();
   }
   getScores(): Observable<Scores> {
-    return this.scoresSource.asObservable();
+    return this.db.getScores();
   }
   getGameState(): Observable<GameState> {
-    return this.gameStateSource.asObservable();
+    return this.db.getGameState();
   }
 
   initGame() {
@@ -81,44 +48,63 @@ export class FamiliadaService implements Familiada {
       sum: 0,
       wrong: 0
     };
-    this.updateRoundState(this.roundState);
+    this.db.updateRoundState(this.roundState);
     this.scores = { team1: 0, team2: 0 };
-    this.updateScores(this.scores);
+    this.db.updateScores(this.scores);
     this.nextRound();
   }
-
-  setTeam(team: Team) {
-    this.roundState.team = team;
-    this.updateRoundState(this.roundState);
+  
+  nextRound() {
+    this.roundState.questionId = this.roundState.questionId + 1;
+    this.roundState = {
+      questionId: this.roundState.questionId,
+      responsesCount: this.settings.questions[this.roundState.questionId]
+        .answers.length,
+      answers: [],
+      team: null,
+      sum: 0,
+      wrong: 0
+    };
+    this.db.updateRoundState(this.roundState);
+    this.gameState.state = GameStateEnum.NEW_ROUND;
+    this.db.updateGameState(this.gameState);
   }
 
-  changeTeam(): any {
-    this.roundState.team =
-      this.roundState.team === Team.TEAM1 ? Team.TEAM2 : Team.TEAM1;
-    this.updateRoundState(this.roundState);
-  }
-
-  nextRound(): any {
-    this.questionsService
-      .getAnswersCount(++this.roundState.questionId)
-      .then(responsesCount => {
-        this.roundState = {
-          responsesCount,
-          questionId: this.roundState.questionId,
-          answers: [],
-          team: null,
-          sum: 0,
-          wrong: 0
-        };
-        this.updateRoundState(this.roundState);
-        this.gameState.state = GameStateEnum.NEW_ROUND;
-        this.updateGameState(this.gameState);
-      });
+  setFirstClaiming(team: Team) {
+    this.phase = GamePhase.FIRST;
+    this.initialPhaseState = {
+      firstClaiming: team,
+      firstClaimingPoints: 0,
+      secondClaimingPoints: 0
+    };
+    this.setTeam(team);
   }
 
   claimWrong() {
     this.roundState.wrong = this.roundState.wrong + 1;
-    this.updateRoundState(this.roundState);
+    this.db.updateRoundState(this.roundState);
+    switch (this.phase) {
+      case GamePhase.FIRST:
+        if (this.roundState.team === this.initialPhaseState.firstClaiming) {
+          this.switchTeam;
+        } else {
+          this.switchTeam();
+          if (this.initialPhaseState.firstClaimingPoints > 0) {
+            this.secondPhase();
+          }
+        }
+        break;
+      case GamePhase.SECOND:
+        if (this.roundState.wrong > 2) {
+          this.switchTeam();
+          this.thirdPhase();
+        }
+        break;
+      case GamePhase.THIRD:
+        this.switchTeam();
+        this.endRound();
+        break;
+    }
   }
 
   claimAnswer(answer: FamiliadaResponse) {
@@ -126,7 +112,33 @@ export class FamiliadaService implements Familiada {
       this.roundState.answers = [...this.roundState.answers, answer.id];
       this.roundState.sum = this.roundState.sum + answer.points;
     }
-    this.updateRoundState(this.roundState);
+    this.db.updateRoundState(this.roundState);
+    switch (this.phase) {
+      case GamePhase.FIRST:
+        if (this.roundState.team === this.initialPhaseState.firstClaiming) {
+          this.initialPhaseState.firstClaimingPoints = answer.points;
+          if ((answer.id = 0)) {
+            this.secondPhase();
+          } else this.switchTeam();
+        } else {
+          this.initialPhaseState.secondClaimingPoints = answer.points;
+          if (
+            this.initialPhaseState.firstClaimingPoints >=
+            this.initialPhaseState.secondClaimingPoints
+          ) {
+            this.switchTeam();
+          }
+          this.checkEndRound();
+        }
+        break;
+      case GamePhase.SECOND:
+      case GamePhase.THIRD:
+        this.checkEndRound();
+        break;
+    }
+  }
+
+  private checkEndRound() {
     if (this.roundState.answers.length === this.roundState.responsesCount) {
       this.endRound();
     }
@@ -141,30 +153,33 @@ export class FamiliadaService implements Familiada {
         this.scores.team2 = this.scores.team2 + this.roundState.sum;
         break;
     }
-    this.updateScores(this.scores);
+    this.db.updateScores(this.scores);
     if (this.roundState.questionId + 1 === this.settings.questions.length) {
-      this.endGame();
+      this.gameState.state = GameStateEnum.END;
     } else {
       this.gameState.state = GameStateEnum.ROUND_ENDED;
-      this.updateGameState(this.gameState);
     }
+    this.db.updateGameState(this.gameState);
   }
 
-  private endGame() {
-    this.gameState.state = GameStateEnum.END;
-    this.updateGameState(this.gameState);
+  private switchTeam() {
+    const team = this.roundState.team === Team.TEAM1 ? Team.TEAM2 : Team.TEAM1;
+    this.roundState.wrong = 0;
+    this.setTeam(team);
   }
 
-  private updateGameState(state: GameState) {
-    console.log(state);
-    this.db.doc("familiada/state").set(state);
+  private setTeam(team: string) {
+    this.roundState.team = team;
+    this.db.updateRoundState(this.roundState);
   }
 
-  private updateScores(scores: Scores) {
-    this.db.doc("familiada/scores").set(scores);
+  private secondPhase() {
+    this.phase = GamePhase.SECOND;
+    this.roundState.wrong = 0;
   }
 
-  private updateRoundState(round: RoundState) {
-    this.db.doc("familiada/round").set(this.roundState);
+  private thirdPhase() {
+    this.phase = GamePhase.THIRD;
+    this.roundState.wrong = 0;
   }
 }
