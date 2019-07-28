@@ -7,7 +7,6 @@ import {
   Scores,
   GameState,
   FamiliadaSettings,
-  InitialPhaseState,
   FamiliadaQuestion
 } from '../models/interfaces';
 import { Familiada } from './familiada';
@@ -22,8 +21,6 @@ export class FamiliadaService implements Familiada {
   private gameState: GameState;
   private settings: FamiliadaSettings;
   private questions: FamiliadaQuestion[];
-  private initialPhaseState: InitialPhaseState;
-  private phase: GamePhase;
 
   getRoundState(): Observable<RoundState> {
     return this.db.roundState$;
@@ -56,9 +53,11 @@ export class FamiliadaService implements Familiada {
       responsesCount: -1,
       questionId: -1,
       answers: [],
+      phase: null,
       team: null,
       sum: 0,
-      wrong: 0
+      wrong: 0,
+      initialPhaseState: null,
     };
     this.db.updateRoundState(this.roundState);
     this.scores = { team1: 0, team2: 0 };
@@ -72,9 +71,11 @@ export class FamiliadaService implements Familiada {
       questionId: this.roundState.questionId,
       responsesCount: this.questions[this.roundState.questionId].answers.length,
       answers: [],
+      phase: null,
       team: null,
       sum: 0,
-      wrong: 0
+      wrong: 0,
+      initialPhaseState: null,
     };
     this.db.updateRoundState(this.roundState);
     this.gameState = { state: GameStateEnum.NEW_ROUND };
@@ -82,36 +83,33 @@ export class FamiliadaService implements Familiada {
   }
 
   setFirstClaiming(team: Team) {
-    this.phase = GamePhase.FIRST;
-    this.initialPhaseState = {
-      firstClaiming: team,
-      firstClaimingPoints: 0,
-      secondClaimingPoints: 0
-    };
+    this.firstPhase(team);
     this.setTeam(team);
+    this.gameState = { state: GameStateEnum.ROUND };
+    this.db.updateGameState(this.gameState);
   }
 
   claimWrong() {
     this.roundState.wrong = this.roundState.wrong + 1;
     this.db.updateRoundState(this.roundState);
-    switch (this.phase) {
-      case GamePhase.FIRST:
-        if (this.roundState.team === this.initialPhaseState.firstClaiming) {
+    switch (this.roundState.phase) {
+      case GamePhase[GamePhase.FIRST]:
+        if (this.roundState.team === this.roundState.initialPhaseState.firstClaiming) {
           this.switchTeam();
         } else {
           this.switchTeam();
-          if (this.initialPhaseState.firstClaimingPoints > 0) {
+          if (this.roundState.initialPhaseState.firstClaimingPoints > 0) {
             this.secondPhase();
           }
         }
         break;
-      case GamePhase.SECOND:
+      case GamePhase[GamePhase.SECOND]:
         if (this.roundState.wrong > 2) {
           this.switchTeam();
           this.thirdPhase();
         }
         break;
-      case GamePhase.THIRD:
+      case GamePhase[GamePhase.THIRD]:
         this.switchTeam();
         this.endRound();
         break;
@@ -124,18 +122,20 @@ export class FamiliadaService implements Familiada {
       this.roundState.sum = this.roundState.sum + answer.points;
     }
     this.db.updateRoundState(this.roundState);
-    switch (this.phase) {
-      case GamePhase.FIRST:
-        if (this.roundState.team === this.initialPhaseState.firstClaiming) {
-          this.initialPhaseState.firstClaimingPoints = answer.points;
+    switch (this.roundState.phase) {
+      case GamePhase[GamePhase.FIRST]:
+        if (this.roundState.team === this.roundState.initialPhaseState.firstClaiming) {
+          this.roundState.initialPhaseState.firstClaimingPoints = answer.points;
+          this.db.updateRoundState(this.roundState);
           if (answer.id === 0) {
             this.secondPhase();
           } else { this.switchTeam(); }
         } else {
-          this.initialPhaseState.secondClaimingPoints = answer.points;
+          this.roundState.initialPhaseState.secondClaimingPoints = answer.points;
+          this.db.updateRoundState(this.roundState);
           if (
-            this.initialPhaseState.firstClaimingPoints >=
-            this.initialPhaseState.secondClaimingPoints
+            this.roundState.initialPhaseState.firstClaimingPoints >=
+            this.roundState.initialPhaseState.secondClaimingPoints
           ) {
             this.switchTeam();
           }
@@ -143,8 +143,8 @@ export class FamiliadaService implements Familiada {
           this.checkEndRound();
         }
         break;
-      case GamePhase.SECOND:
-      case GamePhase.THIRD:
+      case GamePhase[GamePhase.SECOND]:
+      case GamePhase[GamePhase.THIRD]:
         this.checkEndRound();
         break;
     }
@@ -185,13 +185,27 @@ export class FamiliadaService implements Familiada {
     this.db.updateRoundState(this.roundState);
   }
 
-  private secondPhase() {
-    this.phase = GamePhase.SECOND;
+  private firstPhase(team: Team) {
+    this.roundState.phase = GamePhase[GamePhase.FIRST];
+    this.roundState.initialPhaseState = {
+      firstClaiming: team,
+      firstClaimingPoints: 0,
+      secondClaimingPoints: 0
+    };
     this.roundState.wrong = 0;
+    this.db.updateRoundState(this.roundState);
+  }
+
+  private secondPhase() {
+    this.roundState.phase = GamePhase[GamePhase.SECOND];
+    this.roundState.wrong = 0;
+    this.roundState.initialPhaseState = null;
+    this.db.updateRoundState(this.roundState);
   }
 
   private thirdPhase() {
-    this.phase = GamePhase.THIRD;
+    this.roundState.phase = GamePhase[GamePhase.THIRD];
     this.roundState.wrong = 0;
+    this.db.updateRoundState(this.roundState);
   }
 }

@@ -24,9 +24,11 @@ export interface RoundState {
   questionId: number;
   responsesCount: number;
   answers: number[];
+  phase: string;
   team: string;
   sum: number;
   wrong: number;
+  initialPhaseState: InitialPhaseState;
 }
 
 export interface Scores {
@@ -38,7 +40,7 @@ export interface GameState {
   state: string;
 }
 
-export interface InitialPhaseState{
+export interface InitialPhaseState {
   firstClaiming: string;
   firstClaimingPoints: number;
   secondClaimingPoints: number;
