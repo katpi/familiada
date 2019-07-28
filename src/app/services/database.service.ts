@@ -1,24 +1,33 @@
 import { Injectable } from "@angular/core";
-import { Subject, ReplaySubject, Observable } from "rxjs";
+import { ReplaySubject, Observable } from "rxjs";
 import {
   RoundState,
   Scores,
   GameState,
-  FamiliadaSettings
+  FamiliadaSettings,
+  FamiliadaQuestions
 } from "../models/interfaces";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { isNullOrUndefined } from "util";
+import { QuestionsService } from './questions.service';
 
 @Injectable({
   providedIn: "root"
 })
 export class DatabaseService {
-  private roundSource = new Subject<RoundState>();
+  private roundSource = new ReplaySubject<RoundState>();
   private scoresSource = new ReplaySubject<Scores>();
-  private gameStateSource = new Subject<GameState>();
-  private settingsSource = new Subject<FamiliadaSettings>();
+  private gameStateSource = new ReplaySubject<GameState>();
+  private settingsSource = new ReplaySubject<FamiliadaSettings>();
+  private questionsSource = new ReplaySubject<FamiliadaQuestions>();
 
-  constructor(private db: AngularFirestore) {
+  roundState$ = this.roundSource.asObservable();
+  scores$ = this.scoresSource.asObservable();
+  gameState$ = this.gameStateSource.asObservable();
+  settings$ = this.settingsSource.asObservable();
+  questions$ = this.questionsSource.asObservable();
+
+  constructor(private db: AngularFirestore, private qS: QuestionsService) {
     this.db
       .doc("familiada/round")
       .valueChanges()
@@ -41,29 +50,26 @@ export class DatabaseService {
         this.gameStateSource.next(gameState);
       });
     this.db
-      .doc("familiada/settings")
-      .valueChanges()
-      .subscribe((settings: FamiliadaSettings) => {
-        if (isNullOrUndefined(settings)) return;
-        this.settingsSource.next(settings);
-      });
-  }
-
-  getRoundState(): Observable<RoundState> {
-    return this.roundSource.asObservable();
-  }
-  getScores(): Observable<Scores> {
-    return this.scoresSource.asObservable();
-  }
-  getGameState(): Observable<GameState> {
-    return this.gameStateSource.asObservable();
-  }
-  getSettings(): Observable<FamiliadaSettings> {
-    return this.settingsSource.asObservable();
+        .doc("settings/settings")
+        .valueChanges()
+        .subscribe((settings: FamiliadaSettings) => {
+          if (isNullOrUndefined(settings)) return;
+          this.settingsSource.next(settings);
+        });
+    this.db
+          .doc("settings/questions")
+          .valueChanges()
+          .subscribe((questions: FamiliadaQuestions) => {
+            if (isNullOrUndefined(questions)) return;
+            this.questionsSource.next(questions);
+          });
+    this.qS.getQuestions().then(questions => {
+      this.db.doc('settings/questions').set({questions});
+      this.db.doc('settings/settings').set({questionsCount: questions.length});
+    });
   }
 
   updateGameState(state: GameState) {
-    console.log(state);
     this.db.doc("familiada/state").set(state);
   }
   updateScores(scores: Scores) {

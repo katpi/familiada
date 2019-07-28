@@ -15,7 +15,13 @@ export class QuestionsService {
       "./assets/questions.json"
     );
   }
-  
+
+  getQuestions(): Promise<FamiliadaQuestion[]> {
+    return this.http.get<FamiliadaQuestion[]>(
+      "./assets/questions.json"
+    ).toPromise();
+  }
+
   getQuestion(questionId: number): Promise<FamiliadaQuestion> {
     return this.questions
       .pipe(

@@ -8,7 +8,8 @@ import { Observable } from "rxjs";
 import { Team } from '../enums/enums';
 
 export interface Familiada {
-  initGame();
+  init();
+  startGame();
   nextRound();
   setFirstClaiming(team: Team);
   claimAnswer(element: FamiliadaResponse);

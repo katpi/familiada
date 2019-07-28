@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FamiliadaService } from './services/familiada.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'familiada';
+
+  constructor(private familiadaService: FamiliadaService) {}
+
+  init() {
+    this.familiadaService.init();
+  }
 }

@@ -1,45 +1,54 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { Team, GameStateEnum, GamePhase } from "../enums/enums";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Team, GameStateEnum, GamePhase } from '../enums/enums';
 import {
   FamiliadaResponse,
   RoundState,
   Scores,
   GameState,
   FamiliadaSettings,
-  InitialPhaseState
-} from "../models/interfaces";
-import { Familiada } from "./familiada";
-import { DatabaseService } from "./database.service";
+  InitialPhaseState,
+  FamiliadaQuestion
+} from '../models/interfaces';
+import { Familiada } from './familiada';
+import { DatabaseService } from './database.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class FamiliadaService implements Familiada {
   private roundState: RoundState;
   private scores: Scores;
   private gameState: GameState;
   private settings: FamiliadaSettings;
+  private questions: FamiliadaQuestion[];
   private initialPhaseState: InitialPhaseState;
   private phase: GamePhase;
 
+  getRoundState(): Observable<RoundState> {
+    return this.db.roundState$;
+  }
+  getScores(): Observable<Scores> {
+    return this.db.scores$;
+  }
+  getGameState(): Observable<GameState> {
+    return this.db.gameState$;
+  }
+
   constructor(private db: DatabaseService) {
-    this.db.getSettings().subscribe(settings => (this.settings = settings));
+    this.db.settings$.subscribe(settings => (this.settings = settings));
+    this.db.gameState$.subscribe(gameState => this.gameState = gameState);
+    this.db.scores$.subscribe(scores => this.scores = scores);
+    this.db.roundState$.subscribe(roundState => this.roundState = roundState);
+    this.db.questions$.subscribe(questionsState => this.questions = questionsState.questions);
+  }
+
+  init() {
     this.gameState = { state: GameStateEnum.START };
     this.db.updateGameState(this.gameState);
   }
 
-  getRoundState(): Observable<RoundState> {
-    return this.db.getRoundState();
-  }
-  getScores(): Observable<Scores> {
-    return this.db.getScores();
-  }
-  getGameState(): Observable<GameState> {
-    return this.db.getGameState();
-  }
-
-  initGame() {
+  startGame() {
     this.roundState = {
       responsesCount: -1,
       questionId: -1,
@@ -58,15 +67,14 @@ export class FamiliadaService implements Familiada {
     this.roundState.questionId = this.roundState.questionId + 1;
     this.roundState = {
       questionId: this.roundState.questionId,
-      responsesCount: this.settings.questions[this.roundState.questionId]
-        .answers.length,
+      responsesCount: this.questions[this.roundState.questionId].answers.length,
       answers: [],
       team: null,
       sum: 0,
       wrong: 0
     };
     this.db.updateRoundState(this.roundState);
-    this.gameState.state = GameStateEnum.NEW_ROUND;
+    this.gameState = { state: GameStateEnum.NEW_ROUND };
     this.db.updateGameState(this.gameState);
   }
 
@@ -86,7 +94,7 @@ export class FamiliadaService implements Familiada {
     switch (this.phase) {
       case GamePhase.FIRST:
         if (this.roundState.team === this.initialPhaseState.firstClaiming) {
-          this.switchTeam;
+          this.switchTeam();
         } else {
           this.switchTeam();
           if (this.initialPhaseState.firstClaimingPoints > 0) {
@@ -117,9 +125,9 @@ export class FamiliadaService implements Familiada {
       case GamePhase.FIRST:
         if (this.roundState.team === this.initialPhaseState.firstClaiming) {
           this.initialPhaseState.firstClaimingPoints = answer.points;
-          if ((answer.id = 0)) {
+          if (answer.id === 0) {
             this.secondPhase();
-          } else this.switchTeam();
+          } else { this.switchTeam(); }
         } else {
           this.initialPhaseState.secondClaimingPoints = answer.points;
           if (
@@ -155,7 +163,7 @@ export class FamiliadaService implements Familiada {
         break;
     }
     this.db.updateScores(this.scores);
-    if (this.roundState.questionId + 1 === this.settings.questions.length) {
+    if (this.roundState.questionId + 1 === this.settings.questionsCount) {
       this.gameState.state = GameStateEnum.END;
     } else {
       this.gameState.state = GameStateEnum.ROUND_ENDED;

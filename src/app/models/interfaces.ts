@@ -1,6 +1,10 @@
 export interface FamiliadaSettings {
   team1Name: string;
   team2Name: string;
+  questionsCount: number;
+}
+
+export interface FamiliadaQuestions {
   questions: FamiliadaQuestion[];
 }
 

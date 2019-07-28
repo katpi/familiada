@@ -12,7 +12,8 @@
       <a mat-list-item [routerLink]="'/dashboard'">Dashboard</a>
       <a mat-list-item [routerLink]="'/controller'">Controller</a>
       <a mat-list-item [routerLink]="'/setup'">Setup</a>
-      <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+      <mat-list-item (click)="init()">Init</mat-list-item>
+      <mat-list-item (click)="sidenav.toggle()">Close</mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
