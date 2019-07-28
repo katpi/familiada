@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { FamiliadaQuestion } from "../models/interfaces";
-import { Observable } from "rxjs";
-import { map, take } from "rxjs/operators";
-import { DatabaseService } from "./database.service";
+import { Injectable } from '@angular/core';
+import { FamiliadaQuestion } from '../models/interfaces';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { DatabaseService } from './database.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class QuestionsService {
   private questions: Observable<FamiliadaQuestion[]>;
@@ -40,7 +40,22 @@ export class QuestionsService {
       .toPromise();
   }
 
+  getQuestionIds(): Promise<number[]> {
+    return this.questions
+      .pipe(
+        map((questions: FamiliadaQuestion[]) => {
+          return questions.map((question: FamiliadaQuestion) => question.id).sort();
+        }),
+        take(1)
+      )
+      .toPromise();
+  }
+
   saveQuestion(question: FamiliadaQuestion) {
     this.db.addQuestion(question);
+  }
+
+  deleteQuestion(question: FamiliadaQuestion) {
+    this.db.deleteQuestion(question);
   }
 }

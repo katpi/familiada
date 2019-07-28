@@ -5,6 +5,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { EditQuestionDialog } from './edit-question-dialog/edit-question-dialog.component';
 import { QuestionsService } from '../../services/questions.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-settings',
@@ -25,7 +26,14 @@ export class SettingsComponent  {
     private questionService: QuestionsService,
     private dialog: MatDialog
     ) {
-    this.db.questions$.subscribe(questions => this.dataSource = questions);
+    this.db.questions$
+    .pipe(
+      map((questions: FamiliadaQuestion[]) => {
+        return questions.sort((a: FamiliadaQuestion, b: FamiliadaQuestion) => {
+          return a.id > b.id ? 1 : b.id > a.id ? -1 : 0;
+        });
+      })
+    ).subscribe(questions => this.dataSource = questions);
   }
 
   saveTeamNames() {
@@ -40,5 +48,7 @@ export class SettingsComponent  {
     this.dialog.open(EditQuestionDialog, {data: question});
   }
 
-  deleteQuestion(question: FamiliadaQuestion) {}
+  deleteQuestion(question: FamiliadaQuestion) {
+    this.questionService.deleteQuestion(question);
+  }
 }

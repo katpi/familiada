@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FamiliadaQuestion, FamiliadaResponse } from 'src/app/models/interfaces';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { QuestionsService } from 'src/app/services/questions.service';
-import { of } from 'rxjs';
 import { ResponsesDataSource } from './ResponsesDataSource';
 import { isNullOrUndefined } from 'util';
 
@@ -27,7 +26,17 @@ export class EditQuestionDialog {
   ) {
     if (isNullOrUndefined(this.data)) {
       this.data = { id: -1, question: null, answers: []};
+      this.questionsService.getQuestionIds().then((ids: number[]) => {
+        this.data.id = +ids[ids.length - 1] + 1;
+        this.questionForm.patchValue({
+          id: [this.data.id],
+        });
+      });
     }
+    this.init();
+  }
+
+  init() {
     this.answers = this.data.answers;
     this.dataSource.responsesSubject.next(this.answers);
     this.questionForm = this.fb.group({
@@ -39,6 +48,9 @@ export class EditQuestionDialog {
   }
 
   addResponse() {
+    if (this.questionForm.value.answer.length < 1 || this.questionForm.value.points.length < 1) {
+      return;
+    }
     const response: FamiliadaResponse = {
         id: null,
         points: this.questionForm.value.points,
@@ -61,6 +73,7 @@ export class EditQuestionDialog {
   }
 
   saveQuestion() {
+    this.addResponse();
     const answers = this.answers.sort((a: FamiliadaResponse, b: FamiliadaResponse) => {
       return (a.points > b.points) ? -1 : ((b.points > a.points) ? 1 : 0);
     });
@@ -68,11 +81,12 @@ export class EditQuestionDialog {
       this.answers[i].id = i;
     }
     const question: FamiliadaQuestion = {
-      id: this.data.id,
+      id: this.questionForm.value.id,
       question: this.questionForm.value.question,
       answers
     };
     this.questionsService.saveQuestion(question);
+    this.dialogRef.close();
   }
 }
 
