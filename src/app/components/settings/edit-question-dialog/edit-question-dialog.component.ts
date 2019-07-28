@@ -3,6 +3,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FamiliadaQuestion, FamiliadaResponse } from 'src/app/models/interfaces';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { QuestionsService } from 'src/app/services/questions.service';
+import { of } from 'rxjs';
+import { ResponsesDataSource } from './ResponsesDataSource';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-edit-question-dialog',
@@ -12,6 +15,7 @@ import { QuestionsService } from 'src/app/services/questions.service';
 // tslint:disable-next-line:component-class-suffix
 export class EditQuestionDialog {
   answers: FamiliadaResponse[];
+  dataSource = new ResponsesDataSource();
   displayedColumns: string[] = ['response', 'points', 'actions'];
   questionForm: FormGroup;
 
@@ -21,9 +25,14 @@ export class EditQuestionDialog {
     private questionsService: QuestionsService,
     @Inject(MAT_DIALOG_DATA) public data: FamiliadaQuestion,
   ) {
-    this.answers = data.answers;
+    if (isNullOrUndefined(this.data)) {
+      this.data = { id: -1, question: null, answers: []};
+    }
+    this.answers = this.data.answers;
+    this.dataSource.responsesSubject.next(this.answers);
     this.questionForm = this.fb.group({
-      question: [data.question],
+      question: [this.data.question],
+      id: [this.data.id],
       answer: [''],
       points: [''],
     });
@@ -36,10 +45,19 @@ export class EditQuestionDialog {
         response: this.questionForm.value.answer,
       };
     this.answers = [...this.answers, response];
+    this.dataSource.responsesSubject.next(this.answers);
     this.questionForm.patchValue({
       answer: [''],
       points: [''],
     });
+  }
+
+  deleteResponse(response: FamiliadaResponse) {
+    const index = this.answers.indexOf(response);
+    if (index > -1) {
+      this.answers.splice(index, 1);
+    }
+    this.dataSource.responsesSubject.next(this.answers);
   }
 
   saveQuestion() {
@@ -57,3 +75,6 @@ export class EditQuestionDialog {
     this.questionsService.saveQuestion(question);
   }
 }
+
+
+

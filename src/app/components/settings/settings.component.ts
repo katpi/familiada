@@ -32,7 +32,9 @@ export class SettingsComponent  {
     this.db.updateSettings(this.teamNamesForm.value);
   }
 
-  addQuestion() {}
+  addQuestion() {
+    this.dialog.open(EditQuestionDialog);
+  }
 
   editQuestion(question: FamiliadaQuestion) {
     this.dialog.open(EditQuestionDialog, {data: question});
