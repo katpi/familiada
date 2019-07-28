@@ -2,10 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FamiliadaQuestion, FamiliadaResponse } from 'src/app/models/interfaces';
 import { FormBuilder, FormGroup } from '@angular/forms';
-<<<<<<< HEAD
 import { QuestionsService } from 'src/app/services/questions.service';
-=======
->>>>>>> 406f961e5848a8e30694fcd88bde4865a0295f0c
 
 @Component({
   selector: 'app-edit-question-dialog',
@@ -15,11 +12,7 @@ import { QuestionsService } from 'src/app/services/questions.service';
 // tslint:disable-next-line:component-class-suffix
 export class EditQuestionDialog {
   answers: FamiliadaResponse[];
-<<<<<<< HEAD
   displayedColumns: string[] = ['response', 'points', 'actions'];
-=======
-  displayedColumns: string[] = ['response', 'points'];
->>>>>>> 406f961e5848a8e30694fcd88bde4865a0295f0c
   questionForm: FormGroup;
 
   constructor(
@@ -29,7 +22,6 @@ export class EditQuestionDialog {
     @Inject(MAT_DIALOG_DATA) public data: FamiliadaQuestion,
   ) {
     this.answers = data.answers;
-<<<<<<< HEAD
     this.questionForm = this.fb.group({
       question: [data.question],
       answer: [''],
@@ -63,17 +55,5 @@ export class EditQuestionDialog {
       answers
     };
     this.questionsService.saveQuestion(question);
-=======
-    const formFields = {question: [data.question]};
-    this.answers.forEach(answer => {
-      formFields['response' + answer.id] = [answer.response];
-      formFields['points' + answer.id] = [answer.points];
-    });
-    this.questionForm = this.fb.group(formFields);
-  }
-
-  saveQuestion() {
-    console.log(this.questionForm.value);
->>>>>>> 406f961e5848a8e30694fcd88bde4865a0295f0c
   }
 }

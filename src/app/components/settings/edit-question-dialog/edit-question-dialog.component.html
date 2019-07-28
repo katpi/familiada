@@ -1,7 +1,6 @@
 <h4>Pytanie:</h4>
 <form (ngSubmit)="saveQuestion()" [formGroup]="questionForm">
   <mat-form-field>
-<<<<<<< HEAD
     <input matInput formControlName="question"/>
   </mat-form-field>
   <h4>Odpowiedzi:</h4>
@@ -10,31 +9,11 @@
       <th mat-header-cell *matHeaderCellDef> Odpowiedź </th>
       <td mat-cell *matCellDef="let element" style="min-width: 320px; padding-right: 10px">
         {{element.response}}
-=======
-    <input matInput [value]="data.question" formControlName="question"/>
-  </mat-form-field>
-  <h4>Odpowiedzi:</h4>
-  <table mat-table [dataSource]="answers" class="mat-elevation-z8">
-    <ng-container matColumnDef="response">
-      <th mat-header-cell *matHeaderCellDef> Odpowiedź </th>
-      <td mat-cell *matCellDef="let element" style="padding-right: 10px">
-        <mat-form-field>
-          <input matInput [value]="element.response" formControlName="{{'response'+element.id}}"/>
-        </mat-form-field>
->>>>>>> 406f961e5848a8e30694fcd88bde4865a0295f0c
       </td>
     </ng-container>
     <ng-container matColumnDef="points">
       <th mat-header-cell *matHeaderCellDef> Punkty </th>
-<<<<<<< HEAD
       <td mat-cell *matCellDef="let element">{{element.points}}</td>
-=======
-      <td mat-cell *matCellDef="let element">
-        <mat-form-field>
-          <input matInput [value]="element.points" formControlName="{{'points'+element.id}}"/>
-        </mat-form-field>
-      </td>
->>>>>>> 406f961e5848a8e30694fcd88bde4865a0295f0c
     </ng-container>
 
     <ng-container matColumnDef="actions">
@@ -48,7 +27,6 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-<<<<<<< HEAD
   <mat-form-field style="width:250px">
     <input matInput formControlName="answer">
   </mat-form-field>
@@ -59,7 +37,4 @@
     <mat-icon>add</mat-icon>
   </button>
   <button mat-raised-button color="primary" class="save" type="submit">Zapisz</button>
-=======
-  <button mat-raised-button color="primary" type="submit">Zapisz</button>
->>>>>>> 406f961e5848a8e30694fcd88bde4865a0295f0c
 </form>
