@@ -1,11 +1,11 @@
 <h1>Ustawienia</h1>
 <h3>Nazwy drużyn</h3>
 <form (ngSubmit)="saveTeamNames()" [formGroup]="teamNamesForm">
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <span matPrefix>drużyna &nbsp;</span>
       <input matInput placeholder="Nazwa drużyny 1" formControlName="team1Name">
     </mat-form-field>
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <span matPrefix>drużyna &nbsp;</span>
       <input matInput placeholder="Nazwa drużyny 2" formControlName="team2Name">
     </mat-form-field>
