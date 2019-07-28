@@ -1,18 +1,18 @@
-import { Component } from "@angular/core";
-import { FamiliadaService } from "../../services/familiada.service";
-import { Team, GameStateEnum } from "../../enums/enums";
-import { FamiliadaResponse, RoundState } from "../../models/interfaces";
-import { isNullOrUndefined } from "util";
-import { of, Observable } from "rxjs";
-import { QuestionsService } from "../../services/questions.service";
+import { Component } from '@angular/core';
+import { FamiliadaService } from '../../services/familiada.service';
+import { Team, GameStateEnum } from '../../enums/enums';
+import { FamiliadaResponse, RoundState, FamiliadaSettings } from '../../models/interfaces';
+import { isNullOrUndefined } from 'util';
+import { of, Observable } from 'rxjs';
+import { QuestionsService } from '../../services/questions.service';
 
 @Component({
-  selector: "app-dashboard",
-  templateUrl: "./dashboard.component.html",
-  styleUrls: ["./dashboard.component.scss"]
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  displayedColumns: string[] = ["response", "points"];
+  displayedColumns: string[] = ['response', 'points'];
   dataSource: Observable<FamiliadaResponse[]>;
   questionId: number;
   question: string;
@@ -21,6 +21,7 @@ export class DashboardComponent {
   answers: FamiliadaResponse[];
   wrong: number;
   state: string = GameStateEnum.START;
+  settings: FamiliadaSettings = {questionsCount: -1, team1Name: 'A', team2Name: 'B'};
 
   constructor(
     private familiadaService: FamiliadaService,
@@ -33,10 +34,10 @@ export class DashboardComponent {
     this.familiadaService.getRoundState().subscribe(roundState => {
       switch (roundState.team) {
         case Team.TEAM1:
-          this.team = "A";
+          this.team = this.settings.team1Name;
           break;
         case Team.TEAM2:
-          this.team = "B";
+          this.team = this.settings.team2Name;
           break;
       }
       this.refreshResponses(roundState);
@@ -54,6 +55,9 @@ export class DashboardComponent {
       });
       this.sum = roundState.sum;
       this.wrong = roundState.wrong;
+    });
+    this.familiadaService.getSettings().subscribe((settings: FamiliadaSettings) => {
+      this.settings = settings;
     });
   }
 

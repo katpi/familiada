@@ -14,8 +14,8 @@ export class SettingsComponent  {
   dataSource: FamiliadaQuestion[];
   displayedColumns: string[] = ['id', 'question', 'answers', 'actions'];
   teamNamesForm = this.fb.group({
-    team1: [''],
-    team2: [''],
+    team1Name: [''],
+    team2Name: [''],
   });
 
   constructor(
@@ -27,7 +27,7 @@ export class SettingsComponent  {
   }
 
   saveTeamNames() {
-    console.log(this.teamNamesForm.value);
+    this.db.updateSettings(this.teamNamesForm.value);
   }
 
   addQuestion() {}

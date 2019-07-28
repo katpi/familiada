@@ -3,11 +3,11 @@
 <form (ngSubmit)="saveTeamNames()" [formGroup]="teamNamesForm">
     <mat-form-field class="example-full-width">
       <span matPrefix>drużyna &nbsp;</span>
-      <input matInput placeholder="Nazwa drużyny 1" formControlName="team1">
+      <input matInput placeholder="Nazwa drużyny 1" formControlName="team1Name">
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <span matPrefix>drużyna &nbsp;</span>
-      <input matInput placeholder="Nazwa drużyny 2" formControlName="team2">
+      <input matInput placeholder="Nazwa drużyny 2" formControlName="team2Name">
     </mat-form-field>
     <button mat-raised-button type="submit">Zapisz</button>
   </form>

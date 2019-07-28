@@ -1,24 +1,25 @@
-import { Component } from "@angular/core";
-import { FamiliadaService } from "../../services/familiada.service";
-import { Team, GameStateEnum } from "src/app/enums/enums";
-import { FamiliadaResponse } from "../../models/interfaces";
-import { QuestionsService } from "../../services/questions.service";
-import { MatDialog } from "@angular/material";
-import { ChooseTeamDialog } from "./choose-team-dialog/choose-team-dialog.component";
-import { RoundEndedDialog } from "./round-ended-dialog/round-ended-dialog.component";
+import { Component } from '@angular/core';
+import { FamiliadaService } from '../../services/familiada.service';
+import { Team, GameStateEnum } from 'src/app/enums/enums';
+import { FamiliadaResponse, FamiliadaSettings } from '../../models/interfaces';
+import { QuestionsService } from '../../services/questions.service';
+import { MatDialog } from '@angular/material';
+import { ChooseTeamDialog } from './choose-team-dialog/choose-team-dialog.component';
+import { RoundEndedDialog } from './round-ended-dialog/round-ended-dialog.component';
 
 @Component({
-  selector: "app-controller",
-  templateUrl: "./controller.component.html",
-  styleUrls: ["./controller.component.scss"]
+  selector: 'app-controller',
+  templateUrl: './controller.component.html',
+  styleUrls: ['./controller.component.scss']
 })
 export class ControllerComponent {
-  displayedColumns: string[] = ["response", "good"];
+  displayedColumns: string[] = ['response', 'good'];
   dataSource;
   question: string;
   team: string;
   answers: number[] = [];
   state: string;
+  settings: FamiliadaSettings = {questionsCount: -1, team1Name: 'A', team2Name: 'B'};
 
   constructor(
     private familiadaService: FamiliadaService,
@@ -28,10 +29,10 @@ export class ControllerComponent {
     this.familiadaService.getRoundState().subscribe(roundState => {
       switch (roundState.team) {
         case Team.TEAM1:
-          this.team = "A";
+          this.team = this.settings.team1Name;
           break;
         case Team.TEAM2:
-          this.team = "B";
+          this.team = this.settings.team2Name;
           break;
       }
       if (roundState.questionId > -1) {
@@ -48,12 +49,15 @@ export class ControllerComponent {
       this.state = gameState.state;
       switch (this.state) {
         case GameStateEnum.NEW_ROUND:
-          this.dialog.open(ChooseTeamDialog, { width: "250px" });
+          this.dialog.open(ChooseTeamDialog, { width: '250px' });
           break;
         case GameStateEnum.ROUND_ENDED:
-          this.dialog.open(RoundEndedDialog, { width: "250px" });
+          this.dialog.open(RoundEndedDialog, { width: '250px' });
           break;
       }
+    });
+    this.familiadaService.getSettings().subscribe((settings: FamiliadaSettings) => {
+      this.settings = settings;
     });
   }
 

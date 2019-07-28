@@ -1,18 +1,18 @@
-import { Injectable } from "@angular/core";
-import { ReplaySubject, Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
 import {
   RoundState,
   Scores,
   GameState,
   FamiliadaSettings,
-  FamiliadaQuestions
-} from "../models/interfaces";
-import { AngularFirestore } from "@angular/fire/firestore";
-import { isNullOrUndefined } from "util";
+  FamiliadaQuestions,
+} from '../models/interfaces';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { isNullOrUndefined } from 'util';
 import { QuestionsService } from './questions.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class DatabaseService {
   private roundSource = new ReplaySubject<RoundState>();
@@ -29,53 +29,56 @@ export class DatabaseService {
 
   constructor(private db: AngularFirestore, private qS: QuestionsService) {
     this.db
-      .doc("familiada/round")
+      .doc('familiada/round')
       .valueChanges()
       .subscribe((roundState: RoundState) => {
-        if (isNullOrUndefined(roundState)) return;
+        if (isNullOrUndefined(roundState)) { return; }
         this.roundSource.next(roundState);
       });
     this.db
-      .doc("familiada/scores")
+      .doc('familiada/scores')
       .valueChanges()
       .subscribe((scoresState: Scores) => {
-        if (isNullOrUndefined(scoresState)) return;
+        if (isNullOrUndefined(scoresState)) { return; }
         this.scoresSource.next(scoresState);
       });
     this.db
-      .doc("familiada/state")
+      .doc('familiada/state')
       .valueChanges()
       .subscribe((gameState: GameState) => {
-        if (isNullOrUndefined(gameState)) return;
+        if (isNullOrUndefined(gameState)) { return; }
         this.gameStateSource.next(gameState);
       });
     this.db
-        .doc("settings/settings")
+        .doc('settings/settings')
         .valueChanges()
         .subscribe((settings: FamiliadaSettings) => {
-          if (isNullOrUndefined(settings)) return;
+          if (isNullOrUndefined(settings)) { return; }
           this.settingsSource.next(settings);
         });
     this.db
-          .doc("settings/questions")
+          .doc('settings/questions')
           .valueChanges()
           .subscribe((questions: FamiliadaQuestions) => {
-            if (isNullOrUndefined(questions)) return;
+            if (isNullOrUndefined(questions)) { return; }
             this.questionsSource.next(questions);
           });
     this.qS.getQuestions().then(questions => {
       this.db.doc('settings/questions').set({questions});
-      this.db.doc('settings/settings').set({questionsCount: questions.length});
+      this.updateSettings({questionsCount: questions.length});
     });
   }
 
   updateGameState(state: GameState) {
-    this.db.doc("familiada/state").set(state);
+    this.db.doc('familiada/state').set(state);
   }
   updateScores(scores: Scores) {
-    this.db.doc("familiada/scores").set(scores);
+    this.db.doc('familiada/scores').set(scores);
   }
   updateRoundState(roundState: RoundState) {
-    this.db.doc("familiada/round").set(roundState);
+    this.db.doc('familiada/round').set(roundState);
+  }
+  updateSettings(settings: Partial<FamiliadaSettings>) {
+    this.db.doc('settings/settings').update(settings);
   }
 }

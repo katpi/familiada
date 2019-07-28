@@ -34,6 +34,9 @@ export class FamiliadaService implements Familiada {
   getGameState(): Observable<GameState> {
     return this.db.gameState$;
   }
+  getSettings(): Observable<FamiliadaSettings> {
+    return this.db.settings$;
+  }
 
   constructor(private db: DatabaseService) {
     this.db.settings$.subscribe(settings => (this.settings = settings));
