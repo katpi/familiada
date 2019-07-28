@@ -91,4 +91,19 @@ export class DatabaseService {
   deleteQuestion(question: FamiliadaQuestion) {
     this.db.collection<FamiliadaQuestion>('questions').doc(question.id.toString()).delete();
   }
+  replaceQuestionsInDb(questions: FamiliadaQuestion[]) {
+    if (isNullOrUndefined(questions) || questions.length < 1) {
+      return;
+    }
+    const familiadaCollection =
+    this.db.collection<FamiliadaQuestion>('questions');
+    familiadaCollection.valueChanges().subscribe((qs: FamiliadaQuestion[]) => {
+        const batch = this.db.firestore.batch();
+        qs.forEach(q => {
+          familiadaCollection.doc(q.id.toString()).delete();
+        });
+        batch.commit();
+        questions.forEach(question => this.addQuestion(question));
+      });
+  }
 }
