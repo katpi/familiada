@@ -30,7 +30,11 @@ export class SettingsComponent  {
     console.log(this.teamNamesForm.value);
   }
 
-  edit(question: FamiliadaQuestion) {
-    this.dialog.open(EditQuestionDialog);
+  addQuestion() {}
+
+  editQuestion(question: FamiliadaQuestion) {
+    this.dialog.open(EditQuestionDialog, {data: question});
   }
+
+  deleteQuestion(question: FamiliadaQuestion) {}
 }

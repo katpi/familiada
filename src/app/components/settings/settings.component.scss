@@ -1,20 +1,24 @@
 table {
   min-width:500px;
-  margin-bottom: 30px;
 }
 
 .mat-form-field {
   display: block;
 }
 
-.mat-icon {
-  margin-left:10px;
+.mat-icon-button {
+  margin-left: 10px;
 }
 
 button {
   margin: auto;
 }
 
-form {
+form, .bottom {
   text-align: center;
+}
+
+.bottom {
+  margin-top: 10px;
+  margin-bottom: 30px;
 }

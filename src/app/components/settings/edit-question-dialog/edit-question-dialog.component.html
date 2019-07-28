@@ -1,1 +1,14 @@
-<p>edit-question-dialog works!</p>
+<p>{{data.question}}</p>
+<table mat-table [dataSource]="answers" class="mat-elevation-z8">
+    <ng-container matColumnDef="response">
+      <th mat-header-cell *matHeaderCellDef style="min-width:300px"> Odpowiedź </th>
+      <td mat-cell *matCellDef="let element"> {{element.response}} </td>
+    </ng-container>
+    <ng-container matColumnDef="points">
+      <th mat-header-cell *matHeaderCellDef style="min-width: 30px"> Punkty </th>
+      <td mat-cell *matCellDef="let element"> {{element.points}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
