@@ -46,6 +46,7 @@ export class FamiliadaService implements Familiada {
   init() {
     this.gameState = { state: GameStateEnum.START };
     this.db.updateGameState(this.gameState);
+    this.logStatus('init');
   }
 
   startGame() {
@@ -63,6 +64,7 @@ export class FamiliadaService implements Familiada {
     this.scores = { team1: 0, team2: 0 };
     this.db.updateScores(this.scores);
     this.nextRound();
+    this.logStatus('startGame');
   }
 
   nextRound() {
@@ -80,6 +82,7 @@ export class FamiliadaService implements Familiada {
     this.db.updateRoundState(this.roundState);
     this.gameState = { state: GameStateEnum.NEW_ROUND };
     this.db.updateGameState(this.gameState);
+    this.logStatus('nextRound');
   }
 
   setFirstClaiming(team: Team) {
@@ -87,6 +90,7 @@ export class FamiliadaService implements Familiada {
     this.setTeam(team);
     this.gameState = { state: GameStateEnum.ROUND };
     this.db.updateGameState(this.gameState);
+    this.logStatus('setFirstClaiming');
   }
 
   claimWrong() {
@@ -114,6 +118,7 @@ export class FamiliadaService implements Familiada {
         this.endRound();
         break;
     }
+    this.logStatus('claimWrong');
   }
 
   claimAnswer(answer: FamiliadaResponse) {
@@ -148,6 +153,14 @@ export class FamiliadaService implements Familiada {
         this.checkEndRound();
         break;
     }
+    this.logStatus('claimAnswer');
+  }
+
+  switchTeam() {
+    const team = this.roundState.team === Team.TEAM1 ? Team.TEAM2 : Team.TEAM1;
+    this.roundState.wrong = 0;
+    this.setTeam(team);
+    this.logStatus('switchTeam');
   }
 
   private checkEndRound() {
@@ -172,12 +185,6 @@ export class FamiliadaService implements Familiada {
       this.gameState.state = GameStateEnum.ROUND_ENDED;
     }
     this.db.updateGameState(this.gameState);
-  }
-
-  switchTeam() {
-    const team = this.roundState.team === Team.TEAM1 ? Team.TEAM2 : Team.TEAM1;
-    this.roundState.wrong = 0;
-    this.setTeam(team);
   }
 
   private setTeam(team: string) {
@@ -207,5 +214,16 @@ export class FamiliadaService implements Familiada {
     this.roundState.phase = GamePhase[GamePhase.THIRD];
     this.roundState.wrong = 0;
     this.db.updateRoundState(this.roundState);
+  }
+
+  private logStatus(method: string) {
+    console.log({
+      method,
+      roundState: this.roundState,
+      scores: this.scores,
+      gameState: this.gameState,
+      settings: this.settings,
+      questions: this.questions
+    });
   }
 }

@@ -3,7 +3,7 @@
     <ng-container *ngSwitchCase="'END'"><app-game-ended></app-game-ended></ng-container>
     <ng-container *ngSwitchDefault>
       <h1>
-        Pytanie:{{question}}
+        Pytanie: {{question}}
         <button *ngIf="state==='ROUND_ENDED'" mat-fab mat-raised-button color="" (click)="next()" matTooltip="Następna runda" >
             <mat-icon>navigate_next</mat-icon>
         </button>
