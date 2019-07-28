@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { Team } from "../../enums/enums";
-import { FamiliadaService } from "../../services/familiada.service";
+import { Component, OnInit, Input } from '@angular/core';
+import { Team } from '../../enums/enums';
+import { FamiliadaService } from '../../services/familiada.service';
 
 @Component({
-  selector: "app-scoreboard",
-  templateUrl: "./scoreboard.component.html",
-  styleUrls: ["./scoreboard.component.scss"]
+  selector: 'app-scoreboard',
+  templateUrl: './scoreboard.component.html',
+  styleUrls: ['./scoreboard.component.scss']
 })
 export class ScoreboardComponent implements OnInit {
   @Input() team: Team;
@@ -14,9 +14,9 @@ export class ScoreboardComponent implements OnInit {
   getTeamName() {
     switch (this.team) {
       case Team.TEAM1:
-        return "A";
+        return 'A';
       case Team.TEAM2:
-        return "B";
+        return 'B';
     }
   }
 
