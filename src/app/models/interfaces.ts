@@ -4,10 +4,6 @@ export interface FamiliadaSettings {
   questionsCount: number;
 }
 
-export interface FamiliadaQuestions {
-  questions: FamiliadaQuestion[];
-}
-
 export interface FamiliadaQuestion {
   id: number;
   question: string;

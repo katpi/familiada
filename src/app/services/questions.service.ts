@@ -1,25 +1,30 @@
-import { Injectable } from '@angular/core';
-import { FamiliadaResponse, FamiliadaQuestion } from '../models/interfaces';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { FamiliadaQuestion } from "../models/interfaces";
+import { Observable } from "rxjs";
+import { map, take } from "rxjs/operators";
+import { DatabaseService } from "./database.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class QuestionsService {
   private questions: Observable<FamiliadaQuestion[]>;
 
-  constructor(private http: HttpClient) {
-    this.questions = this.http.get<FamiliadaQuestion[]>(
-      './assets/questions.json'
-    );
-  }
-
-  getQuestions(): Promise<FamiliadaQuestion[]> {
-    return this.http.get<FamiliadaQuestion[]>(
-      './assets/questions.json'
-    ).toPromise();
+  constructor(private db: DatabaseService) {
+    this.questions = this.db.questions$;
+    // .pipe(
+    //   map((questions: FamiliadaQuestion[]) => {
+    //     return questions.sort((a: FamiliadaQuestion, b: FamiliadaQuestion) => {
+    //       return a.id > b.id ? -1 : b.id > a.id ? 1 : 0;
+    //     });
+    //   }),
+    //   map((questions: FamiliadaQuestion[]) => {
+    //     for (let i = 0; i < questions.length; i++) {
+    //       questions[i].id = i;
+    //     }
+    //     return questions;
+    //   })
+    // );
   }
 
   getQuestion(questionId: number): Promise<FamiliadaQuestion> {
@@ -29,7 +34,8 @@ export class QuestionsService {
           return questionId >= 0 && questions.length > questionId
             ? questions[questionId]
             : null;
-        })
+        }),
+        take(1)
       )
       .toPromise();
   }
@@ -47,6 +53,6 @@ export class QuestionsService {
   }
 
   saveQuestion(question: FamiliadaQuestion) {
-    console.log(question);
+    this.db.addQuestion(question);
   }
 }

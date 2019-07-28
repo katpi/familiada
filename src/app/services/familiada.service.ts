@@ -40,7 +40,7 @@ export class FamiliadaService implements Familiada {
     this.db.gameState$.subscribe(gameState => this.gameState = gameState);
     this.db.scores$.subscribe(scores => this.scores = scores);
     this.db.roundState$.subscribe(roundState => this.roundState = roundState);
-    this.db.questions$.subscribe(questionsState => this.questions = questionsState.questions);
+    this.db.questions$.subscribe(questions => this.questions = questions);
   }
 
   init() {

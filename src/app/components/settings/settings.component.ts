@@ -23,7 +23,7 @@ export class SettingsComponent  {
     private db: DatabaseService,
     private dialog: MatDialog
     ) {
-    this.db.questions$.subscribe(questionsState => this.dataSource = questionsState.questions);
+    this.db.questions$.subscribe(questions => this.dataSource = questions);
   }
 
   saveTeamNames() {
