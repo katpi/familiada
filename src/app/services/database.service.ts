@@ -63,10 +63,10 @@ export class DatabaseService {
             if (isNullOrUndefined(questions)) { return; }
             this.questionsSource.next(questions);
           });
-    this.qS.getQuestions().then(questions => {
-      this.db.doc('settings/questions').set({questions});
-      this.updateSettings({questionsCount: questions.length});
-    });
+    // this.qS.getQuestions().then(questions => {
+    //   this.db.doc('settings/questions').set({questions});
+    //   this.updateSettings({questionsCount: questions.length});
+    // });
   }
 
   updateGameState(state: GameState) {

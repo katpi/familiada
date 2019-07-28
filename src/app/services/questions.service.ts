@@ -1,24 +1,24 @@
-import { Injectable } from "@angular/core";
-import { FamiliadaResponse, FamiliadaQuestion } from "../models/interfaces";
-import { HttpClient } from "@angular/common/http";
-import { Observable, of } from "rxjs";
-import { map } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { FamiliadaResponse, FamiliadaQuestion } from '../models/interfaces';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class QuestionsService {
   private questions: Observable<FamiliadaQuestion[]>;
 
   constructor(private http: HttpClient) {
     this.questions = this.http.get<FamiliadaQuestion[]>(
-      "./assets/questions.json"
+      './assets/questions.json'
     );
   }
 
   getQuestions(): Promise<FamiliadaQuestion[]> {
     return this.http.get<FamiliadaQuestion[]>(
-      "./assets/questions.json"
+      './assets/questions.json'
     ).toPromise();
   }
 
@@ -44,5 +44,9 @@ export class QuestionsService {
         })
       )
       .toPromise();
+  }
+
+  saveQuestion(question: FamiliadaQuestion) {
+    console.log(question);
   }
 }
