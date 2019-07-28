@@ -56,13 +56,13 @@ export class ControllerComponent {
       }
     });
   }
-  
+
   changeTeam() {
-    // this.familiadaService.changeTeam();
+    this.familiadaService.switchTeam();
   }
 
-  setTeam(team: string) {
-    // this.familiadaService.setTeam(Team[team]);
+  next() {
+    this.familiadaService.nextRound();
   }
 
   claimAnswer(element: FamiliadaResponse) {

@@ -171,7 +171,7 @@ export class FamiliadaService implements Familiada {
     this.db.updateGameState(this.gameState);
   }
 
-  private switchTeam() {
+  switchTeam() {
     const team = this.roundState.team === Team.TEAM1 ? Team.TEAM2 : Team.TEAM1;
     this.roundState.wrong = 0;
     this.setTeam(team);
