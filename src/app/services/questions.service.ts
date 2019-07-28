@@ -40,18 +40,6 @@ export class QuestionsService {
       .toPromise();
   }
 
-  getAnswersCount(questionId: number): Promise<number> {
-    return this.questions
-      .pipe(
-        map((questions: FamiliadaQuestion[]) => {
-          return questionId >= 0 && questions.length > questionId
-            ? questions[questionId].answers.length
-            : 0;
-        })
-      )
-      .toPromise();
-  }
-
   saveQuestion(question: FamiliadaQuestion) {
     this.db.addQuestion(question);
   }

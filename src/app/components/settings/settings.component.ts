@@ -4,6 +4,7 @@ import { FamiliadaQuestion } from 'src/app/models/interfaces';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { EditQuestionDialog } from './edit-question-dialog/edit-question-dialog.component';
+import { QuestionsService } from '../../services/questions.service';
 
 @Component({
   selector: 'app-settings',
@@ -21,6 +22,7 @@ export class SettingsComponent  {
   constructor(
     private fb: FormBuilder,
     private db: DatabaseService,
+    private questionService: QuestionsService,
     private dialog: MatDialog
     ) {
     this.db.questions$.subscribe(questions => this.dataSource = questions);
