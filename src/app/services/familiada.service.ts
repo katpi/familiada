@@ -25,7 +25,7 @@ export class FamiliadaService implements Familiada {
 
   constructor(private db: DatabaseService) {
     this.db.getSettings().subscribe(settings => (this.settings = settings));
-    this.gameState.state = GameStateEnum.START;
+    this.gameState = { state: GameStateEnum.START };
     this.db.updateGameState(this.gameState);
   }
 
@@ -53,7 +53,7 @@ export class FamiliadaService implements Familiada {
     this.db.updateScores(this.scores);
     this.nextRound();
   }
-  
+
   nextRound() {
     this.roundState.questionId = this.roundState.questionId + 1;
     this.roundState = {
@@ -128,6 +128,7 @@ export class FamiliadaService implements Familiada {
           ) {
             this.switchTeam();
           }
+          this.secondPhase();
           this.checkEndRound();
         }
         break;
