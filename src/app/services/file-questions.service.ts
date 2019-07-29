@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { FamiliadaQuestion } from '../models/interfaces';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,16 +15,7 @@ export class QuestionsFromFileService {
     );
   }
 
-  getQuestion(questionId: number): Promise<FamiliadaQuestion> {
-    return this.questions
-      .pipe(
-        map((questions: FamiliadaQuestion[]) => {
-          return questionId >= 0 && questions.length > questionId
-            ? questions[questionId]
-            : null;
-        }),
-        take(1)
-      )
-      .toPromise();
+  getQuestions(): Observable<FamiliadaQuestion[]> {
+    return this.questions;
   }
 }

@@ -1,19 +1,30 @@
-import { Injectable } from '@angular/core';
-import { FamiliadaQuestion } from '../models/interfaces';
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { DatabaseService } from './database.service';
-import { isNullOrUndefined } from 'util';
+import { Injectable } from "@angular/core";
+import { FamiliadaQuestion } from "../models/interfaces";
+import { Observable } from "rxjs";
+import { map, take } from "rxjs/operators";
+import { DatabaseService } from "./database.service";
+import { isNullOrUndefined } from "util";
+import { QuestionsFromFileService } from "./file-questions.service";
+import { environment } from "../../environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class QuestionsService {
   private questions: Observable<FamiliadaQuestion[]>;
 
-  constructor(private db: DatabaseService) {
-    this.questions = this.db.questions$
-    .pipe(
+  constructor(
+    private db: DatabaseService,
+    private qff: QuestionsFromFileService
+  ) {
+    if (environment.getQuestionsFromFile) {
+      this.qff
+        .getQuestions()
+        .subscribe(questions =>
+          questions.forEach(question => this.db.addQuestion(question))
+        );
+    }
+    this.questions = this.db.questions$.pipe(
       map((questions: FamiliadaQuestion[]) => {
         return questions.sort((a: FamiliadaQuestion, b: FamiliadaQuestion) => {
           return a.order > b.order ? 1 : b.order > a.order ? -1 : 0;
@@ -21,7 +32,7 @@ export class QuestionsService {
       })
     );
   }
-  
+
   getQuestions(): Observable<FamiliadaQuestion[]> {
     return this.questions;
   }

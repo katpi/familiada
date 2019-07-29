@@ -42,7 +42,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AngularFirestoreModule,
     ReactiveFormsModule,
   ],
-  // providers: [{ provide: QuestionsService, useClass: QuestionsFromFileService}],
+  providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
     ChooseTeamDialog,
