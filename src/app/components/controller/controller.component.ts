@@ -86,4 +86,14 @@ export class ControllerComponent {
   isDone(row: FamiliadaResponse) {
     return this.answers.includes(row.id);
   }
+
+  requestJoke() {
+    this.familiadaService.requestJoke();
+  }
+  finishJoke() {
+    this.familiadaService.finishJoke();
+  }
+  requestApplause() {
+    this.familiadaService.requestApplause();
+  }
 }

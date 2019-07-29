@@ -1,7 +1,7 @@
 <img class="background" [src]="'assets/familiada.jpg'">
 <img class="zombie" [src]="'assets/zombie.jpg'" [hidden]="!boom">
 <ng-container *ngIf="!isDashboard">
-  <button mat-fab mat-raised-button color="primary" class="play" (click)="requestPlayIntro()" matTooltip="Rozpocznij grę">
+  <button mat-fab mat-raised-button color="primary" class="play" (click)="requestPlayIntro()" matTooltip="Graj intro">
     <mat-icon>music_note</mat-icon>
   </button>
   <button mat-fab mat-raised-button color="primary" class="next" (click)="next()" matTooltip="Rozpocznij grę">

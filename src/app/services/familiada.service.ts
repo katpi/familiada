@@ -49,7 +49,15 @@ export class FamiliadaService implements Familiada {
   requestPlayIntro() {
     this.db.requestPlayIntro();
   }
-
+  requestJoke() {
+    this.db.requestJoke();
+  }
+  finishJoke() {
+    this.db.finishJoke();
+  }
+  requestApplause() {
+    this.db.requestApplause();
+  }
   clearEvent() {
     this.db.clearEvent();
   }

@@ -1,18 +1,22 @@
-import { Component } from '@angular/core';
-import { FamiliadaService } from '../../services/familiada.service';
-import { Team, GameStateEnum } from '../../enums/enums';
-import { FamiliadaResponse, RoundState, FamiliadaSettings } from '../../models/interfaces';
-import { isNullOrUndefined } from 'util';
-import { of, Observable } from 'rxjs';
-import { QuestionsService } from '../../services/questions.service';
+import { Component } from "@angular/core";
+import { FamiliadaService } from "../../services/familiada.service";
+import { Team, GameStateEnum, FamiliadaEvent } from "../../enums/enums";
+import {
+  FamiliadaResponse,
+  RoundState,
+  FamiliadaSettings
+} from "../../models/interfaces";
+import { isNullOrUndefined } from "util";
+import { of, Observable } from "rxjs";
+import { QuestionsService } from "../../services/questions.service";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.scss"]
 })
 export class DashboardComponent {
-  displayedColumns: string[] = ['response', 'points'];
+  displayedColumns: string[] = ["response", "points"];
   dataSource: Observable<FamiliadaResponse[]>;
   questionId: number;
   question: string;
@@ -21,7 +25,13 @@ export class DashboardComponent {
   answers: FamiliadaResponse[];
   wrong: number;
   state: string = GameStateEnum.START;
-  settings: FamiliadaSettings = {questionsCount: -1, team1Name: 'A', team2Name: 'B'};
+  settings: FamiliadaSettings = {
+    questionsCount: -1,
+    team1Name: "A",
+    team2Name: "B"
+  };
+  joke = false;
+  applause = false;
 
   constructor(
     private familiadaService: FamiliadaService,
@@ -57,8 +67,25 @@ export class DashboardComponent {
       this.sum = roundState.sum;
       this.wrong = roundState.wrong;
     });
-    this.familiadaService.getSettings().subscribe((settings: FamiliadaSettings) => {
-      this.settings = settings;
+    this.familiadaService
+      .getSettings()
+      .subscribe((settings: FamiliadaSettings) => {
+        this.settings = settings;
+      });
+    this.familiadaService.getEvent().subscribe((event: FamiliadaEvent) => {
+      switch (event) {
+        case FamiliadaEvent.JOKE:
+          this.joke = true;
+          break;
+        case FamiliadaEvent.END_JOKE:
+          this.joke = false;
+          break;
+        case FamiliadaEvent.APPLAUSE:
+          this.applause = true;
+          this.familiadaService.clearEvent();
+          setTimeout(() => (this.applause = false), 3000);
+          break;
+      }
     });
   }
 

@@ -1,39 +1,50 @@
 <ng-container [ngSwitch]="state">
-    <ng-container *ngSwitchCase="'START'"><app-start-game [isDashboard]="true"></app-start-game></ng-container>
-    <ng-container *ngSwitchCase="'END'"><app-game-ended></app-game-ended></ng-container>
-    <ng-container *ngSwitchDefault>
-<h1>Pytanie {{(questionId + 1)}}: {{question}}</h1>
-<h2>
-  Odpowiada: drużyna <strong>{{ team }}</strong>
-</h2>
-<div class="Row">
-  <div class="Column">
-    <app-scoreboard [team]="'TEAM1'"></app-scoreboard>
-  </div>
-  <div class="Column">
-    <table mat-table [dataSource]="dataSource|async" class="mat-elevation-z8">
-      <ng-container matColumnDef="response">
-        <th mat-header-cell *matHeaderCellDef>Odpowiedź</th>
-        <td mat-cell *matCellDef="let element">{{ getResponse(element) }}</td>
-        <td mat-footer-cell *matFooterCellDef style="font-weight: bolder;"> SUMA </td>
-      </ng-container>
-      <ng-container matColumnDef="points">
-        <th mat-header-cell *matHeaderCellDef>Punkty</th>
-        <td mat-cell *matCellDef="let element" style="text-align: right">{{ getPoints(element) }}</td>
-        <td mat-footer-cell *matFooterCellDef style="text-align: right; font-weight: bolder;"> {{ sum}} </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      <tr mat-footer-row *matFooterRowDef=" displayedColumns"></tr>
-    </table>
-    <div class="x">
-      <span *ngIf="wrong === 1">X</span>
-      <span *ngIf="wrong === 2">X X</span>
-      <span *ngIf="wrong > 2">X X X</span>
-    </div>
+  <ng-container *ngSwitchCase="'START'">
+     <app-start-game [isDashboard]="true"></app-start-game>
+  </ng-container>
+  <ng-container *ngSwitchCase="'END'">
+     <app-game-ended></app-game-ended>
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+     <h1>Pytanie {{(questionId + 1)}}: {{question}}</h1>
+     <h2>
+        Odpowiada: drużyna <strong>{{ team }}</strong>
+     </h2>
+     <div class="Row">
+        <div class="Column">
+           <app-scoreboard [team]="'TEAM1'"></app-scoreboard>
+        </div>
+        <div class="Column">
+           <table mat-table [dataSource]="dataSource|async" class="mat-elevation-z8">
+              <ng-container matColumnDef="response">
+                 <th mat-header-cell *matHeaderCellDef>Odpowiedź</th>
+                 <td mat-cell *matCellDef="let element">{{ getResponse(element) }}</td>
+                 <td mat-footer-cell *matFooterCellDef style="font-weight: bolder;"> SUMA </td>
+              </ng-container>
+              <ng-container matColumnDef="points">
+                 <th mat-header-cell *matHeaderCellDef>Punkty</th>
+                 <td mat-cell *matCellDef="let element" style="text-align: right">{{ getPoints(element) }}</td>
+                 <td mat-footer-cell *matFooterCellDef style="text-align: right; font-weight: bolder;"> {{ sum}} </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              <tr mat-footer-row *matFooterRowDef=" displayedColumns"></tr>
+           </table>
+           <div class="x">
+              <span *ngIf="wrong === 1">X</span>
+              <span *ngIf="wrong === 2">X X</span>
+              <span *ngIf="wrong > 2">X X X</span>
+           </div>
+        </div>
+        <div class="Column">
+           <app-scoreboard [team]="'TEAM2'"></app-scoreboard>
+        </div>
+     </div>
+  </ng-container>
+</ng-container>
+<div class="joke" *ngIf="joke">
+  <h1>ŻART</h1>
 </div>
-  <div class="Column">
-    <app-scoreboard [team]="'TEAM2'"></app-scoreboard>
-  </div>
+<div class="applause" *ngIf="applause">
+  <h1>BRAWA</h1>
 </div>
-</ng-container></ng-container>
