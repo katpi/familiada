@@ -12,6 +12,7 @@
     <button mat-raised-button type="submit">Zapisz</button>
   </form>
 <h3>Pytania</h3>
+<div class="example-container mat-elevation-z8">
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef style="min-width: 50px"> Numer </th>
@@ -43,6 +44,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+</div>
   <div class="bottom">
     <button mat-raised-button color="primary" (click)="addQuestion()">Dodaj nowe pytanie</button>
   </div>
