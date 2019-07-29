@@ -21,7 +21,7 @@ export class QuestionsService {
       })
     );
   }
-
+  
   getQuestions(): Observable<FamiliadaQuestion[]> {
     return this.questions;
   }
