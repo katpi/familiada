@@ -1,9 +1,11 @@
 <ng-container [ngSwitch]="state">
     <ng-container *ngSwitchCase="'START'"><app-start-game [isDashboard]="false"></app-start-game></ng-container>
     <ng-container *ngSwitchCase="'NEXT_ROUND'">
-        <h2>Wybierz drużynę!</h2>
-        <button mat-fab mat-raised-button color="primary" (click)="setTeam('TEAM1')" matTooltip="Drużyna 1">1</button>
-        <button mat-fab mat-raised-button color="warn" (click)="setTeam('TEAM2')" matTooltip="Drużyna 2">2</button>
+        <h2 style="text-align: center">Wybierz drużynę!</h2>
+        <div class="buttons">
+          <button mat-fab mat-raised-button color="primary" (click)="setTeam('TEAM1')" matTooltip="Drużyna 1">1</button>
+          <button mat-fab mat-raised-button color="warn" (click)="setTeam('TEAM2')" matTooltip="Drużyna 2">2</button>
+        </div>
     </ng-container>
     <ng-container *ngSwitchCase="'END'"><app-game-ended></app-game-ended></ng-container>
     <ng-container *ngSwitchDefault>
@@ -34,7 +36,9 @@
           <tr mat-footer-row *matFooterRowDef="['bad']" class="example-second-footer-row" ></tr>
        </table>
     </ng-container>
- </ng-container>
- <button mat-fab mat-raised-button color="" (click)="requestJoke()" matTooltip="Ogłoś żart" >ŻART</button>
- <button mat-fab mat-raised-button color="" (click)="finishJoke()" matTooltip="Zakończ żart" >STOP</button>
- <button mat-fab mat-raised-button color="" (click)="requestApplause()" matTooltip="Ogłoś brawa" >BRAWA</button>
+</ng-container>
+<div class="buttons">
+  <button mat-fab mat-raised-button color="" (click)="requestJoke()" matTooltip="Ogłoś żart" >ŻART</button>
+  <button mat-fab mat-raised-button color="" (click)="finishJoke()" matTooltip="Zakończ żart" >STOP</button>
+  <button mat-fab mat-raised-button color="" (click)="requestApplause()" matTooltip="Ogłoś brawa" >BRAWA</button>
+</div>

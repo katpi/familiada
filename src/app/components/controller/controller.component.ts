@@ -36,6 +36,9 @@ export class ControllerComponent {
         case Team.TEAM2:
           this.team = this.settings.team2Name;
           break;
+        default:
+          this.team = null;
+          break;
       }
       if (roundState.questionId > -1) {
         this.questionsService

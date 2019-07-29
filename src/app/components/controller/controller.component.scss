@@ -11,6 +11,15 @@ table {
 }
 
 .done {
-  text-decoration: line-through;
-  background: lightgrey;
+    text-decoration: line-through;
+    background: lightgrey;
+}
+
+.buttons {
+    width: 100%;
+    text-align: center;
+
+    button {
+        margin: 20px;
+    }
 }
