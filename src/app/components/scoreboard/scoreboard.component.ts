@@ -47,7 +47,6 @@ export class ScoreboardComponent implements OnInit {
           this.wrong = roundState.team2Wrong;
           break;
       }
-      console.log(this.wrong);
     });
   }
 }

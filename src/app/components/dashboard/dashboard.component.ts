@@ -56,6 +56,9 @@ export class DashboardComponent {
         this.questionsService
           .getQuestion(roundState.questionId)
           .then(question => {
+            if (isNullOrUndefined(question)) {
+              return;
+            }
             this.question = question.question;
             this.answers = question.answers;
             this.refreshResponses(roundState);

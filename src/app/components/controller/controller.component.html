@@ -18,7 +18,11 @@
     </ng-container>
     <ng-container *ngSwitchCase="'END'"><app-game-ended></app-game-ended></ng-container>
     <ng-container *ngSwitchDefault>
-      <h1>Pytanie {{(questionId + 1)}}: {{question}}</h1>
+      <h1>Pytanie {{(questionId + 1)}}: {{question}}
+          <button mat-fab mat-raised-button color="" (click)="next()" matTooltip="Następna runda" >
+              <mat-icon>navigate_next</mat-icon>
+          </button>
+      </h1>
       <h2> Odpowiada: drużyna <strong>{{team}}</strong>
         <button mat-fab mat-raised-button color="" (click)="changeTeam()" matTooltip="Zmiana drużyny" >
            <mat-icon>autorenew</mat-icon>
