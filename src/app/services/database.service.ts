@@ -7,14 +7,14 @@ import {
   FamiliadaSettings,
   FamiliadaQuestion
 } from '../models/interfaces';
-import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { isNullOrUndefined } from 'util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
-  private questions: FamiliadaQuestion[];
+  private questions: FamiliadaQuestion[] = [];
 
   private roundSource = new ReplaySubject<RoundState>();
   private scoresSource = new ReplaySubject<Scores>();
