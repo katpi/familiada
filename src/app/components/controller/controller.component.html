@@ -1,9 +1,14 @@
 <ng-container [ngSwitch]="state">
     <ng-container *ngSwitchCase="'START'"><app-start-game [isDashboard]="false"></app-start-game></ng-container>
+    <ng-container *ngSwitchCase="'NEXT_ROUND'">
+        <h2>Wybierz drużynę!</h2>
+        <button mat-fab mat-raised-button color="primary" (click)="setTeam('TEAM1')" matTooltip="Drużyna 1">1</button>
+        <button mat-fab mat-raised-button color="warn" (click)="setTeam('TEAM2')" matTooltip="Drużyna 2">2</button>
+    </ng-container>
     <ng-container *ngSwitchCase="'END'"><app-game-ended></app-game-ended></ng-container>
     <ng-container *ngSwitchDefault>
       <h1>
-        Pytanie: {{question}}
+        Pytanie {{(questionId + 1)}}: {{question}}
         <button *ngIf="state==='ROUND_ENDED'" mat-fab mat-raised-button color="" (click)="next()" matTooltip="Następna runda" >
             <mat-icon>navigate_next</mat-icon>
         </button>

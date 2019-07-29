@@ -25,13 +25,7 @@ export class EditQuestionDialog {
     @Inject(MAT_DIALOG_DATA) public data: FamiliadaQuestion,
   ) {
     if (isNullOrUndefined(this.data)) {
-      this.data = { id: -1, question: null, answers: []};
-      this.questionsService.getQuestionIds().then((ids: number[]) => {
-        this.data.id = +ids[ids.length - 1] + 1;
-        this.questionForm.patchValue({
-          id: [this.data.id],
-        });
-      });
+      this.data = { id: ' ', order: 6666, question: null, answers: []};
     }
     this.init();
   }
@@ -41,7 +35,6 @@ export class EditQuestionDialog {
     this.dataSource.responsesSubject.next(this.answers);
     this.questionForm = this.fb.group({
       question: [this.data.question],
-      id: [this.data.id],
       answer: [''],
       points: [''],
     });
@@ -72,7 +65,7 @@ export class EditQuestionDialog {
     this.dataSource.responsesSubject.next(this.answers);
   }
 
-  saveQuestion() {
+  async saveQuestion() {
     this.addResponse();
     const answers = this.answers.sort((a: FamiliadaResponse, b: FamiliadaResponse) => {
       return (a.points > b.points) ? -1 : ((b.points > a.points) ? 1 : 0);
@@ -81,11 +74,13 @@ export class EditQuestionDialog {
       this.answers[i].id = i;
     }
     const question: FamiliadaQuestion = {
-      id: this.questionForm.value.id,
+      id: this.data.id,
+      order: this.data.order,
       question: this.questionForm.value.question,
       answers
     };
-    this.questionsService.saveQuestion(question);
+    console.log(question)
+    await this.questionsService.saveQuestion(question);
     this.dialogRef.close();
   }
 }

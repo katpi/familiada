@@ -180,12 +180,28 @@ export class FamiliadaService implements Familiada {
     }
     this.db.updateScores(this.scores);
     if (this.roundState.questionId + 1 === this.settings.questionsCount) {
-      this.gameState.state = GameStateEnum.END;
+      this.endGame();
     } else {
       this.gameState.state = GameStateEnum.ROUND_ENDED;
+      this.db.updateGameState(this.gameState);
     }
-    this.db.updateGameState(this.gameState);
   }
+
+private endGame() {
+  this.roundState = {
+    responsesCount: -1,
+    questionId: -1,
+    answers: [],
+    phase: null,
+    team: null,
+    sum: 0,
+    wrong: 0,
+    initialPhaseState: null,
+  };
+  this.db.updateRoundState(this.roundState);
+  this.gameState.state = GameStateEnum.END;
+  this.db.updateGameState(this.gameState);
+}
 
   private setTeam(team: string) {
     this.roundState.team = team;

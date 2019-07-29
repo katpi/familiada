@@ -1,9 +1,6 @@
 <h4>Pytanie:</h4>
 <form (ngSubmit)="saveQuestion()" [formGroup]="questionForm">
-  <mat-form-field style="width: 50px">
-    <input matInput formControlName="id" placeholder="Numer"/>
-  </mat-form-field>
-  <mat-form-field style="width: 250px">
+  <mat-form-field>
     <input matInput formControlName="question" placeholder="Pytanie"/>
   </mat-form-field>
   <h4>Odpowiedzi:</h4>

@@ -7,7 +7,7 @@ import {
   FamiliadaSettings,
   FamiliadaQuestion
 } from '../models/interfaces';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { isNullOrUndefined } from 'util';
 
 @Injectable({
@@ -85,25 +85,33 @@ export class DatabaseService {
     this.db.doc('settings/settings').update(settings);
   }
 
-  addQuestion(question: FamiliadaQuestion) {
-    this.db.collection<FamiliadaQuestion>('questions').doc(question.id.toString()).set(question);
+  // tslint:disable-next-line:member-ordering
+  private questionsCollection = this.db.collection<FamiliadaQuestion>('questions');
+  async addQuestion(question: FamiliadaQuestion) {
+    const docRef: DocumentReference = await this.questionsCollection.add(question);
+    question.id = docRef.id;
+    await this.saveQuestion(question);
   }
-  deleteQuestion(question: FamiliadaQuestion) {
-    this.db.collection<FamiliadaQuestion>('questions').doc(question.id.toString()).delete();
+  async saveQuestion(question: FamiliadaQuestion) {
+    this.questionsCollection.doc(question.id).set(question);
   }
-  replaceQuestionsInDb(questions: FamiliadaQuestion[]) {
+  async deleteQuestion(question: FamiliadaQuestion) {
+    this.questionsCollection.doc(question.id).delete();
+  }
+  async updateQuestionsOrder(questions: FamiliadaQuestion[]) {
     if (isNullOrUndefined(questions) || questions.length < 1) {
       return;
     }
-    const familiadaCollection =
-    this.db.collection<FamiliadaQuestion>('questions');
-    familiadaCollection.valueChanges().subscribe((qs: FamiliadaQuestion[]) => {
-        const batch = this.db.firestore.batch();
-        qs.forEach(q => {
-          familiadaCollection.doc(q.id.toString()).delete();
-        });
-        batch.commit();
-        questions.forEach(question => this.addQuestion(question));
-      });
+    questions.sort((a: FamiliadaQuestion, b: FamiliadaQuestion) => {
+      return a.order > b.order ? 1 : b.order > a.order ? -1 : 0;
+    });
+    for (let i = 0; i < questions.length; i++) {
+      const question = questions[i];
+      if (i !== question.order) {
+        question.order = i;
+        await this.questionsCollection.doc(question.id).set(question);
+      }
+    }
+    return questions;
   }
 }

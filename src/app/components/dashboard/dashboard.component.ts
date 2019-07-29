@@ -32,6 +32,7 @@ export class DashboardComponent {
     this.answers = [];
     this.wrong = 0;
     this.familiadaService.getRoundState().subscribe(roundState => {
+      this.questionId = roundState.questionId;
       switch (roundState.team) {
         case Team.TEAM1:
           this.team = this.settings.team1Name;

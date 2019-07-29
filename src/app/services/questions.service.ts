@@ -11,20 +11,14 @@ export class QuestionsService {
   private questions: Observable<FamiliadaQuestion[]>;
 
   constructor(private db: DatabaseService) {
-    this.questions = this.db.questions$;
-    // .pipe(
-    //   map((questions: FamiliadaQuestion[]) => {
-    //     return questions.sort((a: FamiliadaQuestion, b: FamiliadaQuestion) => {
-    //       return a.id > b.id ? -1 : b.id > a.id ? 1 : 0;
-    //     });
-    //   }),
-    //   map((questions: FamiliadaQuestion[]) => {
-    //     for (let i = 0; i < questions.length; i++) {
-    //       questions[i].id = i;
-    //     }
-    //     return questions;
-    //   })
-    // );
+    this.questions = this.db.questions$
+    .pipe(
+      map((questions: FamiliadaQuestion[]) => {
+        return questions.sort((a: FamiliadaQuestion, b: FamiliadaQuestion) => {
+          return a.order > b.order ? 1 : b.order > a.order ? -1 : 0;
+        });
+      })
+    );
   }
 
   getQuestion(questionId: number): Promise<FamiliadaQuestion> {
@@ -40,11 +34,11 @@ export class QuestionsService {
       .toPromise();
   }
 
-  getQuestionIds(): Promise<number[]> {
+  getQuestionOrderNumbers(): Promise<number[]> {
     return this.questions
       .pipe(
         map((questions: FamiliadaQuestion[]) => {
-          return questions.map((question: FamiliadaQuestion) => question.id).sort();
+          return questions.map((question: FamiliadaQuestion) => question.order).sort();
         }),
         take(1)
       )
@@ -52,7 +46,11 @@ export class QuestionsService {
   }
 
   saveQuestion(question: FamiliadaQuestion) {
-    this.db.addQuestion(question);
+    if (question.id === ' ') {
+      this.db.addQuestion(question);
+    } else {
+      this.db.saveQuestion(question);
+    }
   }
 
   deleteQuestion(question: FamiliadaQuestion) {

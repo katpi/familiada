@@ -25,27 +25,12 @@ export class SettingsComponent  {
     private db: DatabaseService,
     private questionService: QuestionsService,
     private dialog: MatDialog
-    ) {
-    this.db.questions$.pipe(
-      map((questions: FamiliadaQuestion[]) => {
-        return questions.sort((a: FamiliadaQuestion, b: FamiliadaQuestion) => {
-          return a.id > b.id ? -1 : b.id > a.id ? 1 : 0;
-        });
-      }),
-      map((questions: FamiliadaQuestion[]) => {
-        for (let i = 0; i < questions.length; i++) {
-          questions[i].id = i;
-        }
-        return questions;
-      }),
-      take(1)
-      ).subscribe(questions => {
-      this.dataSource = questions;
+  ) {
+    this.db.questions$.subscribe(questions => {
+      this.db.updateQuestionsOrder(questions).then(orderedQuestions => {
+        this.dataSource = orderedQuestions;
+      });
     });
-  }
-
-  replaceQuestionsInDb(questions: FamiliadaQuestion[]) {
-    this.db.replaceQuestionsInDb(questions);
   }
 
   saveTeamNames() {
@@ -60,7 +45,7 @@ export class SettingsComponent  {
     this.dialog.open(EditQuestionDialog, {data: question});
   }
 
-  deleteQuestion(question: FamiliadaQuestion) {
-    this.questionService.deleteQuestion(question);
+  async deleteQuestion(question: FamiliadaQuestion) {
+    await this.questionService.deleteQuestion(question);
   }
 }

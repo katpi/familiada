@@ -5,7 +5,8 @@ export interface FamiliadaSettings {
 }
 
 export interface FamiliadaQuestion {
-  id: number;
+  id: string;
+  order: number;
   question: string;
   answers: FamiliadaResponse[];
 }

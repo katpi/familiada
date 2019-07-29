@@ -16,6 +16,7 @@ export class ControllerComponent {
   displayedColumns: string[] = ['response', 'good'];
   dataSource;
   question: string;
+  questionId: number;
   team: string;
   answers: number[] = [];
   state: string;
@@ -27,6 +28,7 @@ export class ControllerComponent {
     private dialog: MatDialog
   ) {
     this.familiadaService.getRoundState().subscribe(roundState => {
+      this.questionId = roundState.questionId;
       switch (roundState.team) {
         case Team.TEAM1:
           this.team = this.settings.team1Name;
@@ -63,6 +65,10 @@ export class ControllerComponent {
 
   changeTeam() {
     this.familiadaService.switchTeam();
+  }
+
+  setTeam(team: string) {
+    this.familiadaService.setFirstClaiming(Team[team]);
   }
 
   next() {
