@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material';
 import { EditQuestionDialog } from './edit-question-dialog/edit-question-dialog.component';
 import { QuestionsService } from '../../services/questions.service';
 import { map, take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -26,10 +27,9 @@ export class SettingsComponent  {
     private questionService: QuestionsService,
     private dialog: MatDialog
   ) {
-    this.db.questions$.subscribe(questions => {
-      this.db.updateQuestionsOrder(questions).then(orderedQuestions => {
-        this.dataSource = orderedQuestions;
-      });
+    this.questionService.getQuestions().subscribe(questions => {
+      console.log(questions)
+      this.dataSource = questions;
     });
   }
 

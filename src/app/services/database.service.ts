@@ -14,6 +14,8 @@ import { isNullOrUndefined } from 'util';
   providedIn: 'root'
 })
 export class DatabaseService {
+  private questions: FamiliadaQuestion[];
+
   private roundSource = new ReplaySubject<RoundState>();
   private scoresSource = new ReplaySubject<Scores>();
   private gameStateSource = new ReplaySubject<GameState>();
@@ -67,8 +69,9 @@ export class DatabaseService {
       .collection<FamiliadaQuestion>('questions')
       .valueChanges().subscribe((questions: FamiliadaQuestion[]) => {
         if (isNullOrUndefined(questions)) { return; }
-        this.questionsSource.next(questions);
-        this.updateSettings({questionsCount: questions.length});
+        this.questions = questions;
+        this.questionsSource.next(this.questions);
+        this.updateSettings({questionsCount: this.questions.length});
       });
   }
 
@@ -88,17 +91,21 @@ export class DatabaseService {
   // tslint:disable-next-line:member-ordering
   private questionsCollection = this.db.collection<FamiliadaQuestion>('questions');
   async addQuestion(question: FamiliadaQuestion) {
-    const docRef: DocumentReference = await this.questionsCollection.add(question);
-    question.id = docRef.id;
+    question.id = this.db.createId();
     await this.saveQuestion(question);
   }
   async saveQuestion(question: FamiliadaQuestion) {
+    this.questions.push(question);
     this.questionsCollection.doc(question.id).set(question);
+    await this.updateQuestionsOrder();
   }
   async deleteQuestion(question: FamiliadaQuestion) {
-    this.questionsCollection.doc(question.id).delete();
+    this.questions.splice(this.questions.indexOf(question), 1);
+    await this.questionsCollection.doc(question.id).delete();
+    await this.updateQuestionsOrder();
   }
-  async updateQuestionsOrder(questions: FamiliadaQuestion[]) {
+  private async updateQuestionsOrder() {
+    const questions = this.questions;
     if (isNullOrUndefined(questions) || questions.length < 1) {
       return;
     }
@@ -112,6 +119,5 @@ export class DatabaseService {
         await this.questionsCollection.doc(question.id).set(question);
       }
     }
-    return questions;
   }
 }

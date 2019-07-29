@@ -3,6 +3,7 @@ import { FamiliadaQuestion } from '../models/interfaces';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { DatabaseService } from './database.service';
+import { isNullOrUndefined } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,10 @@ export class QuestionsService {
     );
   }
 
+  getQuestions(): Observable<FamiliadaQuestion[]> {
+    return this.questions;
+  }
+
   getQuestion(questionId: number): Promise<FamiliadaQuestion> {
     return this.questions
       .pipe(
@@ -34,26 +39,15 @@ export class QuestionsService {
       .toPromise();
   }
 
-  getQuestionOrderNumbers(): Promise<number[]> {
-    return this.questions
-      .pipe(
-        map((questions: FamiliadaQuestion[]) => {
-          return questions.map((question: FamiliadaQuestion) => question.order).sort();
-        }),
-        take(1)
-      )
-      .toPromise();
-  }
-
   saveQuestion(question: FamiliadaQuestion) {
-    if (question.id === ' ') {
+    if (isNullOrUndefined(question.id)) {
       this.db.addQuestion(question);
     } else {
       this.db.saveQuestion(question);
     }
   }
 
-  deleteQuestion(question: FamiliadaQuestion) {
-    this.db.deleteQuestion(question);
+  async deleteQuestion(question: FamiliadaQuestion) {
+    await this.db.deleteQuestion(question);
   }
 }

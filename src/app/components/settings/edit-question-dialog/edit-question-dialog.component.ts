@@ -25,7 +25,7 @@ export class EditQuestionDialog {
     @Inject(MAT_DIALOG_DATA) public data: FamiliadaQuestion,
   ) {
     if (isNullOrUndefined(this.data)) {
-      this.data = { id: ' ', order: 6666, question: null, answers: []};
+      this.data = { id: null, order: 6666, question: null, answers: []};
     }
     this.init();
   }
@@ -41,9 +41,6 @@ export class EditQuestionDialog {
   }
 
   addResponse() {
-    if (this.questionForm.value.answer.length < 1 || this.questionForm.value.points.length < 1) {
-      return;
-    }
     const response: FamiliadaResponse = {
         id: null,
         points: this.questionForm.value.points,
@@ -66,7 +63,6 @@ export class EditQuestionDialog {
   }
 
   async saveQuestion() {
-    this.addResponse();
     const answers = this.answers.sort((a: FamiliadaResponse, b: FamiliadaResponse) => {
       return (a.points > b.points) ? -1 : ((b.points > a.points) ? 1 : 0);
     });
@@ -79,7 +75,6 @@ export class EditQuestionDialog {
       question: this.questionForm.value.question,
       answers
     };
-    console.log(question)
     await this.questionsService.saveQuestion(question);
     this.dialogRef.close();
   }
