@@ -1,20 +1,24 @@
 <ng-container [ngSwitch]="state">
     <ng-container *ngSwitchCase="'START'"><app-start-game [isDashboard]="false"></app-start-game></ng-container>
-    <ng-container *ngSwitchCase="'NEXT_ROUND'">
-        <h2 style="text-align: center">Wybierz drużynę!</h2>
+    <ng-container *ngSwitchCase="'NEW_ROUND'">
+        <h1>Pytanie {{(questionId + 1)}}: {{question}}</h1>
+        <h2>Wybierz drużynę!</h2>
         <div class="buttons">
           <button mat-fab mat-raised-button color="primary" (click)="setTeam('TEAM1')" matTooltip="Drużyna 1">1</button>
           <button mat-fab mat-raised-button color="warn" (click)="setTeam('TEAM2')" matTooltip="Drużyna 2">2</button>
         </div>
     </ng-container>
+    <ng-container *ngSwitchCase="'ROUND_ENDED'">
+        <h2>Runda zakończona!</h2>
+        <div class="buttons">
+          <button mat-fab mat-raised-button color="" (click)="next()" matTooltip="Następna runda" >
+              <mat-icon>navigate_next</mat-icon>
+          </button>
+        </div>
+    </ng-container>
     <ng-container *ngSwitchCase="'END'"><app-game-ended></app-game-ended></ng-container>
     <ng-container *ngSwitchDefault>
-      <h1>
-        Pytanie {{(questionId + 1)}}: {{question}}
-        <button *ngIf="state==='ROUND_ENDED'" mat-fab mat-raised-button color="" (click)="next()" matTooltip="Następna runda" >
-            <mat-icon>navigate_next</mat-icon>
-        </button>
-      </h1>
+      <h1>Pytanie {{(questionId + 1)}}: {{question}}</h1>
       <h2> Odpowiada: drużyna <strong>{{team}}</strong>
         <button mat-fab mat-raised-button color="" (click)="changeTeam()" matTooltip="Zmiana drużyny" >
            <mat-icon>autorenew</mat-icon>

@@ -142,6 +142,15 @@ export class DatabaseService {
   requestPlayIntro() {
     this.db.doc("familiada/events").set({ event: FamiliadaEvent.PLAY_INTRO });
   }
+  requestPlayGoodAnswer() {
+    this.db.doc("familiada/events").set({ event: FamiliadaEvent.GOOD_ANSWER });
+  }
+  requestPlayWrongAnswer() {
+    this.db.doc("familiada/events").set({ event: FamiliadaEvent.WRONG_ANSWER });
+  }
+  requestPlayNewRound() {
+    this.db.doc("familiada/events").set({ event: FamiliadaEvent.NEW_ROUND });
+  }
   requestJoke() {
     this.db.doc("familiada/events").set({ event: FamiliadaEvent.JOKE });
   }

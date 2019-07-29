@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Team } from '../../enums/enums';
 import { FamiliadaService } from '../../services/familiada.service';
-import { Observable, of } from 'rxjs';
 import { FamiliadaSettings, RoundState } from 'src/app/models/interfaces';
 
 @Component({
@@ -11,6 +10,7 @@ import { FamiliadaSettings, RoundState } from 'src/app/models/interfaces';
 })
 export class ScoreboardComponent implements OnInit {
   @Input() team: Team;
+  @Input() isEndGame: boolean;
   teamName: string;
   score = 0;
   wrong = 0;

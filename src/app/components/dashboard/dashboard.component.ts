@@ -73,6 +73,7 @@ export class DashboardComponent {
         this.settings = settings;
       });
     this.familiadaService.getEvent().subscribe((event: FamiliadaEvent) => {
+      let audio = new Audio();
       switch (event) {
         case FamiliadaEvent.JOKE:
           this.joke = true;
@@ -84,6 +85,24 @@ export class DashboardComponent {
           this.applause = true;
           this.familiadaService.clearEvent();
           setTimeout(() => (this.applause = false), 3000);
+          break;
+        case FamiliadaEvent.GOOD_ANSWER:
+          audio.src = "../../assets/audio/good_answer.ogg";
+          audio.load();
+          audio.play();
+          this.familiadaService.clearEvent();
+          break;
+        case FamiliadaEvent.WRONG_ANSWER:
+          audio.src = "../../assets/audio/wrong_answer.ogg";
+          audio.load();
+          audio.play();
+          this.familiadaService.clearEvent();
+          break;
+        case FamiliadaEvent.NEW_ROUND:
+          audio.src = "../../assets/audio/new_round.ogg";
+          audio.load();
+          audio.play();
+          this.familiadaService.clearEvent();
           break;
       }
     });

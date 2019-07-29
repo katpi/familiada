@@ -2,7 +2,7 @@
     <h3>Wyniki drużyny {{teamName}}</h3>
     <h1>{{score}}</h1>
 </mat-card>
-<div class="x">
+<div *ngIf="!isEndGame" class="x">
    <span *ngIf="wrong === 1">X</span>
    <span *ngIf="wrong === 2">X X</span>
    <span *ngIf="wrong > 2">X X X</span>

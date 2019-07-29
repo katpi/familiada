@@ -1,31 +1,31 @@
-import { Component } from '@angular/core';
-import { FamiliadaService } from '../../services/familiada.service';
-import { Team, GameStateEnum } from 'src/app/enums/enums';
-import { FamiliadaResponse, FamiliadaSettings } from '../../models/interfaces';
-import { QuestionsService } from '../../services/questions.service';
-import { MatDialog } from '@angular/material';
-import { ChooseTeamDialog } from './choose-team-dialog/choose-team-dialog.component';
-import { RoundEndedDialog } from './round-ended-dialog/round-ended-dialog.component';
+import { Component } from "@angular/core";
+import { FamiliadaService } from "../../services/familiada.service";
+import { Team } from "src/app/enums/enums";
+import { FamiliadaResponse, FamiliadaSettings } from "../../models/interfaces";
+import { QuestionsService } from "../../services/questions.service";
 
 @Component({
-  selector: 'app-controller',
-  templateUrl: './controller.component.html',
-  styleUrls: ['./controller.component.scss']
+  selector: "app-controller",
+  templateUrl: "./controller.component.html",
+  styleUrls: ["./controller.component.scss"]
 })
 export class ControllerComponent {
-  displayedColumns: string[] = ['response', 'good'];
+  displayedColumns: string[] = ["response", "good"];
   dataSource;
   question: string;
   questionId: number;
   team: string;
   answers: number[] = [];
   state: string;
-  settings: FamiliadaSettings = {questionsCount: -1, team1Name: 'A', team2Name: 'B'};
+  settings: FamiliadaSettings = {
+    questionsCount: -1,
+    team1Name: "A",
+    team2Name: "B"
+  };
 
   constructor(
     private familiadaService: FamiliadaService,
-    private questionsService: QuestionsService,
-    private dialog: MatDialog
+    private questionsService: QuestionsService
   ) {
     this.familiadaService.getRoundState().subscribe(roundState => {
       this.questionId = roundState.questionId;
@@ -52,18 +52,12 @@ export class ControllerComponent {
     });
     this.familiadaService.getGameState().subscribe(gameState => {
       this.state = gameState.state;
-      switch (this.state) {
-        case GameStateEnum.NEW_ROUND:
-          this.dialog.open(ChooseTeamDialog, { width: '250px' });
-          break;
-        case GameStateEnum.ROUND_ENDED:
-          this.dialog.open(RoundEndedDialog, { width: '250px' });
-          break;
-      }
     });
-    this.familiadaService.getSettings().subscribe((settings: FamiliadaSettings) => {
-      this.settings = settings;
-    });
+    this.familiadaService
+      .getSettings()
+      .subscribe((settings: FamiliadaSettings) => {
+        this.settings = settings;
+      });
   }
 
   changeTeam() {

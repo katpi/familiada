@@ -12,7 +12,7 @@
      </h2>
      <div class="Row">
         <div class="Column">
-           <app-scoreboard [team]="'TEAM1'"></app-scoreboard>
+           <app-scoreboard [team]="'TEAM1'" [isEndGame]="false"></app-scoreboard>
         </div>
         <div class="Column">
            <table mat-table [dataSource]="dataSource|async" class="mat-elevation-z8">
@@ -32,7 +32,7 @@
            </table>
         </div>
         <div class="Column">
-           <app-scoreboard [team]="'TEAM2'"></app-scoreboard>
+           <app-scoreboard [team]="'TEAM2'" [isEndGame]="false"></app-scoreboard>
         </div>
      </div>
   </ng-container>

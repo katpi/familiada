@@ -89,6 +89,7 @@ export class FamiliadaService implements Familiada {
   }
 
   nextRound() {
+    this.db.requestPlayNewRound();
     this.roundState.questionId = this.roundState.questionId + 1;
     this.roundState = {
       questionId: this.roundState.questionId,
@@ -116,6 +117,7 @@ export class FamiliadaService implements Familiada {
   }
 
   claimWrong() {
+    this.db.requestPlayWrongAnswer();
     let wrong: number;
     switch (this.roundState.team) {
       case Team.TEAM1:
@@ -157,6 +159,7 @@ export class FamiliadaService implements Familiada {
   }
 
   claimAnswer(answer: FamiliadaResponse) {
+    this.db.requestPlayGoodAnswer();
     if (!this.roundState.answers.includes(answer.id)) {
       this.roundState.answers = [...this.roundState.answers, answer.id];
       this.roundState.sum = this.roundState.sum + answer.points;
@@ -281,8 +284,6 @@ export class FamiliadaService implements Familiada {
 
   private thirdPhase() {
     this.roundState.phase = GamePhase[GamePhase.THIRD];
-    this.roundState.team1Wrong = 0;
-    this.roundState.team2Wrong = 0;
     this.db.updateRoundState(this.roundState);
   }
 
