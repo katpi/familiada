@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Team, GameStateEnum, GamePhase } from '../enums/enums';
+import { Team, GameStateEnum, GamePhase, FamiliadaEvent } from '../enums/enums';
 import {
   FamiliadaResponse,
   RoundState,
@@ -34,6 +34,9 @@ export class FamiliadaService implements Familiada {
   getSettings(): Observable<FamiliadaSettings> {
     return this.db.settings$;
   }
+  getEvent(): Observable<FamiliadaEvent> {
+    return this.db.event$;
+  }
 
   constructor(private db: DatabaseService) {
     this.db.settings$.subscribe(settings => (this.settings = settings));
@@ -41,6 +44,14 @@ export class FamiliadaService implements Familiada {
     this.db.scores$.subscribe(scores => this.scores = scores);
     this.db.roundState$.subscribe(roundState => this.roundState = roundState);
     this.db.questions$.subscribe(questions => this.questions = questions);
+  }
+
+  requestPlayIntro() {
+    this.db.requestPlayIntro();
+  }
+
+  clearEvent() {
+    this.db.clearEvent();
   }
 
   init() {

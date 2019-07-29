@@ -1,3 +1,5 @@
+import { FamiliadaEvent } from '../enums/enums';
+
 export interface FamiliadaSettings {
   team1Name: string;
   team2Name: string;
@@ -35,6 +37,10 @@ export interface Scores {
 
 export interface GameState {
   state: string;
+}
+
+export interface EventState {
+  event: FamiliadaEvent;
 }
 
 export interface InitialPhaseState {

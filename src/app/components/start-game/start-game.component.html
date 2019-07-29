@@ -1,5 +1,10 @@
-<h1>FAMILIADA</h1>
-
-<button mat-fab mat-raised-button color="" (click)="next()" matTooltip="Rozpocznij grę" *ngIf="!isDashboard">
-  <mat-icon>navigate_next</mat-icon>
-</button>
+<img class="background" [src]="'assets/familiada.jpg'">
+<img class="zombie" [src]="'assets/zombie.jpg'" [hidden]="!boom">
+<ng-container *ngIf="!isDashboard">
+  <button mat-fab mat-raised-button color="" (click)="requestPlayIntro()" matTooltip="Rozpocznij grę">
+    <mat-icon>music_note</mat-icon>
+  </button>
+  <button mat-fab mat-raised-button color="" (click)="next()" matTooltip="Rozpocznij grę">
+    <mat-icon>navigate_next</mat-icon>
+  </button>
+</ng-container>

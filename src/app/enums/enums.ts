@@ -10,7 +10,6 @@ export enum GameStateEnum {
   NEW_ROUND = 'NEXT_ROUND',
   ROUND = 'ROUND',
   ROUND_ENDED = 'ROUND_ENDED',
-  JOKE = 'JOKE',
   APPLAUSE = 'APPLAUSE'
 }
 
@@ -18,4 +17,9 @@ export enum GamePhase {
   FIRST,
   SECOND,
   THIRD
+}
+
+export enum FamiliadaEvent {
+  PLAY_INTRO = 'PLAY_INTRO',
+  JOKE = 'JOKE',
 }
