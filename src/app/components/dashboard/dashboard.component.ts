@@ -42,7 +42,6 @@ export class DashboardComponent {
     this.answers = [];
     this.wrong = 0;
     this.familiadaService.getRoundState().subscribe(roundState => {
-      this.questionId = roundState.questionId;
       switch (roundState.team) {
         case Team.TEAM1:
           this.team = this.settings.team1Name;
@@ -61,11 +60,12 @@ export class DashboardComponent {
             this.refreshResponses(roundState);
           });
       }
-      this.familiadaService.getGameState().subscribe(gameState => {
-        this.state = gameState.state;
-      });
+      this.questionId = roundState.questionId;
       this.sum = roundState.sum;
       this.wrong = roundState.wrong;
+    });
+    this.familiadaService.getGameState().subscribe(gameState => {
+      this.state = gameState.state;
     });
     this.familiadaService
       .getSettings()
