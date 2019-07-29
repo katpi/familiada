@@ -19,6 +19,7 @@ export class DashboardComponent {
   displayedColumns: string[] = ["response", "points"];
   dataSource: Observable<FamiliadaResponse[]>;
   questionId: number;
+  roundNumber: number;
   question: string;
   team: string;
   sum: number;
@@ -37,9 +38,11 @@ export class DashboardComponent {
     private questionsService: QuestionsService
   ) {
     this.questionId = -1;
+    this.roundNumber = -1;
     this.sum = 0;
     this.answers = [];
     this.familiadaService.getRoundState().subscribe(roundState => {
+      this.roundNumber = roundState.roundNumber;
       switch (roundState.team) {
         case Team.TEAM1:
           this.team = this.settings.team1Name;

@@ -14,6 +14,7 @@ export class ControllerComponent {
   dataSource;
   question: string;
   questionId: number;
+  roundNumber: number;
   team: string;
   answers: number[] = [];
   state: string;
@@ -27,7 +28,8 @@ export class ControllerComponent {
     private familiadaService: FamiliadaService,
     private questionsService: QuestionsService
   ) {
-    this.familiadaService.getRoundState().subscribe(roundState => {
+    this.familiadaService.getRoundState().subscribe(roundState => {    
+      this.roundNumber = roundState.roundNumber;
       this.questionId = roundState.questionId;
       switch (roundState.team) {
         case Team.TEAM1:

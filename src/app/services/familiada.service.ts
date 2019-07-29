@@ -71,6 +71,7 @@ export class FamiliadaService implements Familiada {
 
   startGame() {
     this.roundState = {
+      roundNumber: -1,
       responsesCount: -1,
       questionId: -1,
       answers: [],
@@ -98,6 +99,7 @@ export class FamiliadaService implements Familiada {
     this.roundState.questionId = this.roundState.questionId + 1;
     this.roundState = {
       questionId: this.roundState.questionId,
+      roundNumber: this.getRoundNumber(this.roundState.questionId),
       responsesCount: this.questions[this.roundState.questionId].answers.length,
       answers: [],
       phase: null,
@@ -228,12 +230,18 @@ export class FamiliadaService implements Familiada {
   }
 
   private endRound() {
+    let sum = this.roundState.sum;
+    if (this.roundState.roundNumber === 3) {
+      sum = sum * 2;
+    } else if (this.roundState.roundNumber === 4) {
+      sum = sum * 3;
+    }
     switch (this.roundState.team) {
       case Team.TEAM1:
-        this.scores.team1 = this.scores.team1 + this.roundState.sum;
+        this.scores.team1 = this.scores.team1 + sum;
         break;
       case Team.TEAM2:
-        this.scores.team2 = this.scores.team2 + this.roundState.sum;
+        this.scores.team2 = this.scores.team2 + sum;
         break;
     }
     this.db.updateScores(this.scores);
@@ -249,6 +257,7 @@ export class FamiliadaService implements Familiada {
     this.roundState = {
       responsesCount: -1,
       questionId: -1,
+      roundNumber: -1,
       answers: [],
       phase: null,
       team: null,
@@ -303,5 +312,10 @@ export class FamiliadaService implements Familiada {
         questions: this.questions
       });
     }
+  }
+
+  private getRoundNumber(questionId: number) {
+    if (questionId === 20) return 4;
+    return Math.floor(questionId / 4);
   }
 }

@@ -21,6 +21,7 @@ export interface FamiliadaResponse {
 
 export interface RoundState {
   questionId: number;
+  roundNumber: number;
   responsesCount: number;
   answers: number[];
   phase: string;

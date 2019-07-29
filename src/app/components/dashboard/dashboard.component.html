@@ -6,7 +6,8 @@
      <app-game-ended></app-game-ended>
   </ng-container>
   <ng-container *ngSwitchDefault>
-     <h1>Pytanie {{(questionId + 1)}}: {{question}}</h1>
+     <h1>Runda {{roundNumber + 1}}</h1>
+     <h1>Pytanie {{(questionId - roundNumber * 4 + 1)}}: {{question}}</h1>
      <h2>
         Odpowiada: drużyna <strong>{{ team }}</strong>
      </h2>
