@@ -15,6 +15,7 @@
            <app-scoreboard [team]="'TEAM1'" [isEndGame]="false"></app-scoreboard>
         </div>
         <div class="Column">
+        <div class="example-container mat-elevation-z8">
            <table mat-table [dataSource]="dataSource|async" class="mat-elevation-z8">
               <ng-container matColumnDef="response">
                  <th mat-header-cell *matHeaderCellDef>Odpowiedź</th>
@@ -28,8 +29,9 @@
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-              <tr mat-footer-row *matFooterRowDef=" displayedColumns"></tr>
+              <tr mat-footer-row *matFooterRowDef=" displayedColumns; sticky: true"></tr>
            </table>
+        </div>
         </div>
         <div class="Column">
            <app-scoreboard [team]="'TEAM2'" [isEndGame]="false"></app-scoreboard>

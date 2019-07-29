@@ -1,6 +1,12 @@
 table {
-    width: 500px;
+    width: 100%;
 }
+
+.example-container {
+    max-height: 400px;
+    overflow: auto;
+}
+
 
 .mat-fab {
     margin-left: 20px;
@@ -24,6 +30,7 @@ table {
     }
 }
 
-h1, h2 {
+h1,
+h2 {
     text-align: center;
 }
