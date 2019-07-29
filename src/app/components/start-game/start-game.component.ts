@@ -9,7 +9,7 @@ import { FamiliadaEvent } from '../../enums/enums';
 })
 export class StartGameComponent {
   @Input() isDashboard: boolean;
-  private boom = false;
+  boom = false;
 
   constructor(private familiadaService: FamiliadaService) {
     this.familiadaService.getEvent().subscribe((event: FamiliadaEvent) => {
