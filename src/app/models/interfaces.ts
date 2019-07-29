@@ -26,7 +26,8 @@ export interface RoundState {
   phase: string;
   team: string;
   sum: number;
-  wrong: number;
+  team1Wrong: number;
+  team2Wrong: number;
   initialPhaseState: InitialPhaseState;
 }
 

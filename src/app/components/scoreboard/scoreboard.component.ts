@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Team } from '../../enums/enums';
 import { FamiliadaService } from '../../services/familiada.service';
 import { Observable, of } from 'rxjs';
-import { FamiliadaSettings } from 'src/app/models/interfaces';
+import { FamiliadaSettings, RoundState } from 'src/app/models/interfaces';
 
 @Component({
   selector: 'app-scoreboard',
@@ -11,8 +11,9 @@ import { FamiliadaSettings } from 'src/app/models/interfaces';
 })
 export class ScoreboardComponent implements OnInit {
   @Input() team: Team;
-  teamName: Observable<string>;
+  teamName: string;
   score = 0;
+  wrong = 0;
 
   constructor(private familiadaService: FamiliadaService) {}
 
@@ -30,12 +31,23 @@ export class ScoreboardComponent implements OnInit {
     this.familiadaService.getSettings().subscribe((settings: FamiliadaSettings) => {
       switch (this.team) {
         case Team.TEAM1:
-          this.teamName = of(settings.team1Name);
+          this.teamName = settings.team1Name;
           break;
         case Team.TEAM2:
-          this.teamName = of(settings.team2Name);
+          this.teamName = settings.team2Name;
           break;
       }
+    });
+    this.familiadaService.getRoundState().subscribe((roundState: RoundState) => {
+      switch (this.team) {
+        case Team.TEAM1:
+          this.wrong = roundState.team1Wrong;
+          break;
+        case Team.TEAM2:
+          this.wrong = roundState.team2Wrong;
+          break;
+      }
+      console.log(this.wrong);
     });
   }
 }

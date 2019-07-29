@@ -10,4 +10,5 @@ export const environment = {
     appId: "1:763255240026:web:8f873eddc732932a"
   },
   getQuestionsFromFile: false,
+  logStatus: false,
 };

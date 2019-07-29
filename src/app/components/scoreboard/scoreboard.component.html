@@ -1,4 +1,9 @@
 <mat-card class="scoreboard" [ngClass]="{'team1': team==='TEAM1', 'team2': team==='TEAM2' }">
-    <h3>Wyniki drużyny {{teamName|async}}</h3>
+    <h3>Wyniki drużyny {{teamName}}</h3>
     <h1>{{score}}</h1>
 </mat-card>
+<div class="x">
+   <span *ngIf="wrong === 1">X</span>
+   <span *ngIf="wrong === 2">X X</span>
+   <span *ngIf="wrong > 2">X X X</span>
+</div>

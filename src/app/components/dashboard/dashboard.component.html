@@ -30,11 +30,6 @@
               <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
               <tr mat-footer-row *matFooterRowDef=" displayedColumns"></tr>
            </table>
-           <div class="x">
-              <span *ngIf="wrong === 1">X</span>
-              <span *ngIf="wrong === 2">X X</span>
-              <span *ngIf="wrong > 2">X X X</span>
-           </div>
         </div>
         <div class="Column">
            <app-scoreboard [team]="'TEAM2'"></app-scoreboard>
