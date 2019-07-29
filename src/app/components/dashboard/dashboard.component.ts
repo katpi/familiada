@@ -72,6 +72,9 @@ export class DashboardComponent {
     });
     this.familiadaService.getGameState().subscribe(gameState => {
       this.state = gameState.state;
+      if (this.state === GameStateEnum.ROUND_ENDED) {
+        this.dataSource = of(this.answers);
+      }
     });
     this.familiadaService
       .getSettings()
