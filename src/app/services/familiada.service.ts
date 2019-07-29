@@ -89,6 +89,11 @@ export class FamiliadaService implements Familiada {
   }
 
   nextRound() {
+    if (this.roundState.questionId + 1 === this.settings.questionsCount) {
+      this.endGame();
+      return;
+    }
+
     this.db.requestPlayNewRound();
     this.roundState.questionId = this.roundState.questionId + 1;
     this.roundState = {
