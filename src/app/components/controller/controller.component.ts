@@ -18,6 +18,7 @@ export class ControllerComponent {
   roundNumber: number;
   team: string;
   answers: number[] = [];
+  otherAnswers: string[] = [];
   state: string;
   settings: FamiliadaSettings = {
     questionsCount: -1,
@@ -47,6 +48,7 @@ export class ControllerComponent {
         this.questionsService
           .getQuestion(roundState.questionId)
           .then((question) => {
+            this.otherAnswers = question.otherAnswers;
             this.question = question.question;
             this.dataSource = question.answers;
           });
