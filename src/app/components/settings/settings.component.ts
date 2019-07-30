@@ -29,6 +29,7 @@ export class SettingsComponent  {
   ) {
     this.questionService.getQuestions().subscribe((questions) => {
       this.dataSource = questions;
+      console.log(JSON.stringify(questions))
     });
   }
 
@@ -38,6 +39,14 @@ export class SettingsComponent  {
 
   addQuestion() {
     this.dialog.open(EditQuestionDialog);
+  }
+
+  async up(question: FamiliadaQuestion) {
+    await this.questionService.swapQuestions(question, this.dataSource[question.order - 1]);
+  }
+
+  async down(question: FamiliadaQuestion) {
+    await this.questionService.swapQuestions(question, this.dataSource[question.order + 1]);
   }
 
   editQuestion(question: FamiliadaQuestion) {

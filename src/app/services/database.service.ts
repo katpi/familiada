@@ -123,6 +123,14 @@ export class DatabaseService {
     await this.questionsCollection.doc(question.id).delete();
     await this.updateQuestionsOrder();
   }
+  async swapQuestions(question1: FamiliadaQuestion, question2: FamiliadaQuestion) {
+    const tmp: number = question1.order;
+    question1.order = question2.order;
+    question2.order = tmp;
+    await this.questionsCollection.doc(question1.id).set(question1);
+    await this.questionsCollection.doc(question2.id).set(question2);
+    await this.updateQuestionsOrder();
+  }
   private async updateQuestionsOrder() {
     const questions = this.questions;
     if (isNullOrUndefined(questions) || questions.length < 1) {

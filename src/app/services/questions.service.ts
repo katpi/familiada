@@ -52,15 +52,19 @@ export class QuestionsService {
       .toPromise();
   }
 
-  saveQuestion(question: FamiliadaQuestion) {
+  async saveQuestion(question: FamiliadaQuestion) {
     if (isNullOrUndefined(question.id)) {
-      this.db.addQuestion(question);
+      await this.db.addQuestion(question);
     } else {
-      this.db.saveQuestion(question);
+      await this.db.saveQuestion(question);
     }
   }
 
   async deleteQuestion(question: FamiliadaQuestion) {
     await this.db.deleteQuestion(question);
+  }
+
+  async swapQuestions(question1: FamiliadaQuestion, question2: FamiliadaQuestion) {
+    await this.db.swapQuestions(question1, question2);
   }
 }
