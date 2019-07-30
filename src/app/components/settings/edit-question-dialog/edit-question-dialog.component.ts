@@ -26,7 +26,7 @@ export class EditQuestionDialog {
     @Inject(MAT_DIALOG_DATA) public data: FamiliadaQuestion,
   ) {
     if (isNullOrUndefined(this.data)) {
-      this.data = { id: null, order: 6666, question: null, answers: [] };
+      this.data = { id: null, otherAnswers:[], order: 6666, question: null, answers: [] };
     }
     this.init();
   }
@@ -72,6 +72,7 @@ export class EditQuestionDialog {
     }
     const question: FamiliadaQuestion = {
       answers,
+      otherAnswers: this.data.otherAnswers,
       id: this.data.id,
       order: this.data.order,
       question: this.questionForm.value.question,

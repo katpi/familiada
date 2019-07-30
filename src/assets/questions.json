@@ -17,7 +17,24 @@
         "response": "Dragi"
       }
     ],
-    "otherAnswers": ["Zosia", "Pigułeczka?", "Łubudu", "Cukierki Michałki", "Bodźce", "Chleb i wino", "Em", "Ciokalubus", "Mjasto", "Jenot", "Micha", "Ejaksienazywa", "Gitara", "Moim zdaniem", "Czarny", "Pierdolę"],
+    "otherAnswers": [
+      "Zosia",
+      "Pigułeczka?",
+      "Łubudu",
+      "Cukierki Michałki",
+      "Bodźce",
+      "Chleb i wino",
+      "Em",
+      "Ciokalubus",
+      "Mjasto",
+      "Jenot",
+      "Micha",
+      "Ejaksienazywa",
+      "Gitara",
+      "Moim zdaniem",
+      "Czarny",
+      "Pierdolę"
+    ],
     "id": "bfh6fmJ940EPpIkwYPx7",
     "order": 0,
     "question": "Słowo, które najbardziej kojarzy Ci się z Michałem to..."
@@ -39,7 +56,19 @@
         "points": 2,
         "response": "Kradzież owoców"
       }
-    ],"otherAnswers": ["Niechlujne rozłożenie namiotu", "Ukradł krowę sąsiadów", "Że wsadza palec do nosa", "Kradzież jabłek od sąsiada", "Czytanie książki Lenina", "Wstyd tak mówić", "Na zrywanie czereśni", "Prezerwatywe", "Nie byłeś w kościele", "Miał coś pożyczyć"],
+    ],
+    "otherAnswers": [
+      "Niechlujne rozłożenie namiotu",
+      "Ukradł krowę sąsiadów",
+      "Że wsadza palec do nosa",
+      "Kradzież jabłek od sąsiada",
+      "Czytanie książki Lenina",
+      "Wstyd tak mówić",
+      "Na zrywanie czereśni",
+      "Prezerwatywe",
+      "Nie byłeś w kościele",
+      "Miał coś pożyczyć"
+    ],
     "id": "sblhIYffXCrs8Db1VBcb",
     "order": 1,
     "question": "\"Wstyd to kraść!\" - na jaki zarzut ze strony rodziców odpowiedział tym właśnie zdaniem nastoletni Michał?"
@@ -60,32 +89,14 @@
         "id": 2,
         "points": 2,
         "response": "Zupa"
-      },
-      {
-        "id": 3,
-        "points": 1,
-        "response": "Ciokalubus"
-      },
-      {
-        "id": 4,
-        "points": 1,
-        "response": "Michał"
-      },
-      {
-        "id": 5,
-        "points": 1,
-        "response": "Girilla"
-      },
-      {
-        "id": 6,
-        "points": 1,
-        "response": "Zupek"
-      },
-      {
-        "id": 7,
-        "points": 1,
-        "response": "Ale co?"
       }
+    ],
+    "otherAnswers": [
+      "Ciokalubus",
+      "Michał",
+      "Girilla",
+      "Zupek",
+      "Ale co?"
     ],
     "id": "F5OyRXok1e6RDq1cmRn7",
     "order": 2,
@@ -114,7 +125,14 @@
         "response": "6"
       }
     ],
-    "otherAnswers": ["18", "2", "5", "13", "11", "9"],
+    "otherAnswers": [
+      "18",
+      "2",
+      "5",
+      "13",
+      "11",
+      "9"
+    ],
     "id": "BSGbD2peIfyfSR1gu8N7",
     "order": 3,
     "question": "Ile lat miał Michał, kiedy zobaczył pierwsze porno?"
@@ -142,7 +160,10 @@
         "response": "Łosice"
       }
     ],
-    "otherAnswers": ["Serpelice", "Białystok"],
+    "otherAnswers": [
+      "Serpelice",
+      "Białystok"
+    ],
     "id": "osMa06YORRLChMnmoJZL",
     "order": 4,
     "question": "Miejscowość, w której mieszkał Michał, to..."
@@ -180,7 +201,13 @@
         "response": "28"
       }
     ],
-    "otherAnswers": ["100", "29", "31", "21", "18"],
+    "otherAnswers": [
+      "100",
+      "29",
+      "31",
+      "21",
+      "18"
+    ],
     "id": "eFvJBrKGsuwpcyp8QxDg",
     "order": 5,
     "question": "Ile lat miał Michał, kiedy zaczął kupować bilety komunikacji miejskiej i przestał uciekać przed Kanarami?"
@@ -228,7 +255,16 @@
         "response": "Lew"
       }
     ],
-    "otherAnswers": ["Nietoperz", "Lama", "Jenot", "Orangutan", "Pumba", "Ryba", "Wilk", "Goryl"],
+    "otherAnswers": [
+      "Nietoperz",
+      "Lama",
+      "Jenot",
+      "Orangutan",
+      "Pumba",
+      "Ryba",
+      "Wilk",
+      "Goryl"
+    ],
     "id": "62m8aaqTqhP9DUnZNBGX",
     "order": 6,
     "question": "Gdyby Michał był zwierzęciem, był(a)by to..."
@@ -251,8 +287,23 @@
         "response": "Żeby sprawdzić organy wewnętrzne"
       }
     ],
-    "otherAnswers": ["Żeby brzuch czuł, że jest jego", "Wyrównuje powierzchnię", "Żeby sprawdzić czy fizycznie ma na miejscu żołądek", "Z nudów", "Żeby wstrzymać siuśki", "Uspokaja się", "Poprawa trawienia", "Bez celu", "Żeby sprawdzić wyrostek", "Żeby sprawdzić, czy jadł obiad", "By zrobic fale z brzucha", "By napompować krew do siusiaka", "By sprawdzić, czy jest głodny", "Kształtowania sylwetki"],
-      "id": "JriFrSNyOJRf3pUGM6Km",
+    "otherAnswers": [
+      "Żeby brzuch czuł, że jest jego",
+      "Wyrównuje powierzchnię",
+      "Żeby sprawdzić czy fizycznie ma na miejscu żołądek",
+      "Z nudów",
+      "Żeby wstrzymać siuśki",
+      "Uspokaja się",
+      "Poprawa trawienia",
+      "Bez celu",
+      "Żeby sprawdzić wyrostek",
+      "Żeby sprawdzić, czy jadł obiad",
+      "By zrobic fale z brzucha",
+      "By napompować krew do siusiaka",
+      "By sprawdzić, czy jest głodny",
+      "Kształtowania sylwetki"
+    ],
+    "id": "JriFrSNyOJRf3pUGM6Km",
     "order": 7,
     "question": "W jakim celu Michał naciska sobie rękoma brzuch?"
   },
@@ -284,7 +335,21 @@
         "response": "Marynarz"
       }
     ],
-    "otherAnswers": ["Rockandrollowiec", "Majster", "Pani Sława", "Astronauta", "Przedstawiciel handlowy", "Surfer", "Stylista modowy", "Realistą.", "Piłkarz", "Jenot", "Dyktator", "Biznesmen", "Taksówkarz"],
+    "otherAnswers": [
+      "Rockandrollowiec",
+      "Majster",
+      "Pani Sława",
+      "Astronauta",
+      "Przedstawiciel handlowy",
+      "Surfer",
+      "Stylista modowy",
+      "Realistą.",
+      "Piłkarz",
+      "Jenot",
+      "Dyktator",
+      "Biznesmen",
+      "Taksówkarz"
+    ],
     "id": "6RzJlLweCPqCzUocZujg",
     "order": 8,
     "question": "Gdyby nie był programistą, byłby…"
@@ -307,7 +372,21 @@
         "response": "Dresiarze / Kibole"
       }
     ],
-    "otherAnswers": ["Sataniści", "Policjanci", "Murzyni", "Informatycy", "Kobiety", "Mamuśki", "Religijni", "Hipisi", "Weganie", "Rolnicy", "Nauczyciele", "Politycy", "Hipsterzy"],
+    "otherAnswers": [
+      "Sataniści",
+      "Policjanci",
+      "Murzyni",
+      "Informatycy",
+      "Kobiety",
+      "Mamuśki",
+      "Religijni",
+      "Hipisi",
+      "Weganie",
+      "Rolnicy",
+      "Nauczyciele",
+      "Politycy",
+      "Hipsterzy"
+    ],
     "id": "IrXTQB21IdG6xxcXjZ9s",
     "order": 9,
     "question": "Grupa społeczna, z której robi sobie żarty, to..."
@@ -355,7 +434,10 @@
         "response": "40"
       }
     ],
-    "otherAnswers": ["32", "18"],
+    "otherAnswers": [
+      "32",
+      "18"
+    ],
     "id": "Yyt9S3gGsIGBkhIdS3bJ",
     "order": 10,
     "question": "Ile lat ma Michał?"
@@ -403,7 +485,10 @@
         "response": "Woda"
       }
     ],
-    "otherAnswers": ["Muzyka", "Grzybki"],
+    "otherAnswers": [
+      "Muzyka",
+      "Grzybki"
+    ],
     "id": "E1pjy5gUqnQtW00jHuBs",
     "order": 11,
     "question": "Ulubiony starter imprezowy Michała to..."
@@ -436,7 +521,18 @@
         "response": "Wysokim / cienkim"
       }
     ],
-    "otherAnswers": ["Alt", "Tenor", "Sopran", "Ludzkim", "Pięknym", "Metalowym", "Głośnym", "Męskim", "Groźnym", "Półgłosem"],
+    "otherAnswers": [
+      "Alt",
+      "Tenor",
+      "Sopran",
+      "Ludzkim",
+      "Pięknym",
+      "Metalowym",
+      "Głośnym",
+      "Męskim",
+      "Groźnym",
+      "Półgłosem"
+    ],
     "id": "x94l5xAp9QZ5RfyXE6mp",
     "order": 12,
     "question": "Jakim głosem śpiewa Michał?"
@@ -459,7 +555,13 @@
         "response": "Upadając"
       }
     ],
-    "otherAnswers": ["Pestką od brzoskwini", "Patyczkiem od jabłka", "Jedząc gruz", "Jedząc bułkę", "Na chuju"],
+    "otherAnswers": [
+      "Pestką od brzoskwini",
+      "Patyczkiem od jabłka",
+      "Jedząc gruz",
+      "Jedząc bułkę",
+      "Na chuju"
+    ],
     "id": "AKir8BfelVivCIvbiiqd",
     "order": 13,
     "question": "W jaki sposób Michał ułamał sobie zęba?"
@@ -492,7 +594,12 @@
         "response": "C#"
       }
     ],
-    "otherAnswers": ["Chiński", "Esperanto", "Zero-jedynkowy", "Michałowy"],
+    "otherAnswers": [
+      "Chiński",
+      "Esperanto",
+      "Zero-jedynkowy",
+      "Michałowy"
+    ],
     "id": "R8iDe53DowSHg28RCe6t",
     "order": 14,
     "question": "Język programowania, w którym pisze Michał, to..."
@@ -520,7 +627,22 @@
         "response": "Z palenia"
       }
     ],
-    "otherAnswers": ["Z grzechów", "Z przeklinania", "Zajrzał pod spódnicę koleżance", "Z nieprzyzwoitych myśli", "Z pewności siebie", "Z dobrej zabawy", "Z kłamstwa", "Że nie wierzy w Boga", "Z niedojadania obiadów", "Więcej grzechów nie pamiętam", "Księdzem", "Z niepójscia do kościoła", "Z dragów", "Z ejakulacji"],
+    "otherAnswers": [
+      "Z grzechów",
+      "Z przeklinania",
+      "Zajrzał pod spódnicę koleżance",
+      "Z nieprzyzwoitych myśli",
+      "Z pewności siebie",
+      "Z dobrej zabawy",
+      "Z kłamstwa",
+      "Że nie wierzy w Boga",
+      "Z niedojadania obiadów",
+      "Więcej grzechów nie pamiętam",
+      "Księdzem",
+      "Z niepójscia do kościoła",
+      "Z dragów",
+      "Z ejakulacji"
+    ],
     "id": "FodjggqhyHjqXrXmCBnR",
     "order": 15,
     "question": "Z czego spowiadał się mały Michałek przed pierwszą komunią?"
@@ -548,7 +670,17 @@
         "response": "Gry"
       }
     ],
-    "otherAnswers": ["Mechanika", "Komunikacja", "Szycie", "Literatura", "Moda odzieżowa", "Motoryzacja", "Afrykanistyka", "Wikliniarstwo", "Szydełkowanie"],
+    "otherAnswers": [
+      "Mechanika",
+      "Komunikacja",
+      "Szycie",
+      "Literatura",
+      "Moda odzieżowa",
+      "Motoryzacja",
+      "Afrykanistyka",
+      "Wikliniarstwo",
+      "Szydełkowanie"
+    ],
     "id": "v1Kg9gpgUj9S9pTSEPIw",
     "order": 16,
     "question": "Dziedzina, na której Michał się nie zna, to..."
@@ -581,7 +713,18 @@
         "response": "Arabski"
       }
     ],
-    "otherAnswers": ["Angielski", "Litewski", "Każdy", "Pijacki", "Kebab", "Rosyjski", "Turecki", "Hiszpański", "Język studenta", "Java"],
+    "otherAnswers": [
+      "Angielski",
+      "Litewski",
+      "Każdy",
+      "Pijacki",
+      "Kebab",
+      "Rosyjski",
+      "Turecki",
+      "Hiszpański",
+      "Język studenta",
+      "Java"
+    ],
     "id": "rZVIof2ROAmHy2p0jIPc",
     "order": 17,
     "question": "Język, w którym Michał potrafi zamówić kebaba, to..."
@@ -619,7 +762,11 @@
         "response": "Smażone ziemniaki"
       }
     ],
-    "otherAnswers": ["Grillowany w sosie własnym", "Kiszka ziemniaczana", "Pyzy"],
+    "otherAnswers": [
+      "Grillowany w sosie własnym",
+      "Kiszka ziemniaczana",
+      "Pyzy"
+    ],
     "id": "dmxjRFblfQCo4IHgRlEp",
     "order": 18,
     "question": "Ulubione danie z ziemniaka to..."
@@ -652,7 +799,16 @@
         "response": "Nie będziesz musiał rano wstawać do Zosi"
       }
     ],
-    "otherAnswers": ["Łubudu!", "Dupeczki", "Kwas", "Cześć Michał", "Zrób imprezę", "Vodka koks i dziwki", "Będzie alkohol", "Idziemy na jedno piwo"],
+    "otherAnswers": [
+      "Łubudu!",
+      "Dupeczki",
+      "Kwas",
+      "Cześć Michał",
+      "Zrób imprezę",
+      "Vodka koks i dziwki",
+      "Będzie alkohol",
+      "Idziemy na jedno piwo"
+    ],
     "id": "Gw3esPgZTI7swgtmkFLg",
     "order": 19,
     "question": "Co trzeba powiedzieć, aby namówić Michała na imprezę?"
@@ -680,7 +836,16 @@
         "response": "Familiada"
       }
     ],
-    "otherAnswers": ["Robaki w dupie", "Ździabajło", "Topenanta", "Jenot", "Voda koks i dziwki", "Fajna zabawa", "Siła sugestii", "Dupa"],
+    "otherAnswers": [
+      "Robaki w dupie",
+      "Ździabajło",
+      "Topenanta",
+      "Jenot",
+      "Voda koks i dziwki",
+      "Fajna zabawa",
+      "Siła sugestii",
+      "Dupa"
+    ],
     "id": "Kfsy4PiFYeSgysgCljmY",
     "order": 20,
     "question": "Jak to się nazywa?"
