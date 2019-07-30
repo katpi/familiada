@@ -1,279 +1,688 @@
 [
   {
-    "_comment":"RUNDA 1",
-    "question":"Ile lat ma Michał?",
-    "order":0,
-    "answers":
-    [
-      {"id":0,"points":8,"response":"36"},
-      {"id":1,"points":8,"response":"35"},
-      {"id":2,"points":2,"response":"37"},
-      {"id":3,"points":2,"response":"38"},
-      {"id":4,"points":2,"response":"39"},
-      {"id":5,"points":2,"response":"33"},
-      {"id":6,"points":2,"response":"34"},
-      {"id":7,"points":2,"response":"40"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 3,
+        "response": "Zombi"
+      },
+      {
+        "id": 1,
+        "points": 3,
+        "response": "Eskalacja"
+      },
+      {
+        "id": 2,
+        "points": 2,
+        "response": "Dragi"
+      }
     ],
-    "id":"jGnzpZVLLLFBkDDqQipu"
+    "otherAnswers": ["Zosia", "Pigułeczka?", "Łubudu", "Cukierki Michałki", "Bodźce", "Chleb i wino", "Em", "Ciokalubus", "Mjasto", "Jenot", "Micha", "Ejaksienazywa", "Gitara", "Moim zdaniem", "Czarny", "Pierdolę"],
+    "id": "bfh6fmJ940EPpIkwYPx7",
+    "order": 0,
+    "question": "Słowo, które najbardziej kojarzy Ci się z Michałem to..."
   },
   {
-    "question":"Jaką ksywę ma lub miał Michał?",
-    "order":1,
-    "answers":
-    [
-      {"id":0,"points":13,"response":"Zombie"},
-      {"id":1,"points":2,"response":"Szkapa"},
-      {"id":2,"points":2,"response":"Zupa"},
-      {"id": 3,"points":1,"response":"Ciokalubus"},
-      {"id": 4,"points":1,"response":"Michał"},
-      {"id": 5,"points":1,"response":"Girilla"},
-      {"id": 6,"points":1,"response":"Zupek"},
-      {"id": 7,"points":1,"response":"Ale co?"}
-    ],
-    "id":"6ChEh1dPST0vQZJM2XtQ"
+    "answers": [
+      {
+        "id": 0,
+        "points": 3,
+        "response": "Że się masturbuje"
+      },
+      {
+        "id": 1,
+        "points": 2,
+        "response": "Palenie fajek"
+      },
+      {
+        "id": 2,
+        "points": 2,
+        "response": "Kradzież owoców"
+      }
+    ],"otherAnswers": ["Niechlujne rozłożenie namiotu", "Ukradł krowę sąsiadów", "Że wsadza palec do nosa", "Kradzież jabłek od sąsiada", "Czytanie książki Lenina", "Wstyd tak mówić", "Na zrywanie czereśni", "Prezerwatywe", "Nie byłeś w kościele", "Miał coś pożyczyć"],
+    "id": "sblhIYffXCrs8Db1VBcb",
+    "order": 1,
+    "question": "\"Wstyd to kraść!\" - na jaki zarzut ze strony rodziców odpowiedział tym właśnie zdaniem nastoletni Michał?"
   },
   {
-    "question":"Miejscowość, w której mieszkał Michał, to...",
-    "order":2,
-    "answers":
-    [
-      {"id":0,"points":15,"response":"Piszczac"},
-      {"id":1,"points":4,"response":"Warszawa"},
-      {"id":2,"points":3,"response":"Poznań"},
-      {"id":3,"points":2,"response":"Łosice"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 13,
+        "response": "Zombie"
+      },
+      {
+        "id": 1,
+        "points": 2,
+        "response": "Szkapa"
+      },
+      {
+        "id": 2,
+        "points": 2,
+        "response": "Zupa"
+      },
+      {
+        "id": 3,
+        "points": 1,
+        "response": "Ciokalubus"
+      },
+      {
+        "id": 4,
+        "points": 1,
+        "response": "Michał"
+      },
+      {
+        "id": 5,
+        "points": 1,
+        "response": "Girilla"
+      },
+      {
+        "id": 6,
+        "points": 1,
+        "response": "Zupek"
+      },
+      {
+        "id": 7,
+        "points": 1,
+        "response": "Ale co?"
+      }
     ],
-    "id":"mvSbrXtqtJtteNdpNPgh"
+    "id": "F5OyRXok1e6RDq1cmRn7",
+    "order": 2,
+    "question": "Jaką ksywę ma lub miał Michał?"
   },
   {
-    "question":"Jakim głosem śpiewa Michał?",
-    "order":3,
-    "answers":
-    [
-      {"id":0,"points":4,"response":"Baryton"},
-      {"id":1,"points":3,"response":"Bas"},
-      {"id":2,"points":3,"response":"Falset"},
-      {"id":3,"points":2,"response":"Słowiczym"},
-      {"id":4,"points":2,"response":"Wysokim / cienkim"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 4,
+        "response": "15"
+      },
+      {
+        "id": 1,
+        "points": 3,
+        "response": "8"
+      },
+      {
+        "id": 2,
+        "points": 2,
+        "response": "7"
+      },
+      {
+        "id": 3,
+        "points": 2,
+        "response": "6"
+      }
     ],
-    "id":"1NK4n65WkuU8zZSpNbEO"
+    "otherAnswers": ["18", "2", "5", "13", "11", "9"],
+    "id": "BSGbD2peIfyfSR1gu8N7",
+    "order": 3,
+    "question": "Ile lat miał Michał, kiedy zobaczył pierwsze porno?"
   },
   {
-    "_comment":"RUNDA 2",
-    "question":"Co trzeba powiedzieć, aby namówić Michała na imprezę?",
-    "order":4,
-    "answers":
-    [
-      {"id":0,"points":8,"response":"Cokolwiek / nie trzeba namawiać"},
-      {"id":1,"points":5,"response":"Chodź / idziemy"},
-      {"id":2,"points":2,"response":"Jest impreza"},
-      {"id":3,"points":2,"response":"Piątek"},
-      {"id":4,"points":2,"response":"Nie będziesz musiał rano wstawać do Zosi"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 15,
+        "response": "Piszczac"
+      },
+      {
+        "id": 1,
+        "points": 4,
+        "response": "Warszawa"
+      },
+      {
+        "id": 2,
+        "points": 3,
+        "response": "Poznań"
+      },
+      {
+        "id": 3,
+        "points": 2,
+        "response": "Łosice"
+      }
     ],
-    "id":"g44yagml1A4Ugqc2CmUE"
+    "otherAnswers": ["Serpelice", "Białystok"],
+    "id": "osMa06YORRLChMnmoJZL",
+    "order": 4,
+    "question": "Miejscowość, w której mieszkał Michał, to..."
   },
   {
-    "question":"Ulubiony starter imprezowy Michała to...",
-    "order":5,
-    "answers":
-    [
-      {"id":0,"points":8,"response":"Wódka"},
-      {"id":1,"points":6,"response":"Piguła"},
-      {"id":2,"points":4,"response":"Piwko"},
-      {"id":3,"points":4,"response":"Koko"},
-      {"id":4,"points":2,"response":"Kwaszotto"},
-      {"id":5,"points":2,"response":"Whiskey"},
-      {"id":6,"points":2,"response":"Wódka z colą"},
-      {"id":7,"points":2,"response":"Woda"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 6,
+        "response": "30"
+      },
+      {
+        "id": 1,
+        "points": 3,
+        "response": "do tej pory nie kupuje"
+      },
+      {
+        "id": 2,
+        "points": 2,
+        "response": "35"
+      },
+      {
+        "id": 3,
+        "points": 2,
+        "response": "25"
+      },
+      {
+        "id": 4,
+        "points": 2,
+        "response": "34"
+      },
+      {
+        "id": 5,
+        "points": 2,
+        "response": "28"
+      }
     ],
-    "id":"uXc2UHGjHLaFETxP6mOe"
+    "otherAnswers": ["100", "29", "31", "21", "18"],
+    "id": "eFvJBrKGsuwpcyp8QxDg",
+    "order": 5,
+    "question": "Ile lat miał Michał, kiedy zaczął kupować bilety komunikacji miejskiej i przestał uciekać przed Kanarami?"
   },
   {
-    "question":"Język, w którym Michał potrafi zamówić kebaba, to...",
-    "order":6,
-    "answers":
-    [
-      {"id":0,"points":4,"response":"Polski"},
-      {"id":1,"points":4,"response":"Niemiecki"},
-      {"id":2,"points":3,"response":"Chiński"},
-      {"id":3,"points":3,"response":"Migowy / niemy"},
-      {"id":4,"points":2,"response":"Arabski"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 4,
+        "response": "Jaszczurka"
+      },
+      {
+        "id": 1,
+        "points": 3,
+        "response": "Łasica"
+      },
+      {
+        "id": 2,
+        "points": 2,
+        "response": "Tygrys"
+      },
+      {
+        "id": 3,
+        "points": 2,
+        "response": "Pancernik"
+      },
+      {
+        "id": 4,
+        "points": 2,
+        "response": "Surykatka"
+      },
+      {
+        "id": 5,
+        "points": 2,
+        "response": "Emu"
+      },
+      {
+        "id": 6,
+        "points": 2,
+        "response": "Kuna"
+      },
+      {
+        "id": 7,
+        "points": 2,
+        "response": "Lew"
+      }
     ],
-    "id":"XAhGq7cuyFsV3vJUtyU4"
+    "otherAnswers": ["Nietoperz", "Lama", "Jenot", "Orangutan", "Pumba", "Ryba", "Wilk", "Goryl"],
+    "id": "62m8aaqTqhP9DUnZNBGX",
+    "order": 6,
+    "question": "Gdyby Michał był zwierzęciem, był(a)by to..."
   },
   {
-    "question":"Ile lat miał Michał, kiedy zaczął kupować bilety komunikacji miejskiej i przestał uciekać przed Kanarami?",
-    "order":7,
-    "answers":
-    [
-      {"id":0,"points":6,"response":"30"},
-      {"id":1,"points":3,"response":"do tej pory nie kupuje"},
-      {"id":2,"points":2,"response":"35"},
-      {"id":3,"points":2,"response":"25"},
-      {"id":4,"points":2,"response":"34"},
-      {"id":5,"points":2,"response":"28"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 4,
+        "response": "Żeby zrobić kupę"
+      },
+      {
+        "id": 1,
+        "points": 3,
+        "response": "Żeby się więcej spożywaczy zmieściło"
+      },
+      {
+        "id": 2,
+        "points": 2,
+        "response": "Żeby sprawdzić organy wewnętrzne"
+      }
     ],
-    "id":"R4qUuvEAmWRnN7FZn83W"
+    "otherAnswers": ["Żeby brzuch czuł, że jest jego", "Wyrównuje powierzchnię", "Żeby sprawdzić czy fizycznie ma na miejscu żołądek", "Z nudów", "Żeby wstrzymać siuśki", "Uspokaja się", "Poprawa trawienia", "Bez celu", "Żeby sprawdzić wyrostek", "Żeby sprawdzić, czy jadł obiad", "By zrobic fale z brzucha", "By napompować krew do siusiaka", "By sprawdzić, czy jest głodny", "Kształtowania sylwetki"],
+      "id": "JriFrSNyOJRf3pUGM6Km",
+    "order": 7,
+    "question": "W jakim celu Michał naciska sobie rękoma brzuch?"
   },
   {
-    "_comment":"RUNDA 3",
-    "question":"Język programowania, w którym pisze Michał, to...",
-    "order":8,
-    "answers":
-    [
-      {"id":0,"points":5,"response":"Java"},
-      {"id":1,"points":3,"response":"C++"},
-      {"id":2,"points":2,"response":"JavaScript"},
-      {"id":3,"points":2,"response":"Typescript"},
-      {"id":4,"points":2,"response":"C#"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 4,
+        "response": "Muzyk"
+      },
+      {
+        "id": 1,
+        "points": 4,
+        "response": "Piosenkarz"
+      },
+      {
+        "id": 2,
+        "points": 4,
+        "response": "Gitarzysta"
+      },
+      {
+        "id": 3,
+        "points": 2,
+        "response": "Aktor"
+      },
+      {
+        "id": 4,
+        "points": 2,
+        "response": "Marynarz"
+      }
     ],
-    "id":"SpDpSnyXCDrVpPM6Sr2F"
+    "otherAnswers": ["Rockandrollowiec", "Majster", "Pani Sława", "Astronauta", "Przedstawiciel handlowy", "Surfer", "Stylista modowy", "Realistą.", "Piłkarz", "Jenot", "Dyktator", "Biznesmen", "Taksówkarz"],
+    "id": "6RzJlLweCPqCzUocZujg",
+    "order": 8,
+    "question": "Gdyby nie był programistą, byłby…"
   },
   {
-    "question":"Gdyby nie był programistą, byłby…",
-    "order":9,
-    "answers":
-    [
-      {"id":0,"points":4,"response":"Muzyk"},
-      {"id":1,"points":4,"response":"Piosenkarz"},
-      {"id":2,"points":4,"response":"Gitarzysta"},
-      {"id":3,"points":2,"response":"Aktor"},
-      {"id":4,"points":2,"response":"Marynarz"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 4,
+        "response": "Każda"
+      },
+      {
+        "id": 1,
+        "points": 3,
+        "response": "Antyszczepionkowcy"
+      },
+      {
+        "id": 2,
+        "points": 1,
+        "response": "Dresiarze / Kibole"
+      }
     ],
-    "id":"9A66zKH7XdbgS4FclUd4"
+    "otherAnswers": ["Sataniści", "Policjanci", "Murzyni", "Informatycy", "Kobiety", "Mamuśki", "Religijni", "Hipisi", "Weganie", "Rolnicy", "Nauczyciele", "Politycy", "Hipsterzy"],
+    "id": "IrXTQB21IdG6xxcXjZ9s",
+    "order": 9,
+    "question": "Grupa społeczna, z której robi sobie żarty, to..."
   },
   {
-    "question":"Dziedzina, na której Michał się nie zna, to...",
-    "order":10,
-    "answers":
-    [
-      {"id":0,"points":3,"response":"Sport"},
-      {"id":1,"points":2,"response":"Nie ma takiej"},
-      {"id":2,"points":2,"response":"Balet"},
-      {"id":3,"points":2,"response":"Gry"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 8,
+        "response": "36"
+      },
+      {
+        "id": 1,
+        "points": 8,
+        "response": "35"
+      },
+      {
+        "id": 2,
+        "points": 2,
+        "response": "37"
+      },
+      {
+        "id": 3,
+        "points": 2,
+        "response": "38"
+      },
+      {
+        "id": 4,
+        "points": 2,
+        "response": "39"
+      },
+      {
+        "id": 5,
+        "points": 2,
+        "response": "33"
+      },
+      {
+        "id": 6,
+        "points": 2,
+        "response": "34"
+      },
+      {
+        "id": 7,
+        "points": 2,
+        "response": "40"
+      }
     ],
-    "id":"3EOWvPnjvm97cSgPGX3n"
+    "otherAnswers": ["32", "18"],
+    "id": "Yyt9S3gGsIGBkhIdS3bJ",
+    "order": 10,
+    "question": "Ile lat ma Michał?"
   },
   {
-    "question":"Grupa społeczna, z której robi sobie żarty, to...",
-    "order":11,
-    "answers":
-    [
-      {"id":0,"points":4,"response":"Każda"},
-      {"id":1,"points":3,"response":"Antyszczepionkowcy"},
-      {"id":2,"points":1,"response":"Dresiarze / Kibole"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 8,
+        "response": "Wódka"
+      },
+      {
+        "id": 1,
+        "points": 6,
+        "response": "Piguła"
+      },
+      {
+        "id": 2,
+        "points": 4,
+        "response": "Piwko"
+      },
+      {
+        "id": 3,
+        "points": 4,
+        "response": "Koko"
+      },
+      {
+        "id": 4,
+        "points": 2,
+        "response": "Kwaszotto"
+      },
+      {
+        "id": 5,
+        "points": 2,
+        "response": "Whiskey"
+      },
+      {
+        "id": 6,
+        "points": 2,
+        "response": "Wódka z colą"
+      },
+      {
+        "id": 7,
+        "points": 2,
+        "response": "Woda"
+      }
     ],
-    "id":"eVDnR22p4yNRFWKlI0Zc"
+    "otherAnswers": ["Muzyka", "Grzybki"],
+    "id": "E1pjy5gUqnQtW00jHuBs",
+    "order": 11,
+    "question": "Ulubiony starter imprezowy Michała to..."
   },
   {
-    "_comment":"RUNDA 4",
-    "question":"\"Wstyd to kraść!\" - na jaki zarzut ze strony rodziców odpowiedział tym właśnie zdaniem nastoletni Michał?",
-    "order":12,
-    "answers":
-    [
-      {"id":0,"points":3,"response":"Że się masturbuje"},
-      {"id":1,"points":2,"response":"Palenie fajek"},
-      {"id":2,"points":2,"response":"Kradzież owoców"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 4,
+        "response": "Baryton"
+      },
+      {
+        "id": 1,
+        "points": 3,
+        "response": "Bas"
+      },
+      {
+        "id": 2,
+        "points": 3,
+        "response": "Falset"
+      },
+      {
+        "id": 3,
+        "points": 2,
+        "response": "Słowiczym"
+      },
+      {
+        "id": 4,
+        "points": 2,
+        "response": "Wysokim / cienkim"
+      }
     ],
-    "id":"YWqArou3X1FT7fYlgXBv"
+    "otherAnswers": ["Alt", "Tenor", "Sopran", "Ludzkim", "Pięknym", "Metalowym", "Głośnym", "Męskim", "Groźnym", "Półgłosem"],
+    "id": "x94l5xAp9QZ5RfyXE6mp",
+    "order": 12,
+    "question": "Jakim głosem śpiewa Michał?"
   },
   {
-    "question":"Ile lat miał Michał, kiedy zobaczył pierwsze porno?",
-    "order":13,
-    "answers":
-    [
-      {"id":0,"points":4,"response":"15"},
-      {"id":1,"points":3,"response":"8"},
-      {"id":2,"points":2,"response":"7"},
-      {"id":3,"points":2,"response":"6"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 9,
+        "response": "Otwierając butelkę"
+      },
+      {
+        "id": 1,
+        "points": 5,
+        "response": "W bójce"
+      },
+      {
+        "id": 2,
+        "points": 3,
+        "response": "Upadając"
+      }
     ],
-    "id":"JJlw2sXt4BcNmwg0ignv"
+    "otherAnswers": ["Pestką od brzoskwini", "Patyczkiem od jabłka", "Jedząc gruz", "Jedząc bułkę", "Na chuju"],
+    "id": "AKir8BfelVivCIvbiiqd",
+    "order": 13,
+    "question": "W jaki sposób Michał ułamał sobie zęba?"
   },
   {
-    "question":"Z czego spowiadał się mały Michałek przed pierwszą komunią?",
-    "order":14,
-    "answers":
-    [
-      {"id":0,"points":3,"response":"Z masturbacji"},
-      {"id":1,"points":2,"response":"Z oglądania porno"},
-      {"id":2,"points":2,"response":"Z niesłuchania rodziców"},
-      {"id":3,"points":2,"response":"Z palenia"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 5,
+        "response": "Java"
+      },
+      {
+        "id": 1,
+        "points": 3,
+        "response": "C++"
+      },
+      {
+        "id": 2,
+        "points": 2,
+        "response": "JavaScript"
+      },
+      {
+        "id": 3,
+        "points": 2,
+        "response": "Typescript"
+      },
+      {
+        "id": 4,
+        "points": 2,
+        "response": "C#"
+      }
     ],
-    "id":"p93stzP7lqruThsQWOlU"
+    "otherAnswers": ["Chiński", "Esperanto", "Zero-jedynkowy", "Michałowy"],
+    "id": "R8iDe53DowSHg28RCe6t",
+    "order": 14,
+    "question": "Język programowania, w którym pisze Michał, to..."
   },
   {
-    "question":"W jaki sposób Michał ułamał sobie zęba?",
-    "order":15,
-    "answers":
-    [
-      {"id":0,"points":9,"response":"Otwierając butelkę"},
-      {"id":1,"points":5,"response":"W bójce"},
-      {"id":2,"points":3,"response":"Upadając"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 3,
+        "response": "Z masturbacji"
+      },
+      {
+        "id": 1,
+        "points": 2,
+        "response": "Z oglądania porno"
+      },
+      {
+        "id": 2,
+        "points": 2,
+        "response": "Z niesłuchania rodziców"
+      },
+      {
+        "id": 3,
+        "points": 2,
+        "response": "Z palenia"
+      }
     ],
-    "id":"gJ5YjIU3hJqHLsr6RiX3"
+    "otherAnswers": ["Z grzechów", "Z przeklinania", "Zajrzał pod spódnicę koleżance", "Z nieprzyzwoitych myśli", "Z pewności siebie", "Z dobrej zabawy", "Z kłamstwa", "Że nie wierzy w Boga", "Z niedojadania obiadów", "Więcej grzechów nie pamiętam", "Księdzem", "Z niepójscia do kościoła", "Z dragów", "Z ejakulacji"],
+    "id": "FodjggqhyHjqXrXmCBnR",
+    "order": 15,
+    "question": "Z czego spowiadał się mały Michałek przed pierwszą komunią?"
   },
   {
-    "_comment":"RUNDA 5",
-    "question":"Ulubione danie z ziemniaka to...",
-    "order":16,
-    "answers":
-    [
-      {"id":0,"points":8,"response":"Frytki"},
-      {"id":1,"points":3,"response":"Ugotowane ziemniaki"},
-      {"id":2,"points":3,"response":"Puree / tłuczone"},
-      {"id":3,"points":3,"response":"Placki ziemniaczane"},
-      {"id":4,"points":2,"response":"Babka ziemniaczana"},
-      {"id":5,"points":2,"response":"Smażone ziemniaki"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 3,
+        "response": "Sport"
+      },
+      {
+        "id": 1,
+        "points": 2,
+        "response": "Nie ma takiej"
+      },
+      {
+        "id": 2,
+        "points": 2,
+        "response": "Balet"
+      },
+      {
+        "id": 3,
+        "points": 2,
+        "response": "Gry"
+      }
     ],
-    "id":"iSqVxnkLSS30cIJb8mKi"
+    "otherAnswers": ["Mechanika", "Komunikacja", "Szycie", "Literatura", "Moda odzieżowa", "Motoryzacja", "Afrykanistyka", "Wikliniarstwo", "Szydełkowanie"],
+    "id": "v1Kg9gpgUj9S9pTSEPIw",
+    "order": 16,
+    "question": "Dziedzina, na której Michał się nie zna, to..."
   },
   {
-    "question":"Gdyby Michał był zwierzęciem, był(a)by to...",
-    "order":17,
-    "answers":
-    [
-      {"id":0,"points":4,"response":"Jaszczurka"},
-      {"id":1,"points":3,"response":"Łasica"},
-      {"id":2,"points":2,"response":"Tygrys"},
-      {"id":3,"points":2,"response":"Pancernik"},
-      {"id":4,"points":2,"response":"Surykatka"},
-      {"id":5,"points":2,"response":"Emu"},
-      {"id":6,"points":2,"response":"Kuna"},
-      {"id":7,"points":2,"response":"Lew"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 4,
+        "response": "Polski"
+      },
+      {
+        "id": 1,
+        "points": 4,
+        "response": "Niemiecki"
+      },
+      {
+        "id": 2,
+        "points": 3,
+        "response": "Chiński"
+      },
+      {
+        "id": 3,
+        "points": 3,
+        "response": "Migowy / niemy"
+      },
+      {
+        "id": 4,
+        "points": 2,
+        "response": "Arabski"
+      }
     ],
-    "id":"TUyLlXmG4F9C53xTspDv"
+    "otherAnswers": ["Angielski", "Litewski", "Każdy", "Pijacki", "Kebab", "Rosyjski", "Turecki", "Hiszpański", "Język studenta", "Java"],
+    "id": "rZVIof2ROAmHy2p0jIPc",
+    "order": 17,
+    "question": "Język, w którym Michał potrafi zamówić kebaba, to..."
   },
   {
-    "question":"Słowo, które najbardziej kojarzy Ci się z Michałem to...",
-    "order":18,
-    "answers":
-    [
-      {"id":0,"points":3,"response":"Zombi"},
-      {"id":1,"points":3,"response":"Eskalacja"},
-      {"id":2,"points":2,"response":"Dragi"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 8,
+        "response": "Frytki"
+      },
+      {
+        "id": 1,
+        "points": 3,
+        "response": "Ugotowane ziemniaki"
+      },
+      {
+        "id": 2,
+        "points": 3,
+        "response": "Puree / tłuczone"
+      },
+      {
+        "id": 3,
+        "points": 3,
+        "response": "Placki ziemniaczane"
+      },
+      {
+        "id": 4,
+        "points": 2,
+        "response": "Babka ziemniaczana"
+      },
+      {
+        "id": 5,
+        "points": 2,
+        "response": "Smażone ziemniaki"
+      }
     ],
-    "id":"7gJo205p10biBbnEDuqp"
+    "otherAnswers": ["Grillowany w sosie własnym", "Kiszka ziemniaczana", "Pyzy"],
+    "id": "dmxjRFblfQCo4IHgRlEp",
+    "order": 18,
+    "question": "Ulubione danie z ziemniaka to..."
   },
   {
-    "question":"W jakim celu Michał naciska sobie rękoma brzuch?",
-    "order":19,
-    "answers":
-    [
-      {"id":0,"points":4,"response":"Żeby zrobić kupę"},
-      {"id":1,"points":3,"response":"Żeby się więcej spożywaczy zmieściło"},
-      {"id":2,"points":2,"response":"Żeby sprawdzić organy wewnętrzne"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 8,
+        "response": "Cokolwiek / nie trzeba namawiać"
+      },
+      {
+        "id": 1,
+        "points": 5,
+        "response": "Chodź / idziemy"
+      },
+      {
+        "id": 2,
+        "points": 2,
+        "response": "Jest impreza"
+      },
+      {
+        "id": 3,
+        "points": 2,
+        "response": "Piątek"
+      },
+      {
+        "id": 4,
+        "points": 2,
+        "response": "Nie będziesz musiał rano wstawać do Zosi"
+      }
     ],
-    "id":"CNKux2cwTHy4Wk4vhx5F"
+    "otherAnswers": ["Łubudu!", "Dupeczki", "Kwas", "Cześć Michał", "Zrób imprezę", "Vodka koks i dziwki", "Będzie alkohol", "Idziemy na jedno piwo"],
+    "id": "Gw3esPgZTI7swgtmkFLg",
+    "order": 19,
+    "question": "Co trzeba powiedzieć, aby namówić Michała na imprezę?"
   },
   {
-    "question":"Jak to się nazywa?",
-    "order":20,
-    "answers":
-    [
-      {"id":0,"points":4,"response":"Eeeee / yyyyy..."},
-      {"id":1,"points":3,"response":"Pomidor"},
-      {"id":2,"points":3,"response":"Ale co?"},
-      {"id":3,"points":2,"response":"Familiada"}
+    "answers": [
+      {
+        "id": 0,
+        "points": 4,
+        "response": "Eeeee / yyyyy..."
+      },
+      {
+        "id": 1,
+        "points": 3,
+        "response": "Pomidor"
+      },
+      {
+        "id": 2,
+        "points": 3,
+        "response": "Ale co?"
+      },
+      {
+        "id": 3,
+        "points": 2,
+        "response": "Familiada"
+      }
     ],
-    "id":"Xg9bKFIGEKF84l9TDFpN"
+    "otherAnswers": ["Robaki w dupie", "Ździabajło", "Topenanta", "Jenot", "Voda koks i dziwki", "Fajna zabawa", "Siła sugestii", "Dupa"],
+    "id": "Kfsy4PiFYeSgysgCljmY",
+    "order": 20,
+    "question": "Jak to się nazywa?"
   }
 ]

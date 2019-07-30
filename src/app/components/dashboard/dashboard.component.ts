@@ -22,6 +22,7 @@ export class DashboardComponent {
   questionId: number;
   roundNumber: number;
   question: string;
+  otherAnswers: string[];
   team: string;
   sum: number;
   answers: FamiliadaResponse[];
@@ -42,6 +43,7 @@ export class DashboardComponent {
     this.roundNumber = -1;
     this.sum = 0;
     this.answers = [];
+    this.otherAnswers = [];
     this.familiadaService.getRoundState().subscribe((roundState) => {
       this.roundNumber = roundState.roundNumber;
       switch (roundState.team) {
@@ -60,6 +62,7 @@ export class DashboardComponent {
         this.questionsService
           .getQuestion(roundState.questionId)
           .then((question) => {
+            this.otherAnswers = question.otherAnswers;
             if (isNullOrUndefined(question)) {
               return;
             }

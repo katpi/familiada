@@ -33,6 +33,12 @@
               <tr mat-footer-row *matFooterRowDef=" displayedColumns; sticky: true"></tr>
            </table>
         </div>
+        <div *ngIf="state === 'ROUND_ENDED'">
+          <h3>Ankietowani odpowiedzieli również:</h3>
+          <mat-list>
+            <mat-list-item class="otherAnswer" *ngFor="let answer of otherAnswers">{{answer}}</mat-list-item>
+          </mat-list>
+        </div>
         </div>
         <div class="Column">
            <app-scoreboard [team]="'TEAM2'" [isEndGame]="false"></app-scoreboard>

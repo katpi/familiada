@@ -11,6 +11,7 @@ export interface FamiliadaQuestion {
   order: number;
   question: string;
   answers: FamiliadaResponse[];
+  otherAnswers: string[];
 }
 
 export interface FamiliadaResponse {
