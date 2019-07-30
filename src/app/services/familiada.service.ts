@@ -202,8 +202,10 @@ export class FamiliadaService implements Familiada {
         }
         break;
       case GamePhase.SECOND:
-      case GamePhase.THIRD:
         this.checkEndRound();
+        break;
+      case GamePhase.THIRD:
+        this.endRound();
         break;
     }
     this.logStatus('claimAnswer');
@@ -226,7 +228,8 @@ export class FamiliadaService implements Familiada {
   }
 
   private checkEndRound() {
-    if (this.roundState.answers.length === this.roundState.responsesCount) {
+    if (this.roundState.answers.length === this.roundState.responsesCount
+      || this.roundState.answers.length === 5) {
       this.endRound();
     }
   }
