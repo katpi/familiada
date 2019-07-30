@@ -3,7 +3,7 @@ export enum Team {
   TEAM2 = 'TEAM2',
 }
 
-export enum GameStateEnum {
+export enum GameState {
   BEFORE_START = 'BEFORE_START',
   START = 'START',
   END = 'END',

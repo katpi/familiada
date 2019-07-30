@@ -5,12 +5,12 @@ import { isNullOrUndefined } from 'util';
 
 import { FamiliadaEvent } from '../enums/enums';
 import {
-  EventState,
+  FamiliadaEventState,
+  FamiliadaGameState,
   FamiliadaQuestion,
+  FamiliadaRoundState,
+  FamiliadaScores,
   FamiliadaSettings,
-  GameState,
-  RoundState,
-  Scores,
 } from '../models/interfaces';
 
 @Injectable({
@@ -19,9 +19,9 @@ import {
 export class DatabaseService {
   private questions: FamiliadaQuestion[] = [];
 
-  private roundSource = new ReplaySubject<RoundState>();
-  private scoresSource = new ReplaySubject<Scores>();
-  private gameStateSource = new ReplaySubject<GameState>();
+  private roundSource = new ReplaySubject<FamiliadaRoundState>();
+  private scoresSource = new ReplaySubject<FamiliadaScores>();
+  private gameStateSource = new ReplaySubject<FamiliadaGameState>();
   private settingsSource = new ReplaySubject<FamiliadaSettings>();
   private questionsSource = new ReplaySubject<FamiliadaQuestion[]>();
   private eventSource = new Subject<FamiliadaEvent>();
@@ -37,7 +37,7 @@ export class DatabaseService {
     this.db
       .doc('familiada/round')
       .valueChanges()
-      .subscribe((roundState: RoundState) => {
+      .subscribe((roundState: FamiliadaRoundState) => {
         if (isNullOrUndefined(roundState)) {
           return;
         }
@@ -46,7 +46,7 @@ export class DatabaseService {
     this.db
       .doc('familiada/scores')
       .valueChanges()
-      .subscribe((scoresState: Scores) => {
+      .subscribe((scoresState: FamiliadaScores) => {
         if (isNullOrUndefined(scoresState)) {
           return;
         }
@@ -55,7 +55,7 @@ export class DatabaseService {
     this.db
       .doc('familiada/state')
       .valueChanges()
-      .subscribe((gameState: GameState) => {
+      .subscribe((gameState: FamiliadaGameState) => {
         if (isNullOrUndefined(gameState)) {
           return;
         }
@@ -64,7 +64,7 @@ export class DatabaseService {
     this.db
       .doc('familiada/events')
       .valueChanges()
-      .subscribe((event: EventState) => {
+      .subscribe((event: FamiliadaEventState) => {
         if (isNullOrUndefined(event)) {
           return;
         }
@@ -92,13 +92,13 @@ export class DatabaseService {
       });
   }
 
-  updateGameState(state: GameState) {
+  updateGameState(state: FamiliadaGameState) {
     this.db.doc('familiada/state').set(state);
   }
-  updateScores(scores: Scores) {
+  updateScores(scores: FamiliadaScores) {
     this.db.doc('familiada/scores').set(scores);
   }
-  updateRoundState(roundState: RoundState) {
+  updateRoundState(roundState: FamiliadaRoundState) {
     this.db.doc('familiada/round').set(roundState);
   }
   updateSettings(settings: Partial<FamiliadaSettings>) {

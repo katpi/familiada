@@ -1,4 +1,4 @@
-import { FamiliadaEvent } from '../enums/enums';
+import { FamiliadaEvent, GamePhase, GameState, Team } from '../enums/enums';
 
 export interface FamiliadaSettings {
   team1Name: string;
@@ -19,34 +19,34 @@ export interface FamiliadaResponse {
   points: number;
 }
 
-export interface RoundState {
+export interface FamiliadaRoundState {
   questionId: number;
   roundNumber: number;
   responsesCount: number;
   answers: number[];
-  phase: string;
-  team: string;
+  phase: GamePhase;
+  team: Team;
   sum: number;
   team1Wrong: number;
   team2Wrong: number;
-  initialPhaseState: InitialPhaseState;
+  initialPhaseState: FamiliadaInitialPhaseState;
 }
 
-export interface Scores {
+export interface FamiliadaScores {
   team1: number;
   team2: number;
 }
 
-export interface GameState {
-  state: string;
+export interface FamiliadaGameState {
+  state: GameState;
 }
 
-export interface EventState {
+export interface FamiliadaEventState {
   event: FamiliadaEvent;
 }
 
-export interface InitialPhaseState {
-  firstClaiming: string;
+export interface FamiliadaInitialPhaseState {
+  firstClaiming: Team;
   firstClaimingPoints: number;
   secondClaimingPoints: number;
 }

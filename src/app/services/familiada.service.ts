@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { FamiliadaEvent, GamePhase, GameStateEnum, Team } from '../enums/enums';
+import { FamiliadaEvent, GamePhase, GameState, Team } from '../enums/enums';
 import {
+  FamiliadaGameState,
   FamiliadaQuestion,
   FamiliadaResponse,
+  FamiliadaRoundState,
+  FamiliadaScores,
   FamiliadaSettings,
-  GameState,
-  RoundState,
-  Scores,
 } from '../models/interfaces';
 
 import { DatabaseService } from './database.service';
@@ -19,19 +19,19 @@ import { Familiada } from './familiada';
   providedIn: 'root',
 })
 export class FamiliadaService implements Familiada {
-  private roundState: RoundState;
-  private scores: Scores;
-  private gameState: GameState;
+  private roundState: FamiliadaRoundState;
+  private scores: FamiliadaScores;
+  private gameState: FamiliadaGameState;
   private settings: FamiliadaSettings;
   private questions: FamiliadaQuestion[];
 
-  getRoundState(): Observable<RoundState> {
+  getRoundState(): Observable<FamiliadaRoundState> {
     return this.db.roundState$;
   }
-  getScores(): Observable<Scores> {
+  getScores(): Observable<FamiliadaScores> {
     return this.db.scores$;
   }
-  getGameState(): Observable<GameState> {
+  getGameState(): Observable<FamiliadaGameState> {
     return this.db.gameState$;
   }
   getSettings(): Observable<FamiliadaSettings> {
@@ -66,7 +66,7 @@ export class FamiliadaService implements Familiada {
   }
 
   init() {
-    this.gameState = { state: GameStateEnum.START };
+    this.gameState = { state: GameState.START };
     this.db.updateGameState(this.gameState);
     this.logStatus('init');
   }
@@ -112,7 +112,7 @@ export class FamiliadaService implements Familiada {
       initialPhaseState: null,
     };
     this.db.updateRoundState(this.roundState);
-    this.gameState = { state: GameStateEnum.NEW_ROUND };
+    this.gameState = { state: GameState.NEW_ROUND };
     this.db.updateGameState(this.gameState);
     this.logStatus('nextRound');
   }
@@ -120,7 +120,7 @@ export class FamiliadaService implements Familiada {
   setFirstClaiming(team: Team) {
     this.firstPhase(team);
     this.setTeam(team);
-    this.gameState = { state: GameStateEnum.ROUND };
+    this.gameState = { state: GameState.ROUND };
     this.db.updateGameState(this.gameState);
     this.logStatus('setFirstClaiming');
   }
@@ -140,7 +140,7 @@ export class FamiliadaService implements Familiada {
     }
     this.db.updateRoundState(this.roundState);
     switch (this.roundState.phase) {
-      case GamePhase[GamePhase.FIRST]:
+      case GamePhase.FIRST:
         if (
           this.roundState.team ===
           this.roundState.initialPhaseState.firstClaiming
@@ -153,13 +153,13 @@ export class FamiliadaService implements Familiada {
           }
         }
         break;
-      case GamePhase[GamePhase.SECOND]:
+      case GamePhase.SECOND:
         if (wrong > 2) {
           this.switchTeam();
           this.thirdPhase();
         }
         break;
-      case GamePhase[GamePhase.THIRD]:
+      case GamePhase.THIRD:
         this.switchTeam();
         this.endRound();
         break;
@@ -175,7 +175,7 @@ export class FamiliadaService implements Familiada {
     }
     this.db.updateRoundState(this.roundState);
     switch (this.roundState.phase) {
-      case GamePhase[GamePhase.FIRST]:
+      case GamePhase.FIRST:
         if (
           this.roundState.team ===
           this.roundState.initialPhaseState.firstClaiming
@@ -201,8 +201,8 @@ export class FamiliadaService implements Familiada {
           this.checkEndRound();
         }
         break;
-      case GamePhase[GamePhase.SECOND]:
-      case GamePhase[GamePhase.THIRD]:
+      case GamePhase.SECOND:
+      case GamePhase.THIRD:
         this.checkEndRound();
         break;
     }
@@ -250,7 +250,7 @@ export class FamiliadaService implements Familiada {
     if (this.roundState.questionId + 1 === this.settings.questionsCount) {
       this.endGame();
     } else {
-      this.gameState.state = GameStateEnum.ROUND_ENDED;
+      this.gameState.state = GameState.ROUND_ENDED;
       this.db.updateGameState(this.gameState);
     }
   }
@@ -269,17 +269,17 @@ export class FamiliadaService implements Familiada {
       initialPhaseState: null,
     };
     this.db.updateRoundState(this.roundState);
-    this.gameState.state = GameStateEnum.END;
+    this.gameState.state = GameState.END;
     this.db.updateGameState(this.gameState);
   }
 
-  private setTeam(team: string) {
+  private setTeam(team: Team) {
     this.roundState.team = team;
     this.db.updateRoundState(this.roundState);
   }
 
   private firstPhase(team: Team) {
-    this.roundState.phase = GamePhase[GamePhase.FIRST];
+    this.roundState.phase = GamePhase.FIRST;
     this.roundState.initialPhaseState = {
       firstClaiming: team,
       firstClaimingPoints: 0,
@@ -291,7 +291,7 @@ export class FamiliadaService implements Familiada {
   }
 
   private secondPhase() {
-    this.roundState.phase = GamePhase[GamePhase.SECOND];
+    this.roundState.phase = GamePhase.SECOND;
     this.roundState.team1Wrong = 0;
     this.roundState.team2Wrong = 0;
     this.roundState.initialPhaseState = null;
@@ -299,7 +299,7 @@ export class FamiliadaService implements Familiada {
   }
 
   private thirdPhase() {
-    this.roundState.phase = GamePhase[GamePhase.THIRD];
+    this.roundState.phase = GamePhase.THIRD;
     this.db.updateRoundState(this.roundState);
   }
 

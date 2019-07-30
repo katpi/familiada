@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { isNullOrUndefined } from 'util';
 
-import { FamiliadaEvent, GameStateEnum, Team } from '../../enums/enums';
+import { FamiliadaEvent, GameState, Team } from '../../enums/enums';
 import {
   FamiliadaResponse,
+  FamiliadaRoundState,
   FamiliadaSettings,
-  RoundState,
 } from '../../models/interfaces';
 import { FamiliadaService } from '../../services/familiada.service';
 import { QuestionsService } from '../../services/questions.service';
@@ -25,7 +25,7 @@ export class DashboardComponent {
   team: string;
   sum: number;
   answers: FamiliadaResponse[];
-  state: string = GameStateEnum.START;
+  state: string = GameState.START;
   settings: FamiliadaSettings = {
     questionsCount: -1,
     team1Name: 'A',
@@ -73,7 +73,7 @@ export class DashboardComponent {
     });
     this.familiadaService.getGameState().subscribe((gameState) => {
       this.state = gameState.state;
-      if (this.state === GameStateEnum.ROUND_ENDED) {
+      if (this.state === GameState.ROUND_ENDED) {
         this.dataSource = of(this.answers);
       }
     });
@@ -118,7 +118,7 @@ export class DashboardComponent {
     });
   }
 
-  private refreshResponses(roundState: RoundState) {
+  private refreshResponses(roundState: FamiliadaRoundState) {
     const responses = Array(this.answers.length);
     roundState.answers.forEach(
       (id: number) => (responses[id] = this.answers[id]),

@@ -2,10 +2,10 @@ import { Observable } from 'rxjs';
 
 import { Team } from '../enums/enums';
 import {
+  FamiliadaGameState,
   FamiliadaResponse,
-  GameState,
-  RoundState,
-  Scores,
+  FamiliadaRoundState,
+  FamiliadaScores,
 } from '../models/interfaces';
 
 export interface Familiada {
@@ -15,7 +15,7 @@ export interface Familiada {
   setFirstClaiming(team: Team);
   claimAnswer(element: FamiliadaResponse);
   claimWrong();
-  getRoundState(): Observable<RoundState>;
-  getScores(): Observable<Scores>;
-  getGameState(): Observable<GameState>;
+  getRoundState(): Observable<FamiliadaRoundState>;
+  getScores(): Observable<FamiliadaScores>;
+  getGameState(): Observable<FamiliadaGameState>;
 }

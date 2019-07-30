@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FamiliadaSettings, RoundState } from 'src/app/models/interfaces';
+import { FamiliadaRoundState, FamiliadaSettings } from 'src/app/models/interfaces';
 
 import { Team } from '../../enums/enums';
 import { FamiliadaService } from '../../services/familiada.service';
@@ -39,7 +39,7 @@ export class ScoreboardComponent implements OnInit {
           break;
       }
     });
-    this.familiadaService.getRoundState().subscribe((roundState: RoundState) => {
+    this.familiadaService.getRoundState().subscribe((roundState: FamiliadaRoundState) => {
       switch (this.team) {
         case Team.TEAM1:
           this.wrong = roundState.team1Wrong;
