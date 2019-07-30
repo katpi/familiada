@@ -29,7 +29,6 @@ export class SettingsComponent  {
   ) {
     this.questionService.getQuestions().subscribe((questions) => {
       this.dataSource = questions;
-      console.log(JSON.stringify(questions))
     });
   }
 
