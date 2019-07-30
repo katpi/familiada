@@ -1,22 +1,23 @@
-import { Component } from "@angular/core";
-import { FamiliadaService } from "../../services/familiada.service";
-import { Team, GameStateEnum, FamiliadaEvent } from "../../enums/enums";
+import { Component } from '@angular/core';
+import { of, Observable } from 'rxjs';
+import { isNullOrUndefined } from 'util';
+
+import { FamiliadaEvent, GameStateEnum, Team } from '../../enums/enums';
 import {
   FamiliadaResponse,
+  FamiliadaSettings,
   RoundState,
-  FamiliadaSettings
-} from "../../models/interfaces";
-import { isNullOrUndefined } from "util";
-import { of, Observable } from "rxjs";
-import { QuestionsService } from "../../services/questions.service";
+} from '../../models/interfaces';
+import { FamiliadaService } from '../../services/familiada.service';
+import { QuestionsService } from '../../services/questions.service';
 
 @Component({
-  selector: "app-dashboard",
-  templateUrl: "./dashboard.component.html",
-  styleUrls: ["./dashboard.component.scss"]
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-  displayedColumns: string[] = ["response", "points"];
+  displayedColumns: string[] = ['response', 'points'];
   dataSource: Observable<FamiliadaResponse[]>;
   questionId: number;
   roundNumber: number;
@@ -27,21 +28,21 @@ export class DashboardComponent {
   state: string = GameStateEnum.START;
   settings: FamiliadaSettings = {
     questionsCount: -1,
-    team1Name: "A",
-    team2Name: "B"
+    team1Name: 'A',
+    team2Name: 'B',
   };
   joke = false;
   applause = false;
 
   constructor(
     private familiadaService: FamiliadaService,
-    private questionsService: QuestionsService
+    private questionsService: QuestionsService,
   ) {
     this.questionId = -1;
     this.roundNumber = -1;
     this.sum = 0;
     this.answers = [];
-    this.familiadaService.getRoundState().subscribe(roundState => {
+    this.familiadaService.getRoundState().subscribe((roundState) => {
       this.roundNumber = roundState.roundNumber;
       switch (roundState.team) {
         case Team.TEAM1:
@@ -58,7 +59,7 @@ export class DashboardComponent {
       if (this.questionId !== roundState.questionId) {
         this.questionsService
           .getQuestion(roundState.questionId)
-          .then(question => {
+          .then((question) => {
             if (isNullOrUndefined(question)) {
               return;
             }
@@ -70,7 +71,7 @@ export class DashboardComponent {
       this.questionId = roundState.questionId;
       this.sum = roundState.sum;
     });
-    this.familiadaService.getGameState().subscribe(gameState => {
+    this.familiadaService.getGameState().subscribe((gameState) => {
       this.state = gameState.state;
       if (this.state === GameStateEnum.ROUND_ENDED) {
         this.dataSource = of(this.answers);
@@ -82,7 +83,7 @@ export class DashboardComponent {
         this.settings = settings;
       });
     this.familiadaService.getEvent().subscribe((event: FamiliadaEvent) => {
-      let audio = new Audio();
+      const audio = new Audio();
       switch (event) {
         case FamiliadaEvent.JOKE:
           this.joke = true;
@@ -96,19 +97,19 @@ export class DashboardComponent {
           setTimeout(() => (this.applause = false), 3000);
           break;
         case FamiliadaEvent.GOOD_ANSWER:
-          audio.src = "../../assets/audio/good_answer.ogg";
+          audio.src = '../../assets/audio/good_answer.ogg';
           audio.load();
           audio.play();
           this.familiadaService.clearEvent();
           break;
         case FamiliadaEvent.WRONG_ANSWER:
-          audio.src = "../../assets/audio/wrong_answer.ogg";
+          audio.src = '../../assets/audio/wrong_answer.ogg';
           audio.load();
           audio.play();
           this.familiadaService.clearEvent();
           break;
         case FamiliadaEvent.NEW_ROUND:
-          audio.src = "../../assets/audio/new_round.ogg";
+          audio.src = '../../assets/audio/new_round.ogg';
           audio.load();
           audio.play();
           this.familiadaService.clearEvent();
@@ -118,9 +119,9 @@ export class DashboardComponent {
   }
 
   private refreshResponses(roundState: RoundState) {
-    const responses = new Array(this.answers.length);
+    const responses = Array(this.answers.length);
     roundState.answers.forEach(
-      (id: number) => (responses[id] = this.answers[id])
+      (id: number) => (responses[id] = this.answers[id]),
     );
     this.dataSource = of(responses);
   }

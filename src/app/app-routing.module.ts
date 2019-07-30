@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+import { ControllerComponent } from './components/controller/controller.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { ControllerComponent } from './components/controller/controller.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -10,12 +11,12 @@ const routes: Routes = [
   { path: 'setup', component: SettingsComponent },
   { path: '',
     redirectTo: '/dashboard',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

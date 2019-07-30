@@ -8,7 +8,7 @@ describe('EditQuestionDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditQuestionDialog ]
+      declarations: [EditQuestionDialog],
     })
     .compileComponents();
   }));

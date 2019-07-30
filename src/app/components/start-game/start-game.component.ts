@@ -1,11 +1,12 @@
-import { Component, Input } from "@angular/core";
-import { FamiliadaService } from "../../services/familiada.service";
+import { Component, Input } from '@angular/core';
+
 import { FamiliadaEvent } from '../../enums/enums';
+import { FamiliadaService } from '../../services/familiada.service';
 
 @Component({
-  selector: "app-start-game",
-  templateUrl: "./start-game.component.html",
-  styleUrls: ["./start-game.component.scss"]
+  selector: 'app-start-game',
+  templateUrl: './start-game.component.html',
+  styleUrls: ['./start-game.component.scss'],
 })
 export class StartGameComponent {
   @Input() isDashboard: boolean;
@@ -29,7 +30,7 @@ export class StartGameComponent {
 
   play() {
     const audio = new Audio();
-    audio.src = "../../assets/audio/intro.ogg";
+    audio.src = '../../assets/audio/intro.ogg';
     audio.load();
     audio.play();
     setTimeout(() => (this.boom = true), 19000);

@@ -1,6 +1,6 @@
 export enum Team {
   TEAM1 = 'TEAM1',
-  TEAM2 = 'TEAM2'
+  TEAM2 = 'TEAM2',
 }
 
 export enum GameStateEnum {
@@ -9,13 +9,13 @@ export enum GameStateEnum {
   END = 'END',
   NEW_ROUND = 'NEW_ROUND',
   ROUND = 'ROUND',
-  ROUND_ENDED = 'ROUND_ENDED'
+  ROUND_ENDED = 'ROUND_ENDED',
 }
 
 export enum GamePhase {
   FIRST,
   SECOND,
-  THIRD
+  THIRD,
 }
 
 export enum FamiliadaEvent {
@@ -23,7 +23,7 @@ export enum FamiliadaEvent {
   JOKE = 'JOKE',
   END_JOKE = 'END_JOKE',
   APPLAUSE = 'APPLAUSE',
-  GOOD_ANSWER = 'GOOD_ANSWER', 
+  GOOD_ANSWER = 'GOOD_ANSWER',
   WRONG_ANSWER = 'WRONG_ANSWER',
   NEW_ROUND = 'NEW_ROUND',
 }

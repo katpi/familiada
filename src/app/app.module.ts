@@ -1,21 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SettingsComponent } from './components/settings/settings.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
-import { ControllerComponent } from './components/controller/controller.component';
+import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { environment } from '../environments/environment';
-import { StartGameComponent } from './components/start-game/start-game.component';
-import { GameEndedComponent } from './components/game-ended/game-ended.component';
-import { AppMaterialModules } from './material.module';
-import { EditQuestionDialog } from './components/settings/edit-question-dialog/edit-question-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { environment } from '../environments/environment';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ControllerComponent } from './components/controller/controller.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { GameEndedComponent } from './components/game-ended/game-ended.component';
+import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
+import { EditQuestionDialog } from './components/settings/edit-question-dialog/edit-question-dialog.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { StartGameComponent } from './components/start-game/start-game.component';
+import { AppMaterialModules } from './material.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ControllerComponent,
     StartGameComponent,
     GameEndedComponent,
-    EditQuestionDialog
+    EditQuestionDialog,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    EditQuestionDialog
-  ]
+    EditQuestionDialog,
+  ],
 })
 export class AppModule {}

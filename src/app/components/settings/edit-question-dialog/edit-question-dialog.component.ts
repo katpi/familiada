@@ -1,15 +1,16 @@
 import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FamiliadaQuestion, FamiliadaResponse } from 'src/app/models/interfaces';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { QuestionsService } from 'src/app/services/questions.service';
-import { ResponsesDataSource } from './ResponsesDataSource';
 import { isNullOrUndefined } from 'util';
+
+import { ResponsesDataSource } from './ResponsesDataSource';
 
 @Component({
   selector: 'app-edit-question-dialog',
   templateUrl: './edit-question-dialog.component.html',
-  styleUrls: ['./edit-question-dialog.component.scss']
+  styleUrls: ['./edit-question-dialog.component.scss'],
 })
 // tslint:disable-next-line:component-class-suffix
 export class EditQuestionDialog {
@@ -25,7 +26,7 @@ export class EditQuestionDialog {
     @Inject(MAT_DIALOG_DATA) public data: FamiliadaQuestion,
   ) {
     if (isNullOrUndefined(this.data)) {
-      this.data = { id: null, order: 6666, question: null, answers: []};
+      this.data = { id: null, order: 6666, question: null, answers: [] };
     }
     this.init();
   }
@@ -42,10 +43,10 @@ export class EditQuestionDialog {
 
   addResponse() {
     const response: FamiliadaResponse = {
-        id: null,
-        points: this.questionForm.value.points,
-        response: this.questionForm.value.answer,
-      };
+      id: null,
+      points: this.questionForm.value.points,
+      response: this.questionForm.value.answer,
+    };
     this.answers = [...this.answers, response];
     this.dataSource.responsesSubject.next(this.answers);
     this.questionForm.patchValue({
@@ -66,19 +67,16 @@ export class EditQuestionDialog {
     const answers = this.answers.sort((a: FamiliadaResponse, b: FamiliadaResponse) => {
       return (a.points > b.points) ? -1 : ((b.points > a.points) ? 1 : 0);
     });
-    for (let i = 0; i < this.answers.length; i++) {
+    for (let i = 0; i < this.answers.length; i = i + 1) {
       this.answers[i].id = i;
     }
     const question: FamiliadaQuestion = {
+      answers,
       id: this.data.id,
       order: this.data.order,
       question: this.questionForm.value.question,
-      answers
     };
     await this.questionsService.saveQuestion(question);
     this.dialogRef.close();
   }
 }
-
-
-

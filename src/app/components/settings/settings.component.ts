@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
-import { DatabaseService } from 'src/app/services/database.service';
-import { FamiliadaQuestion } from 'src/app/models/interfaces';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-import { EditQuestionDialog } from './edit-question-dialog/edit-question-dialog.component';
+import { FamiliadaQuestion } from 'src/app/models/interfaces';
+import { DatabaseService } from 'src/app/services/database.service';
+
 import { QuestionsService } from '../../services/questions.service';
+
+import { EditQuestionDialog } from './edit-question-dialog/edit-question-dialog.component';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent  {
   dataSource: FamiliadaQuestion[];
@@ -23,9 +25,9 @@ export class SettingsComponent  {
     private fb: FormBuilder,
     private db: DatabaseService,
     private questionService: QuestionsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
-    this.questionService.getQuestions().subscribe(questions => {
+    this.questionService.getQuestions().subscribe((questions) => {
       this.dataSource = questions;
     });
   }
@@ -39,7 +41,7 @@ export class SettingsComponent  {
   }
 
   editQuestion(question: FamiliadaQuestion) {
-    this.dialog.open(EditQuestionDialog, {data: question});
+    this.dialog.open(EditQuestionDialog, { data: question });
   }
 
   async deleteQuestion(question: FamiliadaQuestion) {

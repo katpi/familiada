@@ -4,14 +4,14 @@ import {
   MatCardModule,
   MatCheckboxModule,
   MatDialogModule,
+  MatFormFieldModule,
   MatIconModule,
+  MatInputModule,
   MatListModule,
   MatSidenavModule,
   MatTableModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatFormFieldModule,
-  MatInputModule,
 } from '@angular/material';
 
 @NgModule({
@@ -29,6 +29,6 @@ import {
     MatToolbarModule,
     MatTooltipModule,
   ],
-  declarations: []
+  declarations: [],
 })
 export class AppMaterialModules { }

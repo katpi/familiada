@@ -8,7 +8,7 @@ describe('StartGameComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StartGameComponent ]
+      declarations: [StartGameComponent],
     })
     .compileComponents();
   }));

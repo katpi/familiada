@@ -1,7 +1,7 @@
-import { FamiliadaResponse } from 'src/app/models/interfaces';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { DataSource } from '@angular/cdk/table';
 import { CollectionViewer } from '@angular/cdk/collections';
+import { DataSource } from '@angular/cdk/table';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { FamiliadaResponse } from 'src/app/models/interfaces';
 export class ResponsesDataSource extends DataSource<any> {
   responsesSubject = new BehaviorSubject<FamiliadaResponse[]>([]);
   connect(collectionViewer: CollectionViewer): Observable<FamiliadaResponse[]> {

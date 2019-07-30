@@ -1,11 +1,12 @@
+import { Observable } from 'rxjs';
+
+import { Team } from '../enums/enums';
 import {
   FamiliadaResponse,
-  RoundState,
   GameState,
-  Scores
-} from "../models/interfaces";
-import { Observable } from "rxjs";
-import { Team } from '../enums/enums';
+  RoundState,
+  Scores,
+} from '../models/interfaces';
 
 export interface Familiada {
   init();

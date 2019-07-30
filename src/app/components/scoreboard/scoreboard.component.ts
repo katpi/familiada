@@ -1,12 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FamiliadaSettings, RoundState } from 'src/app/models/interfaces';
+
 import { Team } from '../../enums/enums';
 import { FamiliadaService } from '../../services/familiada.service';
-import { FamiliadaSettings, RoundState } from 'src/app/models/interfaces';
 
 @Component({
   selector: 'app-scoreboard',
   templateUrl: './scoreboard.component.html',
-  styleUrls: ['./scoreboard.component.scss']
+  styleUrls: ['./scoreboard.component.scss'],
 })
 export class ScoreboardComponent implements OnInit {
   @Input() team: Team;
@@ -18,7 +19,7 @@ export class ScoreboardComponent implements OnInit {
   constructor(private familiadaService: FamiliadaService) {}
 
   ngOnInit() {
-    this.familiadaService.getScores().subscribe(scores => {
+    this.familiadaService.getScores().subscribe((scores) => {
       switch (this.team) {
         case Team.TEAM1:
           this.score = scores.team1;

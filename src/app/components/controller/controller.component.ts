@@ -1,16 +1,17 @@
-import { Component } from "@angular/core";
-import { FamiliadaService } from "../../services/familiada.service";
-import { Team } from "src/app/enums/enums";
-import { FamiliadaResponse, FamiliadaSettings } from "../../models/interfaces";
-import { QuestionsService } from "../../services/questions.service";
+import { Component } from '@angular/core';
+import { Team } from 'src/app/enums/enums';
+
+import { FamiliadaResponse, FamiliadaSettings } from '../../models/interfaces';
+import { FamiliadaService } from '../../services/familiada.service';
+import { QuestionsService } from '../../services/questions.service';
 
 @Component({
-  selector: "app-controller",
-  templateUrl: "./controller.component.html",
-  styleUrls: ["./controller.component.scss"]
+  selector: 'app-controller',
+  templateUrl: './controller.component.html',
+  styleUrls: ['./controller.component.scss'],
 })
 export class ControllerComponent {
-  displayedColumns: string[] = ["response", "good"];
+  displayedColumns: string[] = ['response', 'good'];
   dataSource;
   question: string;
   questionId: number;
@@ -20,15 +21,15 @@ export class ControllerComponent {
   state: string;
   settings: FamiliadaSettings = {
     questionsCount: -1,
-    team1Name: "A",
-    team2Name: "B"
+    team1Name: 'A',
+    team2Name: 'B',
   };
 
   constructor(
     private familiadaService: FamiliadaService,
-    private questionsService: QuestionsService
+    private questionsService: QuestionsService,
   ) {
-    this.familiadaService.getRoundState().subscribe(roundState => {    
+    this.familiadaService.getRoundState().subscribe((roundState) => {
       this.roundNumber = roundState.roundNumber;
       this.questionId = roundState.questionId;
       switch (roundState.team) {
@@ -45,14 +46,14 @@ export class ControllerComponent {
       if (roundState.questionId > -1) {
         this.questionsService
           .getQuestion(roundState.questionId)
-          .then(question => {
+          .then((question) => {
             this.question = question.question;
             this.dataSource = question.answers;
           });
       }
       this.answers = roundState.answers;
     });
-    this.familiadaService.getGameState().subscribe(gameState => {
+    this.familiadaService.getGameState().subscribe((gameState) => {
       this.state = gameState.state;
     });
     this.familiadaService

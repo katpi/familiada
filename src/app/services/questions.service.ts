@@ -1,27 +1,29 @@
-import { Injectable } from "@angular/core";
-import { FamiliadaQuestion } from "../models/interfaces";
-import { Observable } from "rxjs";
-import { map, take } from "rxjs/operators";
-import { DatabaseService } from "./database.service";
-import { isNullOrUndefined } from "util";
-import { QuestionsFromFileService } from "./file-questions.service";
-import { environment } from "../../environments/environment";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { isNullOrUndefined } from 'util';
+
+import { environment } from '../../environments/environment';
+import { FamiliadaQuestion } from '../models/interfaces';
+
+import { DatabaseService } from './database.service';
+import { QuestionsFromFileService } from './file-questions.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class QuestionsService {
   private questions: Observable<FamiliadaQuestion[]>;
 
   constructor(
     private db: DatabaseService,
-    private qff: QuestionsFromFileService
+    private qff: QuestionsFromFileService,
   ) {
     if (environment.getQuestionsFromFile) {
       this.qff
         .getQuestions()
         .subscribe(questions =>
-          questions.forEach(question => this.db.addQuestion(question))
+          questions.forEach(question => this.db.addQuestion(question)),
         );
     }
     this.questions = this.db.questions$.pipe(
@@ -29,7 +31,7 @@ export class QuestionsService {
         return questions.sort((a: FamiliadaQuestion, b: FamiliadaQuestion) => {
           return a.order > b.order ? 1 : b.order > a.order ? -1 : 0;
         });
-      })
+      }),
     );
   }
 
@@ -45,7 +47,7 @@ export class QuestionsService {
             ? questions[questionId]
             : null;
         }),
-        take(1)
+        take(1),
       )
       .toPromise();
   }
